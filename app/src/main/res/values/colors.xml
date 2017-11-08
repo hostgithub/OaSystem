@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorBG">#d96f5d</color>
+    <color name="colorWhite">#eee</color>
+    <color name="colorToolWhite">#7effffff</color>
+    <color name="WhiteSmoke">#F5F5F5</color>
+    <color name="list_bg">#D6D6D6</color>
+    <color name="app_primary_color">#80c3db</color>
+
+    <color name="main_color">#EB413D</color><!--主色调-->
+    <color name="error">#ff4545</color>
+    <color name="title">#EE3B3B</color>
+
+
+    <color name="title_color">#ff048ade</color>
+    <color name="meeting_show">#ff333333</color>
+    <color name="meeting_show_info">#ff006699</color>
+    <color name="title_text_color">#ffffffff</color>
+    <color name="black_text_color">#ff000000</color>
+    <color name="hytz_count_bg_color">#fff3565d</color>
+    <color name="dpgz_count_bg_color">#ffdfba49</color>
+    <color name="fwbl_count_bg_color">#ff45b6af</color>
+    <color name="line_color">#ffeeeeee</color>
+    <color name="bg_color">#fff1f3fa</color>
+    <color name="dpgz_bg">#ffeab92c</color>
+    <color name="ypgz_bg">#ffeab92c</color>
+    <color name="bsqk_bg">#ff1b99e6</color>
+    <color name="hytz_bg">#ffeab92c</color>
+    <color name="fzsw_bg">#ff1b99e6</color>
+    <color name="swbl_bg">#ff1b99e6</color>
+    <color name="fwbl_bg">#ff1b99e6</color>
+    <color name="index_blue">#ff1b99e6</color>
+    <color name="index_green">#ff00bb9c</color>
+    <color name="dzts_bg">#ff00bb9c</color>
+    <color name="bayp_bg">#ff00bb9c</color>
+    <color name="badp_bg">#ff00bb9c</color>
+    <color name="hui">#ffdddddd</color>
+    <color name="content_text_color">#ff323232</color>
+    <color name="content_gray_color">#ff949494</color>
+    <color name="login_bg_color">#ff1797e9</color>
+    <color name="tree_common_bg_color">#ff364150</color>
+    <color name="progress_color">#fff96868</color>
+    <color name="sp_lc_bg_color">#fff1f1f1</color>
+    <color name="return_text">#ffcccccc</color>
+    <color name="send_text">#ff05c363</color>
+    <color name="qz_text">#ff9dfdcd</color>
+    <color name="cypy_text">#ffdddddd</color>
+    <color name="red_text">#ffff3300</color>
+    <color name="yellow_text">#ffffff66</color>
+    <color name="gray_text">#ff999999</color>
+</resources>
