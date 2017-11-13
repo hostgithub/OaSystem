@@ -3,12 +3,16 @@
     <string name="bq_tip">版权所有©中国佳木斯市政府</string>
 
     <string name="pensettingtitle">设置宽度与颜色</string>
+    <string name="danwei">单位:</string>
+    <string name="dept">部门:</string>
+    <string name="position">职务:</string>
     <string name="labwidth">笔宽</string>
     <string name="showall">显示所有签批信息</string>
     <string name="prepage">上一页</string>
     <string name="nextpage">下一页</string>
     <string name="close_text">关闭</string>
     <string name="save_text">保存</string>
+    <string name="submit_text">提 交</string>
     <string name="zoom_text">缩放</string>
     <string name="sign_text">签批</string>
     <string name="undo_text">撤销</string>
@@ -129,8 +133,12 @@
     <string name="yue_text">审阅</string>
     <string name="check_text">查看正文</string>
     <string name="title_activity_updata_password">UpdataPasswordActivity</string>
-    <string name="old_pass">原密码：</string>
-    <string name="new_pass">新密码：</string>
+    <string name="old_pass">旧 密 码 ：</string>
+    <string name="new_pass">新 密 码 ：</string>
+    <string name="submit_new_pass">确认密码：</string>
+    <string name="input_old_pass">请输入旧密码</string>
+    <string name="input_new_pass">请输入新密码</string>
+    <string name="again_input_new_pass">请输入确认密码</string>
     <string name="title_activity_oa_meeting_show_activity_for_hf">OaMeetingShowActivityForHf</string>
     <string name="hello_world">Hello world!</string>
     <string name="meeting_place">会议地点:</string>

@@ -51,8 +51,14 @@
             android:name=".ui.SendFilesDealActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Design.Light.NoActionBar" />
-        <activity android:name=".ui.ShenpiDetailActivity"  android:screenOrientation="portrait"
-            android:theme="@style/Theme.Design.Light.NoActionBar" ></activity>
+        <activity
+            android:name=".ui.ShenpiDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
+        <activity android:name=".ui.HomePageActivity" android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar"
+            android:windowSoftInputMode="adjustPan|stateHidden"></activity>
     </application>
 
 </manifest>

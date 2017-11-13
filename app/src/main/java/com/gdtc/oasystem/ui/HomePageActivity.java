@@ -5,14 +5,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.gdtc.oasystem.R;
 import com.gdtc.oasystem.base.BaseActivity;
-import com.gdtc.oasystem.fragment.OneFragmentTest;
-import com.gdtc.oasystem.fragment.TwoFragmentTest;
+import com.gdtc.oasystem.fragment.HomeFragmentTest;
+import com.gdtc.oasystem.fragment.InfoFragmentTest;
+import com.gdtc.oasystem.fragment.JobFragmentTest;
+import com.gdtc.oasystem.fragment.MineFragmentTest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,14 +21,18 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class SendFilesDealActivity extends BaseActivity {
+public class HomePageActivity extends BaseActivity {
 
-    @BindView(R.id.btn_wait_deal)
-    Button btn_wait_deal;
-    @BindView(R.id.btn_has_deal)
-    Button btn_has_deal;
-    @BindView(R.id.title_center)
-    TextView title_center;
+    @BindView(R.id.rg_menu)
+    RadioGroup rg_menu;
+    @BindView(R.id.btn_first)
+    RadioButton btn_first;
+    @BindView(R.id.btn_second)
+    RadioButton btn_second;
+    @BindView(R.id.btn_third)
+    RadioButton btn_third;
+    @BindView(R.id.btn_four)
+    RadioButton btn_four;
 
     //当前显示的fragment
     private static final String CURRENT_FRAGMENT = "STATE_FRAGMENT_SHOW";
@@ -38,13 +43,13 @@ public class SendFilesDealActivity extends BaseActivity {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_send_files_deal;
+        return R.layout.activity_home_page;
     }
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        title_center.setText("发文办理");
-        btn_wait_deal.setSelected(true);
+
+        btn_first.setSelected(true);
         fragmentManager = getSupportFragmentManager();
 
         if (savedInstanceState != null) { // “内存重启”时调用
@@ -55,14 +60,58 @@ public class SendFilesDealActivity extends BaseActivity {
             fragments.removeAll(fragments);
             fragments.add(fragmentManager.findFragmentByTag(0+""));
             fragments.add(fragmentManager.findFragmentByTag(1+""));
+            fragments.add(fragmentManager.findFragmentByTag(2+""));
+            fragments.add(fragmentManager.findFragmentByTag(3+""));
             //恢复fragment页面
             restoreFragment();
 
         }else{      //正常启动时调用
 
-            fragments.add(new OneFragmentTest());
-            fragments.add(new TwoFragmentTest());
+            fragments.add(new HomeFragmentTest());
+            fragments.add(new InfoFragmentTest());
+            fragments.add(new JobFragmentTest());
+            fragments.add(new MineFragmentTest());
             showFragment();
+        }
+    }
+
+    @OnClick({ R.id.btn_first,R.id.btn_second,R.id.btn_third,R.id.btn_four})
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.btn_first:
+                btn_first.setSelected(true);
+                btn_second.setSelected(false);
+                btn_third.setSelected(false);
+                btn_four.setSelected(false);
+                currentIndex = 0;
+                showFragment();
+                break;
+            case R.id.btn_second:
+                btn_first.setSelected(false);
+                btn_second.setSelected(true);
+                btn_third.setSelected(false);
+                btn_four.setSelected(false);
+                currentIndex = 1;
+                showFragment();
+                break;
+            case R.id.btn_third://
+                btn_first.setSelected(false);
+                btn_second.setSelected(false);
+                btn_third.setSelected(true);
+                btn_four.setSelected(false);
+                currentIndex = 2;
+                showFragment();
+                break;
+            case R.id.btn_four://
+                btn_first.setSelected(false);
+                btn_second.setSelected(false);
+                btn_third.setSelected(false);
+                btn_four.setSelected(true);
+                currentIndex = 3;
+                showFragment();
+                break;
+            default:
+                break;
         }
     }
 
@@ -71,31 +120,6 @@ public class SendFilesDealActivity extends BaseActivity {
         //“内存重启”时保存当前的fragment名字
         outState.putInt(CURRENT_FRAGMENT,currentIndex);
         super.onSaveInstanceState(outState);
-    }
-
-    @OnClick({ R.id.title_left,R.id.btn_wait_deal,R.id.btn_has_deal})
-    public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.title_left:
-                finish();
-                break;
-            case R.id.btn_wait_deal://待办
-                btn_has_deal.setSelected(false);
-                btn_wait_deal.setSelected(true);
-                currentIndex = 0;
-                showFragment();
-                Toast.makeText(SendFilesDealActivity.this,"待办",Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.btn_has_deal://已办
-                btn_wait_deal.setSelected(false);
-                btn_has_deal.setSelected(true);
-                currentIndex = 1;
-                showFragment();
-                Toast.makeText(SendFilesDealActivity.this,"已办",Toast.LENGTH_SHORT).show();
-                break;
-            default:
-                break;
-        }
     }
 
     /**

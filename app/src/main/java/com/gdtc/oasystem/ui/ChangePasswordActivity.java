@@ -20,6 +20,8 @@ public class ChangePasswordActivity extends BaseActivity {
     EditText edt_old_password;
     @BindView(R.id.edt_new_password)
     EditText edt_new_password;
+    @BindView(R.id.edt_submit_password)
+    EditText edt_submit_password;
 
     @Override
     protected int getLayoutId() {
@@ -39,14 +41,16 @@ public class ChangePasswordActivity extends BaseActivity {
                 break;
             case R.id.btn_save://改密码
                 if(edt_old_password.getText().toString().trim().equals("")||
-                        edt_new_password.getText().toString().trim().equals("")){
+                        edt_new_password.getText().toString().trim().equals("")||
+                        edt_submit_password.getText().toString().trim().equals("")){
                     Toast.makeText(this,"请您将信息填写完整!",Toast.LENGTH_SHORT).show();
-                } else if(edt_new_password.getText().toString().trim().length()<8){
-                    Toast.makeText(this,"密码长度应该大于8位!",Toast.LENGTH_SHORT).show();
-                }else if(edt_new_password.getText().toString().trim().equals(edt_new_password.getText().toString().trim())){
+                } else if(edt_old_password.getText().toString().trim().equals(edt_new_password.getText().toString().trim())){
                     Toast.makeText(this,"原密码不能与新密码相同!",Toast.LENGTH_SHORT).show();
+                }else if(!edt_new_password.getText().toString().trim().equals(edt_submit_password.getText().toString().trim())){
+                    Toast.makeText(this,"确认密码与新密码不同,请重新输入!",Toast.LENGTH_SHORT).show();
                 }else {
                     //post();
+                    Toast.makeText(this,"提交成功!",Toast.LENGTH_SHORT).show();
                 }
                 break;
             default:
