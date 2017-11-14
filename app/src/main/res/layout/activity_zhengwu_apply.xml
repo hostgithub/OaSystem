@@ -15,9 +15,9 @@
             android:layout_width="wrap_content" android:background="@drawable/home"
             android:id="@+id/iv_danwei" android:layout_marginLeft="20dp"
             android:layout_height="wrap_content" android:layout_centerVertical="true"/>
-        <TextView android:textSize="25.0sp" android:textColor="@color/title_color"
+        <TextView android:textSize="20.0sp" android:textColor="@color/title_color"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:text="@string/danwei" android:layout_toRightOf="@+id/iv_danwei"
+            android:text="省法院机关请假单" android:layout_toRightOf="@+id/iv_danwei"
             android:layout_marginLeft="20dp" android:layout_centerVertical="true" />
     </RelativeLayout>
     <View
@@ -30,9 +30,9 @@
             android:layout_width="wrap_content" android:background="@drawable/home"
             android:id="@+id/iv_dept" android:layout_marginLeft="20dp"
             android:layout_height="wrap_content" android:layout_centerVertical="true"/>
-        <TextView android:textSize="25.0sp" android:textColor="@color/title_color"
-            android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:text="@string/dept" android:layout_toRightOf="@+id/iv_dept"
+        <TextView android:textSize="20.0sp" android:textColor="@color/title_color"
+            android:layout_width="240dp" android:layout_height="wrap_content"
+            android:text="省直机关事业单位干部职工带薪休假申请表" android:layout_toRightOf="@+id/iv_dept"
             android:layout_marginLeft="20dp" android:layout_centerVertical="true" />
     </RelativeLayout>
     <View
@@ -45,9 +45,9 @@
             android:layout_width="wrap_content" android:background="@drawable/home"
             android:id="@+id/iv_position" android:layout_marginLeft="20dp"
             android:layout_height="wrap_content" android:layout_centerVertical="true"/>
-        <TextView android:textSize="25.0sp" android:textColor="@color/title_color"
-            android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:text="@string/position"  android:layout_toRightOf="@+id/iv_position"
+        <TextView android:textSize="20.0sp" android:textColor="@color/title_color"
+            android:layout_width="260dp" android:layout_height="wrap_content"
+            android:text="省法院领导及部门主要负责人外出请假报告单"  android:layout_toRightOf="@+id/iv_position"
             android:layout_marginLeft="20dp" android:layout_centerVertical="true"/>
     </RelativeLayout>
 </LinearLayout>

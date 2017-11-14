@@ -4,9 +4,11 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.gdtc.oasystem.R;
 import com.gdtc.oasystem.base.BaseActivity;
@@ -17,6 +19,8 @@ import com.gdtc.oasystem.fragment.MineFragmentTest;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -40,6 +44,7 @@ public class HomePageActivity extends BaseActivity {
     private Fragment currentFragment = new Fragment();
     private List<Fragment> fragments = new ArrayList<>();
     private int currentIndex = 0;
+    private boolean isExit;
 
     @Override
     protected int getLayoutId() {
@@ -157,5 +162,31 @@ public class HomePageActivity extends BaseActivity {
         mBeginTreansaction.commit();
         //把当前显示的fragment记录下来
         currentFragment = fragments.get(currentIndex);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode==KeyEvent.KEYCODE_BACK){
+            exitByDoubleClick();
+        }
+        return false;
+    }
+
+    private void exitByDoubleClick() {
+        Timer tExit=null;
+        if(!isExit){
+            isExit=true;
+            Toast.makeText(HomePageActivity.this,"再按一次退出程序", Toast.LENGTH_SHORT).show();
+            tExit=new Timer();
+            tExit.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    isExit=false;//取消退出
+                }
+            },2000);// 如果2秒钟内没有按下返回键，则启动定时器取消掉刚才执行的任务
+        }else{
+            finish();
+            System.exit(0);
+        }
     }
 }

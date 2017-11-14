@@ -73,7 +73,7 @@
                     android:layout_centerVertical="true"
                     android:text="我的待办工作"
                     android:textColor="@color/black_text_color"
-                    android:textSize="20sp" />
+                    android:textSize="17sp" />
             </RelativeLayout>
 
             <View
@@ -103,7 +103,7 @@
                     android:layout_toRightOf="@+id/iv_danwei"
                     android:text="@string/hytz_title"
                     android:textColor="@color/content_text_color"
-                    android:textSize="20.0sp" />
+                    android:textSize="17.0sp" />
                 <TextView android:id="@+id/tv_size1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -112,7 +112,7 @@
                     android:layout_toRightOf="@+id/tv_1"
                     android:text="99"
                     android:textColor="@color/content_text_color"
-                    android:textSize="20.0sp" />
+                    android:textSize="17.0sp" />
             </RelativeLayout>
 
             <View
@@ -142,7 +142,7 @@
                     android:layout_toRightOf="@+id/iv_dept"
                     android:text="@string/xzdp_title"
                     android:textColor="@color/content_text_color"
-                    android:textSize="20.0sp" />
+                    android:textSize="17.0sp" />
 
                 <TextView android:id="@+id/tv_size2"
                     android:layout_width="wrap_content"
@@ -152,7 +152,7 @@
                     android:layout_toRightOf="@+id/tv_2"
                     android:text="99"
                     android:textColor="@color/content_text_color"
-                    android:textSize="20.0sp" />
+                    android:textSize="17.0sp" />
             </RelativeLayout>
 
             <View
@@ -182,7 +182,7 @@
                     android:layout_toRightOf="@+id/iv_position"
                     android:text="@string/fwdp_title"
                     android:textColor="@color/content_text_color"
-                    android:textSize="20.0sp" />
+                    android:textSize="17.0sp" />
                 <TextView android:id="@+id/tv_size3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -191,7 +191,7 @@
                     android:layout_toRightOf="@+id/tv_3"
                     android:text="99"
                     android:textColor="@color/content_text_color"
-                    android:textSize="20.0sp" />
+                    android:textSize="17.0sp" />
             </RelativeLayout>
 
             <View
@@ -221,7 +221,7 @@
                     android:layout_toRightOf="@+id/iv_update"
                     android:text="@string/swdp_title"
                     android:textColor="@color/content_text_color"
-                    android:textSize="20.0sp" />
+                    android:textSize="17.0sp" />
                 <TextView android:id="@+id/tv_size4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -230,7 +230,7 @@
                     android:layout_toRightOf="@+id/tv_4"
                     android:text="99"
                     android:textColor="@color/content_text_color"
-                    android:textSize="20.0sp" />
+                    android:textSize="17.0sp" />
             </RelativeLayout>
 
             <View
@@ -260,7 +260,7 @@
                     android:layout_toRightOf="@+id/iv_tuisong"
                     android:text="@string/zwsq_info_title"
                     android:textColor="@color/content_text_color"
-                    android:textSize="20.0sp" />
+                    android:textSize="17.0sp" />
                 <TextView android:id="@+id/tv_size5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -269,7 +269,7 @@
                     android:layout_toRightOf="@+id/tv_5"
                     android:text="99"
                     android:textColor="@color/content_text_color"
-                    android:textSize="20.0sp" />
+                    android:textSize="17.0sp" />
             </RelativeLayout>
 
             <View
@@ -299,7 +299,7 @@
                     android:layout_toRightOf="@+id/iv_clear"
                     android:text="@string/title_activity_banand"
                     android:textColor="@color/content_text_color"
-                    android:textSize="20.0sp" />
+                    android:textSize="17.0sp" />
                 <TextView android:id="@+id/tv_size6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -308,7 +308,7 @@
                     android:layout_toRightOf="@+id/tv_6"
                     android:text="99"
                     android:textColor="@color/content_text_color"
-                    android:textSize="20.0sp" />
+                    android:textSize="17.0sp" />
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>

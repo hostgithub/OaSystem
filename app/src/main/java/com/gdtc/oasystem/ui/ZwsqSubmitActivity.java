@@ -3,6 +3,9 @@ package com.gdtc.oasystem.ui;
 import android.app.DatePickerDialog;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,8 +26,12 @@ import com.gdtc.oasystem.R;
 import com.gdtc.oasystem.base.BaseActivity;
 import com.gdtc.oasystem.utils.SharePreferenceTools;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -70,6 +77,23 @@ public class ZwsqSubmitActivity extends BaseActivity {
     private String[] iconName = { "徐建国", "郭冀平", "邵国强", "马里",
             "刘臣", "周宏", "顾百文", "钟文"};
     private SharePreferenceTools sp;
+
+
+    Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 0:
+                    //完成主界面更新,拿到数据
+                    String data = (String) msg.obj;
+                    day_number.setText(data+ "天");
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
 
     @Override
     protected int getLayoutId() {
@@ -136,7 +160,12 @@ public class ZwsqSubmitActivity extends BaseActivity {
                 showDatePickDlg(start);
                 break;
             case R.id.stop:
-                showDatePickDlg(stop);
+                if(!start.getText().toString().trim().equals("")){
+                    showDatePickDlg(stop);
+                    Log.e("----点击后的stop_date",stop.getText().toString());
+                }else{
+                    Toast.makeText(ZwsqSubmitActivity.this,"请选择开始时间",Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.tv_send_person:
                 //Toast.makeText(ZwsqSubmitActivity.this,"请从列表中选择发送人",Toast.LENGTH_SHORT).show();
@@ -176,6 +205,14 @@ public class ZwsqSubmitActivity extends BaseActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 textView.setText(year + "-" + ++monthOfYear + "-" + dayOfMonth);
+                if(textView.getId()==R.id.stop){
+                    stop.setText(year + "-" + monthOfYear + "-" + dayOfMonth);
+                    Log.e("----选完日期后的stop_date",stop.getText().toString());
+                    dayNumber(start.getText().toString(),stop.getText().toString());
+                }
+                if(textView.getId()==R.id.start&&!stop.getText().toString().equals("")){
+                    dayNumber(start.getText().toString(),stop.getText().toString());
+                }
             }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         datePickerDialog.show();
@@ -201,5 +238,48 @@ public class ZwsqSubmitActivity extends BaseActivity {
         public void onDismiss() {
             backgroundAlpha(1f);
         }
+    }
+
+    private void dayNumber(String start,String stop){
+        String str1 = start; // "yyyy-MM-dd"格式 如 2013-10-22
+        Log.e("----方法中的start_date",str1);
+        String str2 = stop; // "yyyy-MM-dd"格式 如 2013-10-22
+        Log.e("----方法中的stop_date",str2);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");// 输入日期的格式
+        Date date1 = null;
+        try {
+            date1 = simpleDateFormat.parse(str1);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date date2 = null;
+        try {
+            date2 = simpleDateFormat.parse(str2);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        GregorianCalendar cal1 = new GregorianCalendar();
+        GregorianCalendar cal2 = new GregorianCalendar();
+        cal1.setTime(date1);
+        cal2.setTime(date2);
+        double dayCount = (cal2.getTimeInMillis() - cal1.getTimeInMillis()) / (1000 * 3600 * 24);// 从间隔毫秒变成间隔天数
+        day_number.setText(dayCount+"天");
+    }
+
+    private void sendMessage(final String day) {
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                //耗时操作，完成之后发送消息给Handler，完成UI更新；
+                mHandler.sendEmptyMessage(0);
+
+                //需要数据传递，用下面方法；
+                Message msg = new Message();
+                msg.obj = day;//可以是基本类型，可以是对象，可以是List、map等；
+                mHandler.sendMessage(msg);
+            }
+
+        }).start();
     }
 }

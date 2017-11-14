@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.gdtc.oasystem.Config;
-import com.gdtc.oasystem.MainActivity;
 import com.gdtc.oasystem.R;
 import com.gdtc.oasystem.base.BaseActivity;
 import com.gdtc.oasystem.utils.SharePreferenceTools;
@@ -91,8 +90,8 @@ public class LoginTestActivity extends BaseActivity {
                         //editor.commit();
                     }
                     //跳转界面
-//                    Intent intent = new Intent(LoginTestActivity.this,HomePageActivity.class);
-                    Intent intent = new Intent(LoginTestActivity.this,MainActivity.class);
+                    Intent intent = new Intent(LoginTestActivity.this,HomePageActivity.class);
+//                    Intent intent = new Intent(LoginTestActivity.this,MainActivity.class);
                     startActivity(intent);
                     finish();
 

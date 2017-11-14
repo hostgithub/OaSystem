@@ -61,7 +61,8 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Design.Light.NoActionBar"
             android:windowSoftInputMode="adjustPan|stateHidden" />
-        <activity android:name=".ui.ZhengwuApplyActivity"></activity>
+        <activity android:name=".ui.ZhengwuApplyActivity" android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar"></activity>
     </application>
 
 </manifest>
