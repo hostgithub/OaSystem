@@ -91,7 +91,8 @@ public class LoginTestActivity extends BaseActivity {
                         //editor.commit();
                     }
                     //跳转界面
-                    Intent intent = new Intent(LoginTestActivity.this,HomePageActivity.class);
+//                    Intent intent = new Intent(LoginTestActivity.this,HomePageActivity.class);
+                    Intent intent = new Intent(LoginTestActivity.this,MainActivity.class);
                     startActivity(intent);
                     finish();
 

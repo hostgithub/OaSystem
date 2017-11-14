@@ -55,10 +55,13 @@
             android:name=".ui.ShenpiDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Design.Light.NoActionBar" />
-        <activity android:name=".ui.HomePageActivity" android:configChanges="orientation|keyboardHidden"
+        <activity
+            android:name=".ui.HomePageActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Design.Light.NoActionBar"
-            android:windowSoftInputMode="adjustPan|stateHidden"></activity>
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity android:name=".ui.ZhengwuApplyActivity"></activity>
     </application>
 
 </manifest>

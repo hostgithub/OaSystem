@@ -26,7 +26,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="15dp"
                 android:text="标题标题标题标题"
-                android:textColor="@color/red_text"
+                android:textColor="@color/black_text_color"
                 android:textSize="25sp" />
 
             <RelativeLayout
@@ -40,14 +40,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="发布人:www" />
+                    android:text="发布人:www" android:textSize="15sp"/>
 
                 <TextView
                     android:id="@+id/tv_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="5dp" android:textSize="15sp"
                     android:layout_toRightOf="@+id/tv_username"
                     android:text="2017-11-08 08:08:08" />
 
@@ -65,7 +65,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="15dp" />
 
-            <EditText
+            <EditText android:visibility="gone"
                 android:id="@+id/edt_content"
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
@@ -76,7 +76,7 @@
                 android:nextFocusForward="@+id/edt_name"
                 android:text="请您输入要回复的内容" />
 
-            <LinearLayout
+            <LinearLayout android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"

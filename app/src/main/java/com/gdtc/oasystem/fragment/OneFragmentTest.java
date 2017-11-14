@@ -1,20 +1,40 @@
 package com.gdtc.oasystem.fragment;
 
-import android.view.LayoutInflater;
+import android.os.Bundle;
 import android.view.View;
 
 import com.gdtc.oasystem.R;
-import com.gdtc.oasystem.base.TestBaseFragment;
+import com.gdtc.oasystem.base.BaseFragment;
 
 
 /**
  * Created by fan on 2016/7/12.
  */
-public class OneFragmentTest extends TestBaseFragment {
+public class OneFragmentTest extends BaseFragment {
+
 
     @Override
-    protected View bindLayout(LayoutInflater inflater) {
-        return View.inflate(getContext(), R.layout.fragment_one,null);
+    public int getLayoutId() {
+        return R.layout.fragment_one;
     }
 
+    @Override
+    public void initVariables() {
+
+    }
+
+    @Override
+    public void initViews(View view, Bundle savedInstanceState) {
+
+    }
+
+    @Override
+    public void initLoadData() {
+
+    }
+
+    @Override
+    protected void lazyFetchData() {
+
+    }
 }

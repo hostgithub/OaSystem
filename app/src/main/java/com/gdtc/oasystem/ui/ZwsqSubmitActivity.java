@@ -49,21 +49,15 @@ public class ZwsqSubmitActivity extends BaseActivity {
     @BindView(R.id.tv_username)
     TextView tv_username;
     @BindView(R.id.edt_work_years)
-    EditText edt_work_years;
-    @BindView(R.id.spinner_kind)
-    Spinner spinner_kind;
+    Spinner edt_work_years;
+    @BindView(R.id.tv_kind)
+    TextView tv_kind;
     @BindView(R.id.edt_content)
     EditText edt_content;
-    @BindView(R.id.edt_bumen_leader_advice)
-    EditText edt_bumen_leader_advice;
-    @BindView(R.id.edt_part_leader_advice)
-    EditText edt_part_leader_advice;
-    @BindView(R.id.edt_cwfyz_advice)
-    EditText edt_cwfyz_advice;
-    @BindView(R.id.edt_gbc_advice)
-    EditText edt_gbc_advice;
     @BindView(R.id.tv_send_person)
     TextView tv_send_person;
+    @BindView(R.id.day_number)
+    TextView day_number;
 
     //网格布局
     private GridView mGridview;
@@ -132,7 +126,7 @@ public class ZwsqSubmitActivity extends BaseActivity {
         });
     }
 
-    @OnClick({ R.id.title_left,R.id.btn_submit,R.id.iv_upload,R.id.start,R.id.stop})
+    @OnClick({ R.id.title_left,R.id.btn_submit,R.id.tv_send_person,R.id.start,R.id.stop})
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.title_left:
@@ -144,7 +138,7 @@ public class ZwsqSubmitActivity extends BaseActivity {
             case R.id.stop:
                 showDatePickDlg(stop);
                 break;
-            case R.id.iv_upload:
+            case R.id.tv_send_person:
                 //Toast.makeText(ZwsqSubmitActivity.this,"请从列表中选择发送人",Toast.LENGTH_SHORT).show();
                 popupWindow.showAtLocation(titleBar, Gravity.CENTER, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 //                popupWindow.showAtLocation(contentView, Gravity.TOP,20,20);
