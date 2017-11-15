@@ -9,7 +9,7 @@
         android:layout_height="40dp" android:layout_marginTop="5dp">
         <TextView
             android:text="点击选择发送人" android:textSize="20sp"
-            android:layout_width="wrap_content" android:textColor="#000"
+            android:layout_width="wrap_content" android:textColor="@color/title_color"
             android:layout_height="wrap_content" android:layout_centerVertical="true"/>
         <ImageView
             android:src="@mipmap/ic_launcher"
@@ -19,7 +19,7 @@
 
     <View
         android:layout_width="match_parent" android:layout_marginTop="5dp"
-        android:layout_height="2dp" android:background="@color/WhiteSmoke"/>
+        android:layout_height="2dp" android:background="@color/title_color"/>
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent" android:visibility="gone"

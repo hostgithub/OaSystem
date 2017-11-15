@@ -1,5 +1,6 @@
 package com.gdtc.oasystem.ui;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -82,6 +83,8 @@ public class SendFilesDealActivity extends BaseActivity {
             case R.id.btn_wait_deal://待办
                 btn_has_deal.setSelected(false);
                 btn_wait_deal.setSelected(true);
+                btn_wait_deal.setTextColor(Color.WHITE);
+                btn_has_deal.setTextColor(Color.parseColor("#ff1b99e6"));
                 currentIndex = 0;
                 showFragment();
                 Toast.makeText(SendFilesDealActivity.this,"待办",Toast.LENGTH_SHORT).show();
@@ -89,6 +92,8 @@ public class SendFilesDealActivity extends BaseActivity {
             case R.id.btn_has_deal://已办
                 btn_wait_deal.setSelected(false);
                 btn_has_deal.setSelected(true);
+                btn_has_deal.setTextColor(Color.WHITE);
+                btn_wait_deal.setTextColor(Color.parseColor("#ff1b99e6"));
                 currentIndex = 1;
                 showFragment();
                 Toast.makeText(SendFilesDealActivity.this,"已办",Toast.LENGTH_SHORT).show();

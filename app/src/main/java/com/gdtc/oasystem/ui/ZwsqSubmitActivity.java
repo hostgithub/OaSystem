@@ -16,6 +16,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.PopupWindow;
+import android.widget.RadioButton;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -39,7 +40,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class ZwsqSubmitActivity extends BaseActivity {
+public class ZwsqSubmitActivity extends BaseActivity{
 
     @BindView(R.id.title_center)
     TextView title_center;
@@ -50,6 +51,18 @@ public class ZwsqSubmitActivity extends BaseActivity {
     private PopupWindow popupWindow;
     private View contentView;
     private View titleBar;
+
+    private PopupWindow kindPopupWindow;
+    private View kindContentView;
+
+    private TextView tv_kind1;
+    private TextView tv_kind2;
+    private TextView tv_kind3;
+    private TextView tv_kind4;
+    private RadioButton rb1;
+    private RadioButton rb2;
+    private RadioButton rb3;
+    private RadioButton rb4;
 
     @BindView(R.id.tv_bumen)
     TextView edt_bumen;
@@ -128,6 +141,77 @@ public class ZwsqSubmitActivity extends BaseActivity {
             popupWindow.setOnDismissListener(new poponDismissListener());
         }
 
+        kindContentView = LayoutInflater.from(this).inflate(R.layout.popupwindow_kind, null);
+        tv_kind1= (TextView) kindContentView.findViewById(R.id.tv_kind1);
+        tv_kind2= (TextView) kindContentView.findViewById(R.id.tv_kind2);
+        tv_kind3= (TextView) kindContentView.findViewById(R.id.tv_kind3);
+        tv_kind4= (TextView) kindContentView.findViewById(R.id.tv_kind4);
+        rb1= (RadioButton) kindContentView.findViewById(R.id.rb1);
+        rb1.setChecked(true);
+        rb2= (RadioButton) kindContentView.findViewById(R.id.rb2);
+        rb3= (RadioButton) kindContentView.findViewById(R.id.rb3);
+        rb4= (RadioButton) kindContentView.findViewById(R.id.rb4);
+        rb1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tv_kind.setText("事假");
+                rb2.setChecked(false);
+                rb3.setChecked(false);
+                rb4.setChecked(false);
+                if(kindPopupWindow!=null){
+                    kindPopupWindow.dismiss();
+                }
+            }
+        });
+        rb2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tv_kind.setText("病假");
+                rb1.setChecked(false);
+                rb3.setChecked(false);
+                rb4.setChecked(false);
+                if(kindPopupWindow!=null){
+                    kindPopupWindow.dismiss();
+                }
+            }
+        });
+        rb3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tv_kind.setText("年假");
+                rb2.setChecked(false);
+                rb1.setChecked(false);
+                rb4.setChecked(false);
+                if(kindPopupWindow!=null){
+                    kindPopupWindow.dismiss();
+                }
+            }
+        });
+        rb4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tv_kind.setText("其他");
+                rb2.setChecked(false);
+                rb3.setChecked(false);
+                rb1.setChecked(false);
+                if(kindPopupWindow!=null){
+                    kindPopupWindow.dismiss();
+                }
+            }
+        });
+
+        if (kindPopupWindow == null) {
+            kindPopupWindow = new PopupWindow(this);
+            kindPopupWindow.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
+            kindPopupWindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+            kindPopupWindow.setBackgroundDrawable(new ColorDrawable());
+            kindPopupWindow.setFocusable(true);
+            kindPopupWindow.setOutsideTouchable(true);
+            kindPopupWindow.setTouchable(true);
+            kindPopupWindow.setContentView(kindContentView);
+            kindPopupWindow.setOnDismissListener(new poponDismissListener());
+        }
+
         //网格布局
         // 新建List
         data_list = new ArrayList<Map<String, Object>>();
@@ -150,11 +234,19 @@ public class ZwsqSubmitActivity extends BaseActivity {
         });
     }
 
-    @OnClick({ R.id.title_left,R.id.btn_submit,R.id.btn_cancel,R.id.tv_send_person,R.id.start,R.id.stop})
+    @OnClick({ R.id.title_left,R.id.btn_submit,R.id.btn_cancel,R.id.tv_send_person,R.id.start,R.id.stop,R.id.tv_kind})
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.title_left:
                 finish();
+                break;
+            case R.id.tv_kind:
+
+                kindPopupWindow.showAtLocation(titleBar, Gravity.CENTER, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+//                popupWindow.showAtLocation(contentView, Gravity.TOP,20,20);
+//                popupWindow.showAsDropDown(titleBar, 0, 0,Gravity.CENTER);
+                //添加pop窗口关闭事件，主要是实现关闭时改变背景的透明度
+                backgroundAlpha(0.5f);
                 break;
             case R.id.start:
                 showDatePickDlg(start);

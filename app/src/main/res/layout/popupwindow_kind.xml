@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:background="@drawable/editshape">
+
+    <RelativeLayout
+        android:layout_width="match_parent" android:padding="5dp"
+        android:layout_height="40dp" android:layout_marginTop="5dp">
+        <TextView
+            android:text="请假类型" android:textSize="20sp"
+            android:layout_width="wrap_content" android:textColor="@color/title_color"
+            android:layout_height="wrap_content" android:layout_centerVertical="true"/>
+        <ImageView
+            android:src="@mipmap/ic_launcher"
+            android:layout_width="wrap_content" android:layout_alignParentRight="true"
+            android:layout_height="wrap_content" android:visibility="gone"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent" android:layout_marginTop="10dp"
+        android:layout_height="2dp" android:background="@color/title_color"/>
+
+    <LinearLayout
+        android:layout_width="match_parent" android:orientation="vertical"
+        android:layout_height="wrap_content" android:layout_marginTop="10dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:padding="5dp">
+            <TextView android:id="@+id/tv_kind1"
+                android:layout_width="wrap_content" android:textColor="@color/black_text_color"
+                android:layout_height="wrap_content" android:text="事假"
+                android:textSize="15sp" android:layout_centerVertical="true"/>
+            <RadioButton
+                android:layout_width="wrap_content" android:id="@+id/rb1"
+                android:layout_height="wrap_content" android:layout_alignParentRight="true"/>
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent" android:layout_marginTop="10dp"
+            android:layout_height="2dp" android:background="@color/WhiteSmoke"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:padding="5dp">
+            <TextView android:id="@+id/tv_kind2"
+                android:layout_width="wrap_content" android:textColor="@color/black_text_color"
+                android:layout_height="wrap_content" android:text="病假"
+                android:textSize="15sp" android:layout_centerVertical="true"/>
+            <RadioButton
+                android:layout_width="wrap_content" android:id="@+id/rb2"
+                android:layout_height="wrap_content" android:layout_alignParentRight="true"/>
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent" android:layout_marginTop="10dp"
+            android:layout_height="2dp" android:background="@color/WhiteSmoke"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:padding="5dp">
+            <TextView android:id="@+id/tv_kind3"
+                android:layout_width="wrap_content" android:textColor="@color/black_text_color"
+                android:layout_height="wrap_content" android:text="年假"
+                android:textSize="15sp" android:layout_centerVertical="true"/>
+            <RadioButton
+                android:layout_width="wrap_content" android:id="@+id/rb3"
+                android:layout_height="wrap_content" android:layout_alignParentRight="true"/>
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent" android:layout_marginTop="10dp"
+            android:layout_height="2dp" android:background="@color/WhiteSmoke"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:padding="5dp">
+            <TextView android:id="@+id/tv_kind4"
+                android:layout_width="wrap_content" android:textColor="@color/black_text_color"
+                android:layout_height="wrap_content" android:text="其他"
+                android:textSize="15sp" android:layout_centerVertical="true"/>
+            <RadioButton
+                android:layout_width="wrap_content" android:id="@+id/rb4"
+                android:layout_height="wrap_content" android:layout_alignParentRight="true"/>
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent" android:layout_marginTop="10dp"
+            android:layout_height="2dp" android:background="@color/WhiteSmoke"/>
+    </LinearLayout>
+</LinearLayout>

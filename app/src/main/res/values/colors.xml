@@ -40,6 +40,9 @@
     <color name="dzts_bg">#ff00bb9c</color>
     <color name="bayp_bg">#ff00bb9c</color>
     <color name="badp_bg">#ff00bb9c</color>
+    <color name="swdp_bg">#FF6B23</color>
+    <color name="zwsq_bg">#A438C1</color>
+    <color name="pink_bg">#FF6692</color>
     <color name="hui">#ffdddddd</color>
     <color name="content_text_color">#ff323232</color>
     <color name="content_gray_color">#ff949494</color>
