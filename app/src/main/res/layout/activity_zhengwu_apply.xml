@@ -6,7 +6,7 @@
     android:layout_height="match_parent" android:orientation="vertical"
     tools:context="com.gdtc.oasystem.ui.ZhengwuApplyActivity">
 
-    <include android:id="@+id/id_title" layout="@layout/layout_setting_title" />
+    <include android:id="@+id/id_title" layout="@layout/layout_title" />
 
     <RelativeLayout android:id="@+id/rl1"
         android:background="@color/title_text_color" android:padding="5.0dip"

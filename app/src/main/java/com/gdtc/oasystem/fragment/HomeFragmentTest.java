@@ -3,11 +3,14 @@ package com.gdtc.oasystem.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.gdtc.oasystem.R;
 import com.gdtc.oasystem.base.BaseFragment;
 import com.gdtc.oasystem.ui.ZhengwuApplyActivity;
+import com.gdtc.oasystem.utils.DataString;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
@@ -19,6 +22,8 @@ import butterknife.Unbinder;
 public class HomeFragmentTest extends BaseFragment {
 
     private Unbinder mUnbinder;
+    @BindView(R.id.tv_date)
+    TextView tv_date;
 
     @Override
     public int getLayoutId() {
@@ -37,7 +42,7 @@ public class HomeFragmentTest extends BaseFragment {
 
     @Override
     public void initLoadData() {
-
+        tv_date.setText(DataString.StringData());
     }
 
     @Override

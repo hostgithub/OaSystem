@@ -150,7 +150,7 @@ public class ZwsqSubmitActivity extends BaseActivity {
         });
     }
 
-    @OnClick({ R.id.title_left,R.id.btn_submit,R.id.tv_send_person,R.id.start,R.id.stop})
+    @OnClick({ R.id.title_left,R.id.btn_submit,R.id.btn_cancel,R.id.tv_send_person,R.id.start,R.id.stop})
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.title_left:
@@ -177,6 +177,9 @@ public class ZwsqSubmitActivity extends BaseActivity {
                 break;
             case R.id.btn_submit://提交
                 Toast.makeText(ZwsqSubmitActivity.this,"提交",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.btn_cancel://取消
+                finish();
                 break;
             default:
                 break;

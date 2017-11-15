@@ -7,9 +7,9 @@
 
     <LinearLayout android:gravity="center|left" android:id="@+id/title_leftLyt"
         android:layout_width="100.0dip" android:layout_height="fill_parent"
-        android:layout_marginLeft="10.0dip" android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10.0dp" android:layout_alignParentLeft="true"
         android:layout_centerVertical="true">
-        <TextView android:id="@+id/title_left" android:background="@drawable/home"
+        <TextView android:id="@+id/title_left" android:background="@mipmap/icon_home"
             android:layout_width="wrap_content" android:layout_height="wrap_content" />
         <TextView android:textSize="20.0sp" android:textColor="#ffffffff"
             android:id="@+id/title_center" android:layout_width="wrap_content"
@@ -19,6 +19,7 @@
 
     <ImageView android:textSize="20.0sp" android:textColor="#ffffffff"
         android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:layout_centerVertical="true" android:src="@drawable/set"
-        android:layout_alignParentRight="true" android:id="@+id/iv_search"/>
+        android:layout_centerVertical="true" android:src="@mipmap/icon_search"
+        android:layout_alignParentRight="true" android:id="@+id/iv_search"
+        android:layout_marginRight="10dp"/>
 </RelativeLayout>

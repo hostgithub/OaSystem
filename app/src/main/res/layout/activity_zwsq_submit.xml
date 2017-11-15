@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include android:id="@+id/id_title" layout="@layout/layout_setting_title" />
+    <include android:id="@+id/id_title" layout="@layout/layout_title" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -194,28 +194,22 @@
             </RelativeLayout>
 
             <LinearLayout
-                android:layout_width="match_parent" android:visibility="gone"
+                android:layout_width="match_parent"
                 android:layout_height="40dp" android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2" android:text="选择发送人"
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/editshape" />
-
-                <ImageView
-                    android:id="@+id/iv_upload"
-                    android:layout_width="0dp" android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/upload"/>
+                <Button android:id="@+id/btn_submit" android:layout_marginTop="15dp"
+                    android:text="提  交" android:textColor="#ffff"
+                    android:layout_weight="1"
+                    android:layout_width="0dp" android:layout_gravity="center_horizontal"
+                    android:layout_height="40dp" android:background="@drawable/btnshape"/>
+                <Button android:id="@+id/btn_cancel" android:layout_marginTop="15dp"
+                    android:text="取  消" android:textColor="#ffff"
+                    android:layout_weight="1"
+                    android:layout_width="0dp" android:layout_gravity="center_horizontal"
+                    android:layout_height="40dp" android:background="@drawable/btnshape_cancle"/>
             </LinearLayout>
 
-            <Button android:id="@+id/btn_submit" android:layout_marginTop="15dp"
-                android:text="提  交" android:textColor="#ffff"
-                android:layout_width="120dp" android:layout_gravity="center_horizontal"
-                android:layout_height="40dp" android:background="@drawable/btnshape"/>
         </LinearLayout>
     </ScrollView>
 

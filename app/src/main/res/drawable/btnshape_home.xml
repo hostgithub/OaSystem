@@ -2,12 +2,12 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_selected="false"><shape>
         <corners android:radius="0dp" />
-        <solid android:color="#000" />
+        <solid android:drawable="@mipmap/icon_home" />
         <stroke android:width="0.5dp"/>
     </shape></item>
     <item android:state_selected="true"><shape>
         <corners android:radius="0dp" />
-        <solid android:color="@color/title_color" />
+        <solid android:drawable="@mipmap/icon_a1_1" />
         <stroke android:width="0.5dp"/>
     </shape></item>
 </selector>

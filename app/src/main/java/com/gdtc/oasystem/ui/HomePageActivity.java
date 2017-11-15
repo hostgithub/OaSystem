@@ -1,5 +1,6 @@
 package com.gdtc.oasystem.ui;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -85,33 +86,49 @@ public class HomePageActivity extends BaseActivity {
         switch (view.getId()){
             case R.id.btn_first:
                 btn_first.setSelected(true);
+                btn_first.setTextColor(Color.parseColor("#ff1b99e6"));
                 btn_second.setSelected(false);
+                btn_second.setTextColor(Color.GRAY);
                 btn_third.setSelected(false);
+                btn_third.setTextColor(Color.GRAY);
                 btn_four.setSelected(false);
+                btn_four.setTextColor(Color.GRAY);
                 currentIndex = 0;
                 showFragment();
                 break;
             case R.id.btn_second:
                 btn_first.setSelected(false);
+                btn_first.setTextColor(Color.GRAY);
                 btn_second.setSelected(true);
+                btn_second.setTextColor(Color.parseColor("#ff1b99e6"));
                 btn_third.setSelected(false);
+                btn_third.setTextColor(Color.GRAY);
                 btn_four.setSelected(false);
+                btn_four.setTextColor(Color.GRAY);
                 currentIndex = 1;
                 showFragment();
                 break;
             case R.id.btn_third://
                 btn_first.setSelected(false);
+                btn_first.setTextColor(Color.GRAY);
                 btn_second.setSelected(false);
+                btn_second.setTextColor(Color.GRAY);
                 btn_third.setSelected(true);
+                btn_third.setTextColor(Color.parseColor("#ff1b99e6"));
                 btn_four.setSelected(false);
+                btn_four.setTextColor(Color.GRAY);
                 currentIndex = 2;
                 showFragment();
                 break;
             case R.id.btn_four://
                 btn_first.setSelected(false);
+                btn_first.setTextColor(Color.GRAY);
                 btn_second.setSelected(false);
+                btn_second.setTextColor(Color.GRAY);
                 btn_third.setSelected(false);
+                btn_third.setTextColor(Color.GRAY);
                 btn_four.setSelected(true);
+                btn_four.setTextColor(Color.parseColor("#ff1b99e6"));
                 currentIndex = 3;
                 showFragment();
                 break;

@@ -23,8 +23,6 @@ public class MainActivity extends BaseActivity {
 
     private boolean isExit;
     private SharePreferenceTools sp;
-    @BindView(R.id.title_right)
-    TextView title_right;
     @BindView(R.id.userNameTv)
     TextView userNameTv;
     @BindView(R.id.danwei)
@@ -42,7 +40,6 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         sp=new SharePreferenceTools(this);
-        title_right.setText(sp.getString(Config.USER_NAME));
         userNameTv.setText("您好,"+sp.getString(Config.USER_NAME));
     }
 

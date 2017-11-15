@@ -54,7 +54,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="2017年11月13日 星期一"
+                        android:text=""
                         android:textColor="@color/content_text_color"
                         android:textSize="15.0sp" />
                 </LinearLayout>
@@ -93,7 +93,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20dp"
-                    android:background="@drawable/home" />
+                    android:background="@mipmap/icon_b1" />
 
                 <TextView android:id="@+id/tv_1"
                     android:layout_width="wrap_content"
@@ -132,7 +132,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20dp"
-                    android:background="@drawable/home" />
+                    android:background="@mipmap/icon_b2" />
 
                 <TextView android:id="@+id/tv_2"
                     android:layout_width="wrap_content"
@@ -172,7 +172,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20dp"
-                    android:background="@drawable/home" />
+                    android:background="@mipmap/icon_b3" />
 
                 <TextView android:id="@+id/tv_3"
                     android:layout_width="wrap_content"
@@ -211,7 +211,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20dp"
-                    android:background="@drawable/home" />
+                    android:background="@mipmap/icon_b4" />
 
                 <TextView android:id="@+id/tv_4"
                     android:layout_width="wrap_content"
@@ -250,7 +250,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20dp"
-                    android:background="@drawable/home" />
+                    android:background="@mipmap/icon_b5" />
 
                 <TextView android:id="@+id/tv_5"
                     android:layout_width="wrap_content"
@@ -289,7 +289,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20dp"
-                    android:background="@drawable/home" />
+                    android:background="@mipmap/icon_b6" />
 
                 <TextView android:id="@+id/tv_6"
                     android:layout_width="wrap_content"

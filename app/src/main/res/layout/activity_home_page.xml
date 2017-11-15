@@ -50,9 +50,9 @@
                 android:textSize="14sp"
                 android:button="@null"
                 android:gravity="center"
-                android:text="首页"
+                android:text="首页" android:textColor="@color/index_blue"
                 android:checked="true"
-                android:drawableTop="@drawable/home"/>
+                android:drawableTop="@drawable/radioshape_home"/>
 
             <RadioButton
                 android:id="@+id/btn_second"
@@ -62,8 +62,8 @@
                 android:textSize="14sp"
                 android:button="@null"
                 android:gravity="center"
-                android:text="消息"
-                android:drawableTop="@drawable/home" />
+                android:text="消息" android:textColor="#636161"
+                android:drawableTop="@drawable/radioshape_info" />
 
             <RadioButton
                 android:id="@+id/btn_third"
@@ -73,8 +73,8 @@
                 android:textSize="14sp"
                 android:button="@null"
                 android:gravity="center"
-                android:text="工作"
-                android:drawableTop="@drawable/home" />
+                android:text="工作" android:textColor="#636161"
+                android:drawableTop="@drawable/radioshape_job" />
 
             <RadioButton
                 android:id="@+id/btn_four"
@@ -84,8 +84,8 @@
                 android:textSize="14sp"
                 android:button="@null"
                 android:gravity="center"
-                android:text="我的"
-                android:drawableTop="@drawable/home"/>
+                android:text="我的" android:textColor="#636161"
+                android:drawableTop="@drawable/radioshape_mine"/>
         </RadioGroup>
     </RelativeLayout>>
 </LinearLayout>
