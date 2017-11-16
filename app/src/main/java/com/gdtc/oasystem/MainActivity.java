@@ -8,7 +8,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gdtc.oasystem.base.BaseActivity;
-import com.gdtc.oasystem.ui.Private_SettingActivity;
 import com.gdtc.oasystem.ui.SendFilesDealActivity;
 import com.gdtc.oasystem.ui.ZwsqSubmitActivity;
 import com.gdtc.oasystem.utils.SharePreferenceTools;
@@ -43,12 +42,9 @@ public class MainActivity extends BaseActivity {
         userNameTv.setText("您好,"+sp.getString(Config.USER_NAME));
     }
 
-    @OnClick({ R.id.iv_set,R.id.zwsq,R.id.fwbl})
+    @OnClick({ R.id.zwsq,R.id.fwbl})
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.iv_set:
-                startActivity(new Intent(MainActivity.this,Private_SettingActivity.class));
-                break;
             case R.id.fwbl:
                 startActivity(new Intent(MainActivity.this,SendFilesDealActivity.class));
                 break;
