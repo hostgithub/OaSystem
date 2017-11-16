@@ -17,7 +17,7 @@
         android:padding="10.0dip" android:layout_width="fill_parent"
         android:layout_marginTop="10dp"
         android:layout_height="wrap_content" android:layout_below="@+id/id_title">
-        <ImageView android:id="@+id/user_iconIv" android:background="@mipmap/ic_launcher"
+        <ImageView android:id="@+id/user_iconIv" android:background="@mipmap/icon_e01"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:layout_centerVertical="true" />
         <LinearLayout android:orientation="vertical" android:layout_width="wrap_content"
@@ -42,7 +42,7 @@
         android:layout_width="fill_parent" android:layout_height="45dp"
         android:layout_below="@+id/user_infoRlt" android:layout_marginTop="10dp">
         <ImageView
-            android:layout_width="wrap_content" android:background="@drawable/home"
+            android:layout_width="wrap_content" android:background="@mipmap/icon_f1"
             android:id="@+id/iv_danwei" android:layout_marginLeft="20dp"
             android:layout_height="wrap_content" android:layout_centerVertical="true"/>
         <TextView android:textSize="17.0sp" android:textColor="@color/content_text_color"
@@ -57,7 +57,7 @@
         android:padding="5.0dip" android:layout_width="fill_parent"
         android:layout_height="45dp" android:layout_below="@+id/danwei">
         <ImageView
-            android:layout_width="wrap_content" android:background="@drawable/home"
+            android:layout_width="wrap_content" android:background="@mipmap/icon_f2"
             android:id="@+id/iv_dept" android:layout_marginLeft="20dp"
             android:layout_height="wrap_content" android:layout_centerVertical="true"/>
         <TextView android:textSize="17.0sp" android:textColor="@color/content_text_color"
@@ -72,7 +72,7 @@
         android:padding="5.0dip" android:layout_width="fill_parent"
         android:layout_height="45dp" android:layout_below="@+id/dept">
         <ImageView
-            android:layout_width="wrap_content" android:background="@drawable/home"
+            android:layout_width="wrap_content" android:background="@mipmap/icon_f3"
             android:id="@+id/iv_position" android:layout_marginLeft="20dp"
             android:layout_height="wrap_content" android:layout_centerVertical="true"/>
         <TextView android:textSize="17.0sp" android:textColor="@color/content_text_color"
@@ -86,7 +86,7 @@
         android:layout_width="fill_parent" android:layout_height="45dp"
         android:layout_below="@+id/position" android:layout_marginTop="10dp">
         <ImageView
-            android:layout_width="wrap_content" android:background="@drawable/home"
+            android:layout_width="wrap_content" android:background="@mipmap/icon_f4"
             android:id="@+id/iv_update" android:layout_marginLeft="20dp"
             android:layout_height="wrap_content" android:layout_centerVertical="true"/>
         <TextView android:textSize="17.0sp" android:textColor="@color/content_text_color"
@@ -101,16 +101,16 @@
         android:padding="5.0dip" android:layout_width="fill_parent"
         android:layout_height="45dp" android:layout_below="@+id/updataPasswordRlt">
         <ImageView
-            android:layout_width="wrap_content" android:background="@drawable/home"
+            android:layout_width="wrap_content" android:background="@mipmap/icon_f5"
             android:id="@+id/iv_tuisong" android:layout_marginLeft="20dp"
             android:layout_height="wrap_content" android:layout_centerVertical="true"/>
         <TextView android:textSize="17.0sp" android:textColor="@color/content_text_color"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:text="@string/isopen" android:layout_toRightOf="@+id/iv_tuisong"
             android:layout_marginLeft="20dp" android:layout_centerVertical="true" />
-        <CheckBox android:id="@+id/checkBox1" android:layout_width="wrap_content"
+        <Button android:id="@+id/btn_switch" android:layout_width="wrap_content"
             android:layout_height="28.0dip" android:layout_marginRight="10.0dip"
-            android:text="开启"
+            android:background="@drawable/checkshape"
             android:layout_alignParentRight="true" android:layout_centerVertical="true" />
     </RelativeLayout>
             <View
@@ -120,7 +120,7 @@
         android:padding="5.0dip" android:layout_width="fill_parent"
         android:layout_height="45dp" android:layout_below="@+id/isopen">
         <ImageView
-            android:layout_width="wrap_content" android:background="@drawable/home"
+            android:layout_width="wrap_content" android:background="@mipmap/icon_f6"
             android:id="@+id/iv_clear" android:layout_marginLeft="20dp"
             android:layout_height="wrap_content" android:layout_centerVertical="true"/>
         <TextView android:textSize="17.0sp" android:textColor="@color/content_text_color"
@@ -134,7 +134,7 @@
         android:layout_marginTop="20.0dip" android:layout_below="@+id/clear"
         android:layout_alignParentRight="true">
         <ImageView
-            android:layout_width="wrap_content" android:background="@drawable/home"
+            android:layout_width="wrap_content" android:background="@mipmap/icon_f7"
             android:id="@+id/iv_exit" android:layout_marginLeft="20dp"
             android:layout_height="wrap_content" android:layout_centerVertical="true"/>
         <TextView android:textSize="17.0sp" android:textColor="@color/content_text_color"

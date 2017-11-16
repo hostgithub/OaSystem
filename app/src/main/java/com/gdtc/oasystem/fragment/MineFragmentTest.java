@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +28,8 @@ public class MineFragmentTest extends BaseFragment {
     private Unbinder mUnbinder;
     @BindView(R.id.title_center)
     TextView title_center;
+    @BindView(R.id.btn_switch)
+    Button btn_switch;
 
     @Override
     public int getLayoutId() {
@@ -53,11 +56,18 @@ public class MineFragmentTest extends BaseFragment {
 
     }
 
-    @OnClick({R.id.updataPasswordRlt,R.id.clear,R.id.logOutRlt})
+    @OnClick({R.id.updataPasswordRlt,R.id.clear,R.id.logOutRlt,R.id.btn_switch})
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.updataPasswordRlt://改密码
                 startActivity(new Intent(getActivity(),ChangePasswordActivity.class));
+                break;
+            case R.id.btn_switch:
+                if(btn_switch.isSelected()==true){
+                    btn_switch.setSelected(false);
+                }else {
+                    btn_switch.setSelected(true);
+                }
                 break;
             case R.id.clear:
                 Toast.makeText(getActivity(),"清除缓存成功",Toast.LENGTH_SHORT).show();
