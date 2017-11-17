@@ -13,6 +13,7 @@ import com.gdtc.oasystem.R;
 import com.gdtc.oasystem.base.BaseFragment;
 import com.gdtc.oasystem.ui.ChangePasswordActivity;
 import com.gdtc.oasystem.ui.LoginTestActivity;
+import com.gdtc.oasystem.utils.DataCleanManagerUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -70,7 +71,12 @@ public class MineFragmentTest extends BaseFragment {
                 }
                 break;
             case R.id.clear:
-                Toast.makeText(getActivity(),"清除缓存成功",Toast.LENGTH_SHORT).show();
+                try {
+                    DataCleanManagerUtils.clearAllCache(getActivity());
+                    Toast.makeText(getActivity(),"清除缓存成功",Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 break;
             case R.id.logOutRlt://退出登录
                 Toast.makeText(getActivity(),"退出登录",Toast.LENGTH_SHORT).show();
