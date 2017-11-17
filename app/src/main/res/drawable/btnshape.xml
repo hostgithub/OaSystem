@@ -3,11 +3,11 @@
     <item android:state_pressed="true"><shape>
         <corners android:radius="0dp" />
         <solid android:color="@color/colorBG" />
-        <stroke android:width="2dp" android:color="@color/title_color" />
+        <stroke android:width="1dp" android:color="@color/title_color" />
     </shape></item>
     <item android:state_pressed="false"><shape>
         <corners android:radius="0dp" />
-        <solid android:color="@color/title_color" />
-        <stroke android:width="2dp" android:color="@color/title_color" />
+        <solid android:color="#00ADEF" />
+        <stroke android:width="1dp" android:color="@color/title_color" />
     </shape></item>
 </selector>
