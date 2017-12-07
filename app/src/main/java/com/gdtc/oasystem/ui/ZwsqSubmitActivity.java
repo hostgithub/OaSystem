@@ -100,7 +100,7 @@ public class ZwsqSubmitActivity extends BaseActivity{
                 case 0:
                     //完成主界面更新,拿到数据
                     String data = (String) msg.obj;
-                    day_number.setText(data+ "天");
+                    day_number.setText(String.valueOf(data));
                     break;
                 default:
                     break;
@@ -358,7 +358,7 @@ public class ZwsqSubmitActivity extends BaseActivity{
         cal1.setTime(date1);
         cal2.setTime(date2);
         double dayCount = (cal2.getTimeInMillis() - cal1.getTimeInMillis()) / (1000 * 3600 * 24);// 从间隔毫秒变成间隔天数
-        day_number.setText(dayCount+"天");
+        day_number.setText(String.valueOf(dayCount));
     }
 
     private void sendMessage(final String day) {
