@@ -9,11 +9,16 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gdtc.oasystem.Config;
+import com.gdtc.oasystem.MyApplication;
 import com.gdtc.oasystem.R;
 import com.gdtc.oasystem.base.BaseFragment;
+import com.gdtc.oasystem.push.PollingService;
+import com.gdtc.oasystem.push.PollingUtils;
 import com.gdtc.oasystem.ui.ChangePasswordActivity;
 import com.gdtc.oasystem.ui.LoginTestActivity;
 import com.gdtc.oasystem.utils.DataCleanManagerUtils;
+import com.gdtc.oasystem.utils.SharePreferenceTools;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,8 +34,11 @@ public class MineFragmentTest extends BaseFragment {
     private Unbinder mUnbinder;
     @BindView(R.id.title_center)
     TextView title_center;
+    @BindView(R.id.user_nameTv)
+    TextView user_nameTv;
     @BindView(R.id.btn_switch)
     Button btn_switch;
+    private SharePreferenceTools sp;
 
     @Override
     public int getLayoutId() {
@@ -45,6 +53,8 @@ public class MineFragmentTest extends BaseFragment {
     @Override
     public void initViews(View view, Bundle savedInstanceState) {
         mUnbinder = ButterKnife.bind(this, view);
+        sp = new SharePreferenceTools(MyApplication.getContext());
+        user_nameTv.setText(sp.getString(Config.USER_NAME));
     }
 
     @Override
@@ -66,8 +76,14 @@ public class MineFragmentTest extends BaseFragment {
             case R.id.btn_switch:
                 if(btn_switch.isSelected()==true){
                     btn_switch.setSelected(false);
+                    sp.putString(Config.PUSH, "noPush");
+                    System.out.println("Stop polling service...");
+                    PollingUtils.stopPollingService(MyApplication.getContext(), PollingService.class, PollingService.ACTION);
                 }else {
                     btn_switch.setSelected(true);
+                    sp.putString(Config.PUSH, "push");
+                    System.out.println("Start polling service...");
+                    PollingUtils.startPollingService(MyApplication.getContext(), 5, PollingService.class, PollingService.ACTION);
                 }
                 break;
             case R.id.clear:

@@ -24,7 +24,9 @@
             android:layout_height="fill_parent">
         </ImageView>
     </LinearLayout>
-
+    <View
+        android:layout_width="match_parent" android:background="@color/WhiteSmoke"
+        android:layout_height="0dp" android:layout_weight="0.04"/>
     <RelativeLayout
         android:id="@+id/bottomlinear"
         android:layout_width="match_parent"

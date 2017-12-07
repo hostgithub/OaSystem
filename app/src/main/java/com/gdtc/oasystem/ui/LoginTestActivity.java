@@ -77,7 +77,8 @@ public class LoginTestActivity extends BaseActivity {
                 userNameValue = userName.getText().toString();
                 passwordValue = password.getText().toString();
 
-                if(userNameValue.equals("wjw")&&passwordValue.equals("123"))
+                if(userNameValue.equals("杨华")&&passwordValue.equals("123")||userNameValue.equals("菲兹")&&passwordValue.equals("123")
+                ||userNameValue.equals("亚索")&&passwordValue.equals("123") ||userNameValue.equals("辛德拉")&&passwordValue.equals("123"))
                 {
                     Toast.makeText(LoginTestActivity.this,"登录成功", Toast.LENGTH_SHORT).show();
                     //登录成功和记住密码框为选中状态才保存用户信息
@@ -91,7 +92,6 @@ public class LoginTestActivity extends BaseActivity {
                     }
                     //跳转界面
                     Intent intent = new Intent(LoginTestActivity.this,HomePageActivity.class);
-//                    Intent intent = new Intent(LoginTestActivity.this,MainActivity.class);
                     startActivity(intent);
                     finish();
 

@@ -63,6 +63,17 @@
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity android:name=".ui.ZhengwuApplyActivity" android:screenOrientation="portrait"
             android:theme="@style/Theme.Design.Light.NoActionBar"></activity>
+
+        <!-- Message Activity -->
+        <activity android:name=".push.MessageActivity" android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar"/>
+
+        <!-- Polling Service -->
+        <service android:name=".push.PollingService">
+            <intent-filter>
+                <action android:name="com.ryantang.service.PollingService"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

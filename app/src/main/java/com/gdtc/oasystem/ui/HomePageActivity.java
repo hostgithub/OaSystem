@@ -55,7 +55,9 @@ public class HomePageActivity extends BaseActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
 
-        btn_first.setSelected(true);
+//        System.out.println("Start polling service...");
+//        PollingUtils.startPollingService(this, 5, PollingService.class, PollingService.ACTION);
+
         fragmentManager = getSupportFragmentManager();
 
         if (savedInstanceState != null) { // “内存重启”时调用
@@ -72,7 +74,7 @@ public class HomePageActivity extends BaseActivity {
             restoreFragment();
 
         }else{      //正常启动时调用
-
+            btn_first.setSelected(true);
             fragments.add(new HomeFragmentTest());
             fragments.add(new InfoFragmentTest());
             fragments.add(new JobFragmentTest());
@@ -205,5 +207,13 @@ public class HomePageActivity extends BaseActivity {
             finish();
             System.exit(0);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //Stop polling service
+//        System.out.println("Stop polling service...");
+//        PollingUtils.stopPollingService(this, PollingService.class, PollingService.ACTION);
     }
 }

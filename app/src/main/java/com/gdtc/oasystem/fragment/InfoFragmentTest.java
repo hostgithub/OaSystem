@@ -1,6 +1,5 @@
 package com.gdtc.oasystem.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,7 +10,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gdtc.oasystem.Config;
-import com.gdtc.oasystem.MainActivity;
 import com.gdtc.oasystem.R;
 import com.gdtc.oasystem.adapter.GirlAdapter;
 import com.gdtc.oasystem.base.BaseFragment;
@@ -187,9 +185,10 @@ public class InfoFragmentTest extends BaseFragment implements SwipeRefreshLayout
                 if(response!=null){
                     Detail detail=response.body();
                     Detail.ResultsBean resultsBean=detail.getResults().get(0);
-                    Intent intent = new Intent(getActivity(), MainActivity.class);
-                    intent.putExtra(Config.NEWS,resultsBean);
-                    startActivity(intent);
+//                    Intent intent = new Intent(getActivity(), MainActivity.class);
+//                    intent.putExtra(Config.NEWS,resultsBean);
+//                    startActivity(intent);
+                    Toast.makeText(getActivity(),"现阶段 这里只是做个演示!",Toast.LENGTH_SHORT).show();
                     Log.e("xxxxxxx",resultsBean.content);
                 }else{
                     Toast.makeText(getActivity(),"数据为空!",Toast.LENGTH_SHORT).show();

@@ -13,10 +13,7 @@ public class Config
     public static final String PREFERENCE_DEFAULT_NAME = "preference_default_name";
     public static final String USER_NAME = "user_name";
     public static final String PASSWORD = "password";
-
-    public static final String RESULT_BEAN = "result_bean";
-    public static final String LIST_HOST = "list_host";
-    public static final String LIST_ANSWER = "list_answer";
+    public static final String PUSH = "push";
 
 //       public static final String BANNER_BASE_URL = "http://221.210.9.87:8080/";
        public static final String BANNER_BASE_URL = "http://www.jms.gov.cn/";
