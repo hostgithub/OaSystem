@@ -55,6 +55,12 @@ public class MineFragmentTest extends BaseFragment {
         mUnbinder = ButterKnife.bind(this, view);
         sp = new SharePreferenceTools(MyApplication.getContext());
         user_nameTv.setText(sp.getString(Config.USER_NAME));
+
+        if(sp.getBoolean("IS_select",false)){
+            btn_switch.setSelected(true);
+        }else{
+            btn_switch.setSelected(false);
+        }
     }
 
     @Override
@@ -76,11 +82,13 @@ public class MineFragmentTest extends BaseFragment {
             case R.id.btn_switch:
                 if(btn_switch.isSelected()==true){
                     btn_switch.setSelected(false);
+                    sp.putBoolean("IS_select",false);
                     sp.putString(Config.PUSH, "noPush");
                     System.out.println("Stop polling service...");
                     PollingUtils.stopPollingService(MyApplication.getContext(), PollingService.class, PollingService.ACTION);
                 }else {
                     btn_switch.setSelected(true);
+                    sp.putBoolean("IS_select",true);
                     sp.putString(Config.PUSH, "push");
                     System.out.println("Start polling service...");
                     PollingUtils.startPollingService(MyApplication.getContext(), 5, PollingService.class, PollingService.ACTION);
@@ -104,7 +112,9 @@ public class MineFragmentTest extends BaseFragment {
                     @Override
                     public void onClick(DialogInterface arg0, int arg1) {
                         //Toast.makeText(Some_suggestionsActivity.this, "确定", Toast.LENGTH_SHORT).show();
+                        sp.putBoolean("main",false);
                         startActivity(new Intent(getActivity(),LoginTestActivity.class));
+                        getActivity().finish();
                     }
                 });
                 builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {  //这个是设置确定按钮

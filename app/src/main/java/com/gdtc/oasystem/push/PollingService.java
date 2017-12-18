@@ -51,6 +51,7 @@ public class PollingService extends Service {
 		mNotification.when = System.currentTimeMillis();
 		//Navigator to the new activity when click the notification title
 		Intent intent = new Intent(this, MessageActivity.class);
+		intent.putExtra("news_title","新闻标题");
 		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 		//创建 Notification.Builder 对象
 		NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
@@ -75,7 +76,7 @@ public class PollingService extends Service {
 		public void run() {
 			System.out.println("Polling...");
 			count ++;
-			if (count % 5 == 0) {
+			if (count % 2 == 0) {
 				showNotification();
 				System.out.println("New message!");
 			}

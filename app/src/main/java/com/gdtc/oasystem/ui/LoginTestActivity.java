@@ -42,6 +42,15 @@ public class LoginTestActivity extends BaseActivity {
        /*set it to be full screen*/
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        //获得实例对象
+        sp = new SharePreferenceTools(this);
+
+        //.getBoolean("main",false)；当找不到"main"所对应的键值是默认返回false
+        if(sp.getBoolean("main",false)){
+            Intent intent=new Intent(LoginTestActivity.this,HomePageActivity.class);
+            startActivity(intent);
+            LoginTestActivity.this.finish();
+        }
         return R.layout.activity_login_test;
     }
 
@@ -49,8 +58,7 @@ public class LoginTestActivity extends BaseActivity {
     protected void initView(Bundle savedInstanceState) {
 
 
-        //获得实例对象
-        sp = new SharePreferenceTools(this);
+
         //判断记住密码多选框的状态
         if(sp.getBoolean("ISCHECK", false))
         {
@@ -90,6 +98,7 @@ public class LoginTestActivity extends BaseActivity {
                         sp.putString(Config.PASSWORD,passwordValue);
                         //editor.commit();
                     }
+                    sp.putBoolean("main",true);
                     //跳转界面
                     Intent intent = new Intent(LoginTestActivity.this,HomePageActivity.class);
                     startActivity(intent);

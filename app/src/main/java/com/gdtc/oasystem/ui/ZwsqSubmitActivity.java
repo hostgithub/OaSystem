@@ -1,13 +1,16 @@
 package com.gdtc.oasystem.ui;
 
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -107,6 +110,7 @@ public class ZwsqSubmitActivity extends BaseActivity{
             }
         }
     };
+    private double dayCount;
 
     @Override
     protected int getLayoutId() {
@@ -122,6 +126,24 @@ public class ZwsqSubmitActivity extends BaseActivity{
         contentView = LayoutInflater.from(this).inflate(R.layout.popupwindow, null);
         mGridview= (GridView) contentView.findViewById(R.id.gridview);
         titleBar=LayoutInflater.from(this).inflate(R.layout.layout_setting_title, null);
+
+        edt_content.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (v.getId()) {
+                    case R.id.edt_content:
+                        // 解决scrollView中嵌套EditText导致不能上下滑动的问题
+                        if (canVerticalScroll(edt_content))
+                            v.getParent().requestDisallowInterceptTouchEvent(true);
+                        switch (event.getAction() & MotionEvent.ACTION_MASK) {
+                            case MotionEvent.ACTION_UP:
+                                v.getParent().requestDisallowInterceptTouchEvent(false);
+                                break;
+                        }
+                }
+                return false;
+            }
+        });
 //        popupWindow = new PopupWindow(contentView,
 //                WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT, true);
         // 如果不设置PopupWindow的背景，有些版本就会出现一个问题：无论是点击外部区域还是Back键都无法dismiss弹框
@@ -268,6 +290,19 @@ public class ZwsqSubmitActivity extends BaseActivity{
                 backgroundAlpha(0.5f);
                 break;
             case R.id.btn_submit://提交
+                if(dayCount==0.0){
+                    AlertDialog.Builder builder=new AlertDialog.Builder(ZwsqSubmitActivity.this);
+                    builder.setMessage("天数不能为0");//设置对话框的内容
+                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {  //这个是设置确定按钮
+
+                        @Override
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            arg0.dismiss();
+                        }
+                    });
+                    AlertDialog b=builder.create();
+                    b.show();  //必须show一下才能看到对话框，跟Toast一样的道理
+                }
                 Toast.makeText(ZwsqSubmitActivity.this,"提交",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.btn_cancel://取消
@@ -304,9 +339,35 @@ public class ZwsqSubmitActivity extends BaseActivity{
                     stop.setText(year + "-" + monthOfYear + "-" + dayOfMonth);
                     Log.e("----选完日期后的stop_date",stop.getText().toString());
                     dayNumber(start.getText().toString(),stop.getText().toString());
+                    if(dayCount<0){
+                        AlertDialog.Builder builder=new AlertDialog.Builder(ZwsqSubmitActivity.this);
+                        builder.setMessage("开始时间不能大于结束时间");//设置对话框的内容
+                        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {  //这个是设置确定按钮
+
+                            @Override
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                arg0.dismiss();
+                            }
+                        });
+                        AlertDialog b=builder.create();
+                        b.show();  //必须show一下才能看到对话框，跟Toast一样的道理
+                    }
                 }
                 if(textView.getId()==R.id.start&&!stop.getText().toString().equals("")){
                     dayNumber(start.getText().toString(),stop.getText().toString());
+                    if(dayCount<0){
+                        AlertDialog.Builder builder=new AlertDialog.Builder(ZwsqSubmitActivity.this);
+                        builder.setMessage("开始时间不能大于结束时间");//设置对话框的内容
+                        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {  //这个是设置确定按钮
+
+                            @Override
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                arg0.dismiss();
+                            }
+                        });
+                        AlertDialog b=builder.create();
+                        b.show();  //必须show一下才能看到对话框，跟Toast一样的道理
+                    }
                 }
             }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
@@ -357,8 +418,31 @@ public class ZwsqSubmitActivity extends BaseActivity{
         GregorianCalendar cal2 = new GregorianCalendar();
         cal1.setTime(date1);
         cal2.setTime(date2);
-        double dayCount = (cal2.getTimeInMillis() - cal1.getTimeInMillis()) / (1000 * 3600 * 24);// 从间隔毫秒变成间隔天数
+        dayCount = (cal2.getTimeInMillis() - cal1.getTimeInMillis()) / (1000 * 3600 * 24);// 从间隔毫秒变成间隔天数
         day_number.setText(String.valueOf(dayCount));
+    }
+
+
+    /**
+     * EditText竖直方向是否可以滚动
+     * @param editText 需要判断的EditText
+     * @return true：可以滚动  false：不可以滚动
+     */
+    public static  boolean canVerticalScroll(EditText editText) {
+        //滚动的距离
+        int scrollY = editText.getScrollY();
+        //控件内容的总高度
+        int scrollRange = editText.getLayout().getHeight();
+        //控件实际显示的高度
+        int scrollExtent = editText.getHeight() - editText.getCompoundPaddingTop() -editText.getCompoundPaddingBottom();
+        //控件内容总高度与实际显示高度的差值
+        int scrollDifference = scrollRange - scrollExtent;
+
+        if(scrollDifference == 0) {
+            return false;
+        }
+
+        return (scrollY > 0) || (scrollY < scrollDifference - 1);
     }
 
     private void sendMessage(final String day) {
