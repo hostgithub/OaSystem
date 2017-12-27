@@ -39,10 +39,10 @@
                     android:layout_width="match_parent" android:background="@drawable/spinner"
                     android:layout_height="40dp" android:layout_marginTop="10dp"/>
                 <TextView android:id="@+id/tv_bumen"
-                    android:layout_width="wrap_content" android:textColor="@color/huise_text_color"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content" android:layout_alignParentRight="true"
                     android:text="高法部" android:layout_marginRight="15dp"
-                    android:textSize="18sp"/>
+                    android:textColor="#000" android:textSize="18sp"/>
             </RelativeLayout>
 
             <View android:background="@color/WhiteSmoke"
@@ -58,10 +58,10 @@
                     android:layout_height="wrap_content"  android:textSize="18sp"
                     android:textColor="#000" android:layout_marginLeft="5dp"/>
                 <TextView android:id="@+id/tv_username"
-                    android:layout_width="wrap_content" android:textColor="@color/huise_text_color"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content" android:layout_alignParentRight="true"
                     android:text="xxx" android:layout_marginRight="15dp"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp" android:textColor="#000"/>
             </RelativeLayout>
 
             <View android:background="@color/WhiteSmoke"
@@ -77,7 +77,7 @@
                     android:layout_height="wrap_content"  android:textSize="18sp"
                     android:textColor="#000" android:layout_marginLeft="5dp"/>
                 <Spinner android:id="@+id/edt_work_years"
-                    android:layout_width="wrap_content" android:textColor="@color/huise_text_color"
+                    android:layout_width="wrap_content" android:textColor="@color/black_text_color"
                     android:layout_height="wrap_content" android:layout_alignParentRight="true"
                     android:text="xxx" android:layout_marginRight="15dp"
                     android:textSize="18sp"/>
@@ -96,10 +96,15 @@
                     android:layout_height="wrap_content"  android:textSize="18sp"
                     android:textColor="#000" android:layout_marginLeft="5dp"/>
                 <TextView android:id="@+id/tv_kind"
-                    android:layout_width="wrap_content" android:textColor="@color/huise_text_color"
+                    android:layout_width="wrap_content" android:textColor="@color/black_text_color"
                     android:layout_height="wrap_content" android:layout_alignParentRight="true"
-                    android:hint="请选择类别>"
-                    android:textSize="18sp" android:textColorHint="@color/huise_text_color" android:layout_marginRight="15dp" />
+                    android:hint="请选择类别"  android:layout_marginRight="20dp"
+                    android:gravity="right"
+                    android:textSize="18sp" android:textColorHint="@color/huise_text_color"  />
+                <TextView
+                    android:layout_width="wrap_content" android:text=">"
+                    android:layout_marginRight="10dp" android:textSize="18sp"
+                    android:layout_height="wrap_content" android:layout_alignParentRight="true"/>
             </RelativeLayout>
             <View android:background="@color/WhiteSmoke"
                 android:layout_width="match_parent"
@@ -115,10 +120,15 @@
                     android:layout_height="wrap_content"  android:textSize="18sp"
                     android:textColor="#000" android:layout_marginLeft="5dp"/>
                 <TextView android:id="@+id/start"
-                    android:layout_width="wrap_content" android:textColor="@color/huise_text_color"
+                    android:layout_width="wrap_content" android:textColor="@color/black_text_color"
                     android:layout_height="wrap_content" android:layout_alignParentRight="true"
-                    android:layout_marginRight="15dp" android:hint="选择开始日期>"
+                    android:layout_marginRight="20dp"
+                    android:gravity="right" android:hint="选择开始日期"
                     android:textSize="18sp" android:textColorHint="@color/huise_text_color"/>
+                <TextView
+                    android:layout_width="wrap_content" android:text=">"
+                    android:layout_marginRight="10dp" android:textSize="18sp"
+                    android:layout_height="wrap_content" android:layout_alignParentRight="true"/>
             </RelativeLayout>
             <View android:background="@color/WhiteSmoke"
                 android:layout_width="match_parent"
@@ -132,10 +142,15 @@
                     android:layout_height="wrap_content"  android:textSize="18sp"
                     android:textColor="#000" android:layout_marginLeft="5dp"/>
                 <TextView android:id="@+id/stop"
-                    android:layout_width="wrap_content" android:textColor="@color/huise_text_color"
+                    android:layout_width="wrap_content" android:textColor="@color/black_text_color"
                     android:layout_height="wrap_content" android:layout_alignParentRight="true"
-                    android:layout_marginRight="15dp" android:hint="选择结束日期>"
+                    android:layout_marginRight="20dp"
+                    android:gravity="right" android:hint="选择结束日期"
                     android:textSize="18sp" android:textColorHint="@color/huise_text_color"/>
+                <TextView
+                    android:layout_width="wrap_content" android:text=">"
+                    android:layout_marginRight="10dp" android:textSize="18sp"
+                    android:layout_height="wrap_content" android:layout_alignParentRight="true"/>
             </RelativeLayout>
             <View android:background="@color/WhiteSmoke"
                 android:layout_width="match_parent"
@@ -150,10 +165,10 @@
                     android:layout_height="wrap_content"  android:textSize="18sp"
                     android:textColor="#000" android:layout_marginLeft="5dp"/>
                 <TextView android:id="@+id/day_number"
-                    android:layout_width="wrap_content" android:textColor="@color/huise_text_color"
+                    android:layout_width="wrap_content" android:textColor="@color/black_text_color"
                     android:layout_height="wrap_content" android:layout_alignParentRight="true"
                     android:layout_marginRight="25dp" android:textSize="18sp"
-                    android:text="天"/>
+                    android:hint="天" android:textColorHint="@color/huise_text_color"/>
             </RelativeLayout>
             <View android:background="@color/WhiteSmoke"
                 android:layout_width="match_parent"
@@ -174,6 +189,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
                     android:background="@drawable/editshape"
+                    android:textColor="@color/black_text_color"
                     android:gravity="left|top" android:hint="请简要说明"
                     android:imeOptions="actionDone" />
             </LinearLayout>
@@ -190,11 +206,15 @@
                     android:layout_height="wrap_content"  android:textSize="18sp"
                     android:textColor="#000" android:layout_marginLeft="5dp"/>
                 <TextView android:id="@+id/tv_send_person"
-                    android:layout_width="wrap_content" android:textColor="@color/huise_text_color"
+                    android:layout_width="wrap_content" android:textColor="@color/black_text_color"
                     android:layout_height="wrap_content" android:layout_alignParentRight="true"
-                    android:layout_marginRight="15dp"
-                    android:hint="选择发送人>"
+                    android:layout_marginRight="20dp"
+                    android:gravity="right" android:hint="选择发送人"
                     android:textSize="18sp" android:textColorHint="@color/huise_text_color"/>
+                <TextView
+                    android:layout_width="wrap_content" android:text=">"
+                    android:layout_marginRight="10dp" android:textSize="18sp"
+                    android:layout_height="wrap_content" android:layout_alignParentRight="true"/>
             </RelativeLayout>
         </LinearLayout>
 
