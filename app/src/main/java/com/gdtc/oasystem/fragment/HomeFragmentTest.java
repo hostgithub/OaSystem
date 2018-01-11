@@ -47,7 +47,7 @@ public class HomeFragmentTest extends BaseFragment {
         //获得实例对象
         sp = new SharePreferenceTools(MyApplication.getContext());
 
-        tv_username.setText("欢迎,"+sp.getString(Config.USER_NAME));
+        tv_username.setText("欢迎,"+sp.getString(Config.USERNAME));
     }
 
     @Override

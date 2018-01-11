@@ -36,6 +36,12 @@ public class MineFragmentTest extends BaseFragment {
     TextView title_center;
     @BindView(R.id.user_nameTv)
     TextView user_nameTv;
+    @BindView(R.id.user_id)
+    TextView user_id;
+    @BindView(R.id.tv_dept)
+    TextView tv_dept;
+    @BindView(R.id.tv_company)
+    TextView tv_company;
     @BindView(R.id.btn_switch)
     Button btn_switch;
     private SharePreferenceTools sp;
@@ -54,7 +60,10 @@ public class MineFragmentTest extends BaseFragment {
     public void initViews(View view, Bundle savedInstanceState) {
         mUnbinder = ButterKnife.bind(this, view);
         sp = new SharePreferenceTools(MyApplication.getContext());
-        user_nameTv.setText(sp.getString(Config.USER_NAME));
+        user_nameTv.setText("登录人:"+sp.getString(Config.USERNAME));
+        user_id.setText("ID:"+sp.getString(Config.USER_ID));
+        tv_dept.setText(sp.getString(Config.DEPT_NAME));
+        tv_company.setText(sp.getString(Config.COMPANY));
 
         if(sp.getBoolean("IS_select",false)){
             btn_switch.setSelected(true);

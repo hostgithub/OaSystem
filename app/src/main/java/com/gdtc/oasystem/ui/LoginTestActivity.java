@@ -2,6 +2,7 @@ package com.gdtc.oasystem.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -14,9 +15,16 @@ import android.widget.Toast;
 import com.gdtc.oasystem.Config;
 import com.gdtc.oasystem.R;
 import com.gdtc.oasystem.base.BaseActivity;
+import com.gdtc.oasystem.bean.ResponseBean;
+import com.gdtc.oasystem.service.Api;
 import com.gdtc.oasystem.utils.SharePreferenceTools;
 
 import butterknife.BindView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class LoginTestActivity extends BaseActivity {
@@ -32,6 +40,7 @@ public class LoginTestActivity extends BaseActivity {
 
     private String userNameValue,passwordValue;
     private SharePreferenceTools sp;
+    private String  dept_properties="topoffice";
 
     @Override
     protected int getLayoutId() {
@@ -85,28 +94,15 @@ public class LoginTestActivity extends BaseActivity {
                 userNameValue = userName.getText().toString();
                 passwordValue = password.getText().toString();
 
-                if(userNameValue.equals("杨华")&&passwordValue.equals("123")||userNameValue.equals("菲兹")&&passwordValue.equals("123")
-                ||userNameValue.equals("亚索")&&passwordValue.equals("123") ||userNameValue.equals("辛德拉")&&passwordValue.equals("123"))
+                if(userName.getText().toString().trim().equals("")||password.getText().toString().trim().equals(""))
                 {
-                    Toast.makeText(LoginTestActivity.this,"登录成功", Toast.LENGTH_SHORT).show();
-                    //登录成功和记住密码框为选中状态才保存用户信息
-                    if(rem_pw.isChecked())
-                    {
-                        //记住用户名、密码、
-                        //SharedPreferences.Editor editor = sp.edit();
-                        sp.putString(Config.USER_NAME, userNameValue);
-                        sp.putString(Config.PASSWORD,passwordValue);
-                        //editor.commit();
-                    }
-                    sp.putBoolean("main",true);
-                    //跳转界面
-                    Intent intent = new Intent(LoginTestActivity.this,HomePageActivity.class);
-                    startActivity(intent);
-                    finish();
+
+                    Toast.makeText(LoginTestActivity.this,"用户名或密码不能为空", Toast.LENGTH_LONG).show();
 
                 }else{
 
-                    Toast.makeText(LoginTestActivity.this,"用户名或密码错误，请重新登录", Toast.LENGTH_LONG).show();
+                    post(userNameValue,passwordValue,dept_properties);
+
                 }
 
             }
@@ -127,6 +123,55 @@ public class LoginTestActivity extends BaseActivity {
 
                 }
 
+            }
+        });
+    }
+
+    private void post(String username,String password,String dept_properties){
+
+        Retrofit retrofit=new Retrofit.Builder()
+                .baseUrl(Config.BANNER_BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        Api api =retrofit.create(Api.class);
+
+        Call<ResponseBean> call=api.getLoginData(username,password,dept_properties);
+        call.enqueue(new Callback<ResponseBean>() {
+            @Override
+            public void onResponse(Call<ResponseBean> call, Response<ResponseBean> response) {
+                Log.e("sssss","-----------------------"+response.body().success);
+                if(!response.body().success.equals("")&&response.body().success=="true"){
+
+                    Toast.makeText(LoginTestActivity.this,"登录成功", Toast.LENGTH_SHORT).show();
+                    //登录成功和记住密码框为选中状态才保存用户信息
+                    if(rem_pw.isChecked())
+                    {
+                        //记住用户名、密码、
+                        //SharedPreferences.Editor editor = sp.edit();
+                        sp.putString(Config.USER_NAME, userNameValue);
+                        sp.putString(Config.PASSWORD,passwordValue);
+                        //editor.commit();
+                    }
+
+                    sp.putString("userId",response.body().getResults().get(0).getPersonnelId());
+                    sp.putString("userName",response.body().getResults().get(0).getUserName());
+                    sp.putString("deptName",response.body().getResults().get(0).getDepetName());
+                    sp.putString("company",response.body().getResults().get(0).getCompany());
+                    sp.putBoolean("main",true);
+                    //跳转界面
+                    Intent intent = new Intent(LoginTestActivity.this,HomePageActivity.class);
+                    startActivity(intent);
+                    finish();
+                }else{
+
+                    Toast.makeText(LoginTestActivity.this,"用户名或密码错误，请重新登录", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBean> call, Throwable t) {
+                Log.e("sssss",t.getMessage());
+                Toast.makeText(LoginTestActivity.this,"请求失败!",Toast.LENGTH_SHORT).show();
             }
         });
     }

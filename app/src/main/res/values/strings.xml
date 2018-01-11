@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">OaSystem</string>
-    <string name="bq_tip">版权所有©中国佳木斯市政府</string>
+    <string name="bq_tip">法院移动办公平台</string>
 
     <string name="pensettingtitle">设置宽度与颜色</string>
     <string name="danwei">单位:</string>
