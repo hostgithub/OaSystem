@@ -61,7 +61,7 @@ public class MineFragmentTest extends BaseFragment {
         mUnbinder = ButterKnife.bind(this, view);
         sp = new SharePreferenceTools(MyApplication.getContext());
         user_nameTv.setText("登录人:"+sp.getString(Config.USERNAME));
-        user_id.setText("ID:"+sp.getString(Config.USER_ID));
+        user_id.setText("ID:"+sp.getString(Config.DEPTUNIT));
         tv_dept.setText(sp.getString(Config.DEPT_NAME));
         tv_company.setText(sp.getString(Config.COMPANY));
 

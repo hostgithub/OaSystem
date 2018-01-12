@@ -16,8 +16,10 @@ public class Config
     public static final String USERNAME = "userName";
     public static final String DEPT_NAME = "deptName";
     public static final String COMPANY = "company";
+    public static final String DEPTUNIT = "deptunit";
     public static final String PASSWORD = "password";
     public static final String PUSH = "push";
+    public static final String TAG = "---------->>>";
 
        public static final String BANNER_BASE_URL = "http://192.168.0.135:8080/";
 //    public static final String BANNER_BASE_URL = "http://www.jms.gov.cn/";

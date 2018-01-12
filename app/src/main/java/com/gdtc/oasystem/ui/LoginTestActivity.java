@@ -139,10 +139,12 @@ public class LoginTestActivity extends BaseActivity {
         call.enqueue(new Callback<ResponseBean>() {
             @Override
             public void onResponse(Call<ResponseBean> call, Response<ResponseBean> response) {
-                Log.e("sssss","-----------------------"+response.body().success);
+
                 if(!response.body().success.equals("")&&response.body().success=="true"){
 
-                    Toast.makeText(LoginTestActivity.this,"登录成功", Toast.LENGTH_SHORT).show();
+                    Log.e(Config.TAG,response.body().getResults().get(0).getInformation());
+
+                    Toast.makeText(LoginTestActivity.this,response.body().getResults().get(0).getInformation(), Toast.LENGTH_SHORT).show();
                     //登录成功和记住密码框为选中状态才保存用户信息
                     if(rem_pw.isChecked())
                     {
@@ -157,6 +159,7 @@ public class LoginTestActivity extends BaseActivity {
                     sp.putString("userName",response.body().getResults().get(0).getUserName());
                     sp.putString("deptName",response.body().getResults().get(0).getDepetName());
                     sp.putString("company",response.body().getResults().get(0).getCompany());
+                    sp.putString(Config.DEPTUNIT,response.body().getResults().get(0).getDepetUnit());
                     sp.putBoolean("main",true);
                     //跳转界面
                     Intent intent = new Intent(LoginTestActivity.this,HomePageActivity.class);

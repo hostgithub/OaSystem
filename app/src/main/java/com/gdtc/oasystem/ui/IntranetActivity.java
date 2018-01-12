@@ -17,7 +17,7 @@ import com.gdtc.oasystem.base.BaseActivity;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class JmsDayReportActivity extends BaseActivity {
+public class IntranetActivity extends BaseActivity {
 
     @BindView(R.id.webView1)
     WebView mWebview;

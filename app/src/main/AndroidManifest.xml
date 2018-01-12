@@ -52,6 +52,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
+            android:name=".ui.IncomingFilesDealActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
+        <activity
             android:name=".ui.ShenpiDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Design.Light.NoActionBar" />
@@ -63,7 +67,7 @@
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity android:name=".ui.ZhengwuApplyActivity" android:screenOrientation="portrait"
             android:theme="@style/Theme.Design.Light.NoActionBar"></activity>
-        <activity android:name=".ui.JmsDayReportActivity" android:screenOrientation="portrait"
+        <activity android:name=".ui.IntranetActivity" android:screenOrientation="portrait"
             android:theme="@style/Theme.Design.Light.NoActionBar"></activity>
 
         <!-- Message Activity -->

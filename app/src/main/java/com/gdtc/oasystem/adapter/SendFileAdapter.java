@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import com.gdtc.oasystem.R;
 import com.gdtc.oasystem.base.BaseViewHolder;
-import com.gdtc.oasystem.bean.NewCenter;
+import com.gdtc.oasystem.bean.DispatchWaitDeal;
 
 import java.util.List;
 
@@ -23,19 +23,19 @@ public class SendFileAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     private static final int ITEM_NOIMAGE = 1;
     private static final int ITEM_HASIMAGE = 2;
 
-    private List<NewCenter.ResultsBean> datas;
+    private List<DispatchWaitDeal.ResultsBean> datas;
     private Context mContext;
     private int viewFooter;
     private View footerView;
     private OnItemClickListener mOnItemClickListener;
-    private static final String HOST = "http://www.jcodecraeer.com";
+//    private static final String HOST = "http://www.jcodecraeer.com";
 
-    public SendFileAdapter(List<NewCenter.ResultsBean> datas, Context context) {
+    public SendFileAdapter(List<DispatchWaitDeal.ResultsBean> datas, Context context) {
         this.datas = datas;
         this.mContext = context;
     }
 
-    public void replaceAll(List<NewCenter.ResultsBean> elements) {
+    public void replaceAll(List<DispatchWaitDeal.ResultsBean> elements) {
         if (datas.size() > 0) {
             datas.clear();
         }
@@ -43,7 +43,7 @@ public class SendFileAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         notifyDataSetChanged();
     }
 
-    public void addAll(List<NewCenter.ResultsBean> elements) {
+    public void addAll(List<DispatchWaitDeal.ResultsBean> elements) {
         datas.addAll(elements);
         notifyDataSetChanged();
     }
@@ -72,13 +72,14 @@ public class SendFileAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             }
 
             int type = getItemViewType(position);
-            final NewCenter.ResultsBean item = datas.get(position);
+            final DispatchWaitDeal.ResultsBean item = datas.get(position);
 //            if (type == ITEM_HASIMAGE) {
 //                ImageLoaderUtils.loadingImg(mContext, (ImageView) holder.getView(R.id.cover), Config.BANNER_BASE_URL + item.picName);
 //            }
             //CircleImageView avatar = holder.getView(R.id.avatar);
-            holder.setText(R.id.title, item.title);
-            holder.setText(R.id.time, item.addTime);
+            holder.setText(R.id.title, item.getTitle());
+            holder.setText(R.id.time, item.getSenderTime());
+            holder.setText(R.id.username, "发送人 :"+item.getSender());
             holder.setText(R.id.position,String.valueOf(position+1));
             //holder.setText(R.id.content, item.text);
 //            if(item.text.startsWith(";")){
@@ -119,7 +120,7 @@ public class SendFileAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             type = TYPE_FOOTER;
             return type;
         }
-        if (TextUtils.isEmpty(datas.get(position).picName)) {
+        if (TextUtils.isEmpty(datas.get(position).get_id())) {
             type = ITEM_NOIMAGE;
         } else {
             type = ITEM_HASIMAGE;

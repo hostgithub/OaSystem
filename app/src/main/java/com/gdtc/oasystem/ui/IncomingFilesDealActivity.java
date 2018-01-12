@@ -12,8 +12,8 @@ import android.widget.Toast;
 
 import com.gdtc.oasystem.R;
 import com.gdtc.oasystem.base.BaseActivity;
-import com.gdtc.oasystem.fragment.DispatchWaitDealFragment;
-import com.gdtc.oasystem.fragment.DispatchHasDealFragment;
+import com.gdtc.oasystem.fragment.IncomingHasDealFragment;
+import com.gdtc.oasystem.fragment.IncomingWaitDealFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class SendFilesDealActivity extends BaseActivity {
+public class IncomingFilesDealActivity extends BaseActivity {
 
     @BindView(R.id.btn_wait_deal)
     Button btn_wait_deal;
@@ -44,7 +44,7 @@ public class SendFilesDealActivity extends BaseActivity {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        title_center.setText("发文办理");
+        title_center.setText("收文办理");
         btn_wait_deal.setSelected(true);
         fragmentManager = getSupportFragmentManager();
 
@@ -61,8 +61,8 @@ public class SendFilesDealActivity extends BaseActivity {
 
         }else{      //正常启动时调用
 
-            fragments.add(new DispatchWaitDealFragment());
-            fragments.add(new DispatchHasDealFragment());
+            fragments.add(new IncomingWaitDealFragment());
+            fragments.add(new IncomingHasDealFragment());
             showFragment();
         }
     }
@@ -87,7 +87,7 @@ public class SendFilesDealActivity extends BaseActivity {
                 btn_has_deal.setTextColor(Color.parseColor("#ff1b99e6"));
                 currentIndex = 0;
                 showFragment();
-                Toast.makeText(SendFilesDealActivity.this,"待办",Toast.LENGTH_SHORT).show();
+                Toast.makeText(IncomingFilesDealActivity.this,"待办",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.btn_has_deal://已办
                 btn_wait_deal.setSelected(false);
@@ -96,7 +96,7 @@ public class SendFilesDealActivity extends BaseActivity {
                 btn_wait_deal.setTextColor(Color.parseColor("#ff1b99e6"));
                 currentIndex = 1;
                 showFragment();
-                Toast.makeText(SendFilesDealActivity.this,"已办",Toast.LENGTH_SHORT).show();
+                Toast.makeText(IncomingFilesDealActivity.this,"已办",Toast.LENGTH_SHORT).show();
                 break;
             default:
                 break;

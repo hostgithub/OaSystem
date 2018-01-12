@@ -1,6 +1,7 @@
 package com.gdtc.oasystem.service;
 
 import com.gdtc.oasystem.bean.Detail;
+import com.gdtc.oasystem.bean.DispatchWaitDeal;
 import com.gdtc.oasystem.bean.NewCenter;
 import com.gdtc.oasystem.bean.ResponseBean;
 
@@ -25,4 +26,18 @@ public interface Api {
     //http://192.168.0.135:8080/app_phone/appLogin.do?userid=wangtianpeng&user_password=123&dept_properties=topoffice       login
     @GET("app_phone/appLogin.do")
     Call<ResponseBean> getLoginData(@Query("userid") String userid, @Query("user_password") String user_password,@Query("dept_properties") String dept_properties);
+
+    //http://192.168.0.135:8080/app_phone/getUntreatedList.do?page=1   发文待办
+    @GET("app_phone/getUntreatedList.do")
+    Call<DispatchWaitDeal> getDispatchWaitDealData(@Query("sign") String sign, @Query("deptunit") String deptunit, @Query("page") int page);
+
+    //http://192.168.0.135:8080/app_phone/getProcessedHandleList.do?page=1   发文已办
+    @GET("app_phone/getProcessedHandleList.do")
+    Call<DispatchWaitDeal> getDispatchHasDealData(@Query("sign") String sign, @Query("page") int page);
+
+    //http://192.168.0.135:8080/app_phone/getProcessedList.do?page=1   收文待办
+    @GET("app_phone/getProcessedList.do")
+    Call<DispatchWaitDeal> getIncomingWaitDealData(@Query("sign") String sign, @Query("deptunit") String deptunit, @Query("page") int page);
+
+
 }

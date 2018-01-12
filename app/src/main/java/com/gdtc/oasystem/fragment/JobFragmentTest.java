@@ -7,7 +7,8 @@ import android.widget.Toast;
 
 import com.gdtc.oasystem.R;
 import com.gdtc.oasystem.base.BaseFragment;
-import com.gdtc.oasystem.ui.JmsDayReportActivity;
+import com.gdtc.oasystem.ui.IncomingFilesDealActivity;
+import com.gdtc.oasystem.ui.IntranetActivity;
 import com.gdtc.oasystem.ui.SendFilesDealActivity;
 import com.gdtc.oasystem.ui.ZhengwuApplyActivity;
 
@@ -48,7 +49,7 @@ public class JobFragmentTest extends BaseFragment {
 
     }
 
-    @OnClick({ R.id.rl1,R.id.rl2,R.id.rl3,R.id.rl4,R.id.rl5,R.id.rl6,R.id.table5,R.id.table9})
+    @OnClick({ R.id.rl1,R.id.rl2,R.id.rl3,R.id.rl4,R.id.rl5,R.id.rl6,R.id.table4,R.id.table5,R.id.table9})
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.rl1:
@@ -74,11 +75,14 @@ public class JobFragmentTest extends BaseFragment {
                 Toast.makeText(getActivity(),"办案待批",Toast.LENGTH_SHORT).show();
 //                startActivity(new Intent(getActivity(),ZhengwuApplyActivity.class));
                 break;
+            case R.id.table4:
+                startActivity(new Intent(getActivity(),IncomingFilesDealActivity.class));
+                break;
             case R.id.table5:
                 startActivity(new Intent(getActivity(),SendFilesDealActivity.class));
                 break;
             case R.id.table9:
-                startActivity(new Intent(getActivity(),JmsDayReportActivity.class));
+                startActivity(new Intent(getActivity(),IntranetActivity.class));
                 break;
             default:
                 break;

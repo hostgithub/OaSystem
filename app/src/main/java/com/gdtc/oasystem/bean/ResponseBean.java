@@ -43,6 +43,7 @@ public class ResponseBean implements Serializable{
         private String depetName;
         private String company;
         private String personnelId;
+        private String depetUnit;
 
         public String getInformation() {
             return information;
@@ -82,6 +83,14 @@ public class ResponseBean implements Serializable{
 
         public void setPersonnelId(String personnelId) {
             this.personnelId = personnelId;
+        }
+
+        public String getDepetUnit() {
+            return depetUnit;
+        }
+
+        public void setDepetUnit(String depetUnit) {
+            this.depetUnit = depetUnit;
         }
     }
 }

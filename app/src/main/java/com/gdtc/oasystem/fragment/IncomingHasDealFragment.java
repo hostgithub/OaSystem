@@ -9,13 +9,15 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.gdtc.oasystem.Config;
+import com.gdtc.oasystem.MyApplication;
 import com.gdtc.oasystem.R;
 import com.gdtc.oasystem.adapter.SendFileAdapter;
 import com.gdtc.oasystem.base.BaseFragment;
 import com.gdtc.oasystem.bean.Detail;
-import com.gdtc.oasystem.bean.NewCenter;
+import com.gdtc.oasystem.bean.DispatchWaitDeal;
 import com.gdtc.oasystem.service.Api;
 import com.gdtc.oasystem.utils.RecyclerViewSpacesItemDecoration;
+import com.gdtc.oasystem.utils.SharePreferenceTools;
 import com.gdtc.oasystem.widget.EndLessOnScrollListener;
 
 import java.util.ArrayList;
@@ -32,9 +34,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by wangjiawei on 2017-11-13.
+ * 发文已办
  */
 
-public class OneFragmentTest extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
+public class IncomingHasDealFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private Unbinder mUnbinder;
 
@@ -43,10 +46,11 @@ public class OneFragmentTest extends BaseFragment implements SwipeRefreshLayout.
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
     //private ArrayList<DataInfo.Info> arrayList;
-    private ArrayList<NewCenter.ResultsBean> list;
+    private ArrayList<DispatchWaitDeal.ResultsBean> list;
     private SendFileAdapter picAdapter;
     private LinearLayoutManager linearLayoutManager;
     private int pages=1;
+    private SharePreferenceTools sp;
 
     @Override
     public int getLayoutId() {
@@ -61,7 +65,7 @@ public class OneFragmentTest extends BaseFragment implements SwipeRefreshLayout.
     @Override
     public void initViews(View view, Bundle savedInstanceState) {
         mUnbinder = ButterKnife.bind(this, view);
-
+        sp = new SharePreferenceTools(MyApplication.getContext());
         refreshLayout.setOnRefreshListener(this);
         list=new ArrayList();
         initData(1);
@@ -87,8 +91,8 @@ public class OneFragmentTest extends BaseFragment implements SwipeRefreshLayout.
         picAdapter.setOnItemClickLitener(new SendFileAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                getData(Integer.parseInt(list.get(position)._id));
-                //Toast.makeText(getActivity(),"点击了"+position,Toast.LENGTH_SHORT).show();
+                //getData(Integer.parseInt(list.get(position)._id));
+                Toast.makeText(getActivity(),"点击了"+position,Toast.LENGTH_SHORT).show();
             }
         });
         mRecyclerView.setAdapter(picAdapter);
@@ -99,9 +103,15 @@ public class OneFragmentTest extends BaseFragment implements SwipeRefreshLayout.
             //EndLessOnScrollListener 是自定义的监听器
             @Override
             public void onLoadMore() {
-                pages++;
-                picAdapter.setFooterVisible(View.VISIBLE);
-                initData(pages);
+                if(sp.getInt("apagesize")<15){
+                    refreshLayout.setRefreshing(false);
+                    picAdapter.setFooterVisible(View.GONE);
+                    Toast.makeText(getActivity(),"已经是最后一条数据了",Toast.LENGTH_SHORT).show();
+                }else{
+                    pages++;
+                    picAdapter.setFooterVisible(View.VISIBLE);
+                    initData(pages);
+                }
             }
             @Override
             public void hide() {
@@ -147,20 +157,25 @@ public class OneFragmentTest extends BaseFragment implements SwipeRefreshLayout.
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         Api api =retrofit.create(Api.class);
-        Call<NewCenter> call=api.getNewCenterData("000100050007",pages);
-        call.enqueue(new Callback<NewCenter>() {
+        Call<DispatchWaitDeal> call=api.getDispatchHasDealData(sp.getString(Config.USER_ID),pages);
+        call.enqueue(new Callback<DispatchWaitDeal>() {
             @Override
-            public void onResponse(Call<NewCenter> call, Response<NewCenter> response) {
+            public void onResponse(Call<DispatchWaitDeal> call, Response<DispatchWaitDeal> response) {
                 if(response.body()!=null){
-                    list.addAll(response.body().results);
-                    Log.e("xxxxxx",response.body().toString());
+                    list.addAll(response.body().getResults());
+                    Log.e("---------->>>",response.body().getSuccess());
+                    sp.putString("count",response.body().getCount());
+                    Log.e("---------->>>请求数据集合大小:", String.valueOf(response.body().getResults().size()));
+                    sp.putInt("apagesize",response.body().getResults().size());
+                    Log.e("---------->>>请求数据发送人:",response.body().getResults().get(0).getSender().toString());
+                    Log.e("---------->>>请求数据id:",response.body().getResults().get(0).get_id().toString());
                     picAdapter.notifyDataSetChanged();
                     refreshLayout.setRefreshing(false);
                 }
             }
 
             @Override
-            public void onFailure(Call<NewCenter> call, Throwable t) {
+            public void onFailure(Call<DispatchWaitDeal> call, Throwable t) {
                 Toast.makeText(getActivity(),"请求失败!",Toast.LENGTH_SHORT).show();
                 refreshLayout.setRefreshing(false);
             }

@@ -18,18 +18,22 @@
 
             <Button android:id="@+id/btn_wait_deal"
                 android:text="待办" android:textColor="@color/title_text_color"
-                android:layout_width="140dp" android:layout_centerVertical="true"
-                android:layout_height="40dp" android:background="@drawable/btnshape_bluewhite"
+                android:layout_width="170dp" android:layout_centerVertical="true"
+                android:layout_height="30dp" android:background="@drawable/btnshape_bluewhite"
                 />
             <Button android:id="@+id/btn_has_deal"
                 android:text="已办" android:textColor="@color/title_color"
-                android:layout_width="140dp" android:layout_toRightOf="@+id/btn_wait_deal"
-                android:layout_height="40dp" android:background="@drawable/btnshape_bluewhite"
+                android:layout_width="170dp" android:layout_toRightOf="@+id/btn_wait_deal"
+                android:layout_height="30dp" android:background="@drawable/btnshape_bluewhite"
                 android:layout_centerVertical="true"/>
         </RelativeLayout>
 
+        <ImageView
+            android:layout_width="match_parent" android:layout_alignParentBottom="true"
+            android:layout_weight="0.01"
+            android:layout_height="0dp" android:background="@color/gray_text"/>
         <FrameLayout
-            android:layout_width="match_parent"  android:layout_weight="5"
+            android:layout_width="match_parent"  android:layout_weight="7"
             android:layout_height="0dp" android:id="@+id/content">
         </FrameLayout>
     </LinearLayout>
