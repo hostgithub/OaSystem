@@ -44,7 +44,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class ZwsqSubmitActivity extends BaseActivity{
+public class ZwsqSubmit3Activity extends BaseActivity{
 
     @BindView(R.id.title_center)
     TextView title_center;
@@ -67,14 +67,20 @@ public class ZwsqSubmitActivity extends BaseActivity{
     TextView edt_bumen;//部门
     @BindView(R.id.tv_username)
     TextView tv_username;//登录人
-    @BindView(R.id.edt_work_years)
-    EditText edt_work_years;//工作年限
+//    @BindView(R.id.edt_work_years)
+//    EditText edt_work_years;//工作年限
+    @BindView(R.id.edt_zhiwu)
+    EditText edt_zhiwu;//职务
     @BindView(R.id.tv_kind)
     TextView tv_kind;//请假类型
     @BindView(R.id.edt_location)
     EditText edt_location;//外出地点
+    @BindView(R.id.edt_tel)
+    EditText edt_tel;//联系方式
     @BindView(R.id.edt_cause)
     EditText edt_cause;//外出事由
+    @BindView(R.id.edt_job)
+    EditText edt_job;//工作安排
     @BindView(R.id.edt_content)
     EditText edt_content;//备注
     @BindView(R.id.tv_send_person)
@@ -124,7 +130,7 @@ public class ZwsqSubmitActivity extends BaseActivity{
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_zwsq_submit;
+        return R.layout.activity_zwsq_submit3;
     }
 
     @Override
@@ -289,7 +295,7 @@ public class ZwsqSubmitActivity extends BaseActivity{
                     showDatePickDlg(stop);
                     Log.e("----点击后的stop_date",stop.getText().toString());
                 }else{
-                    Toast.makeText(ZwsqSubmitActivity.this,"请选择开始时间",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ZwsqSubmit3Activity.this,"请选择开始时间",Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.tv_send_person:
@@ -302,7 +308,7 @@ public class ZwsqSubmitActivity extends BaseActivity{
                 break;
             case R.id.btn_submit://提交
                 if(dayCount==0.0){
-                    AlertDialog.Builder builder=new AlertDialog.Builder(ZwsqSubmitActivity.this);
+                    AlertDialog.Builder builder=new AlertDialog.Builder(ZwsqSubmit3Activity.this);
                     builder.setMessage("天数不能为0");//设置对话框的内容
                     builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {  //这个是设置确定按钮
 
@@ -314,7 +320,7 @@ public class ZwsqSubmitActivity extends BaseActivity{
                     AlertDialog b=builder.create();
                     b.show();  //必须show一下才能看到对话框，跟Toast一样的道理
                 }
-                Toast.makeText(ZwsqSubmitActivity.this,"提交",Toast.LENGTH_SHORT).show();
+                Toast.makeText(ZwsqSubmit3Activity.this,"提交",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.btn_cancel://取消
                 finish();
@@ -343,7 +349,7 @@ public class ZwsqSubmitActivity extends BaseActivity{
         Calendar calendar = Calendar.getInstance();
 
 
-        TimePickerDialog timePickerDialog=new TimePickerDialog(ZwsqSubmitActivity.this, new TimePickerDialog.OnTimeSetListener() {
+        TimePickerDialog timePickerDialog=new TimePickerDialog(ZwsqSubmit3Activity.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 mhourOfDay=hourOfDay;
@@ -356,7 +362,7 @@ public class ZwsqSubmitActivity extends BaseActivity{
                     Log.e("----选完日期后的stop_date",stop.getText().toString());
                     dayNumber(start.getText().toString(),stop.getText().toString());
                     if(dayCount<0){
-                        AlertDialog.Builder builder=new AlertDialog.Builder(ZwsqSubmitActivity.this);
+                        AlertDialog.Builder builder=new AlertDialog.Builder(ZwsqSubmit3Activity.this);
                         builder.setMessage("开始时间不能大于结束时间");//设置对话框的内容
                         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {  //这个是设置确定按钮
 
@@ -375,7 +381,7 @@ public class ZwsqSubmitActivity extends BaseActivity{
                 if(textView.getId()==R.id.start&&!day_number.getText().toString().equals("天")&&!day_number.getText().toString().equals("")){
                     dayNumber(start.getText().toString(),stop.getText().toString());
                     if(dayCount<0){
-                        AlertDialog.Builder builder=new AlertDialog.Builder(ZwsqSubmitActivity.this);
+                        AlertDialog.Builder builder=new AlertDialog.Builder(ZwsqSubmit3Activity.this);
                         builder.setMessage("开始时间不能大于结束时间");//设置对话框的内容
                         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {  //这个是设置确定按钮
 
@@ -396,7 +402,7 @@ public class ZwsqSubmitActivity extends BaseActivity{
         timePickerDialog.setCanceledOnTouchOutside(false);
         timePickerDialog.show();
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(ZwsqSubmitActivity.this, new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(ZwsqSubmit3Activity.this, new DatePickerDialog.OnDateSetListener() {
 
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {

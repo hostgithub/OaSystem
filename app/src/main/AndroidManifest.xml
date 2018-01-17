@@ -48,6 +48,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
+            android:name=".ui.ZwsqSubmit3Activity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
+        <activity
             android:name=".ui.SendFilesDealActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Design.Light.NoActionBar" />
@@ -65,21 +69,41 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Design.Light.NoActionBar"
             android:windowSoftInputMode="adjustPan|stateHidden" />
-        <activity android:name=".ui.ZhengwuApplyActivity" android:screenOrientation="portrait"
-            android:theme="@style/Theme.Design.Light.NoActionBar"></activity>
-        <activity android:name=".ui.IntranetActivity" android:screenOrientation="portrait"
-            android:theme="@style/Theme.Design.Light.NoActionBar"></activity>
+        <activity
+            android:name=".ui.ZhengwuApplyActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
+        <activity
+            android:name=".ui.IntranetActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
 
         <!-- Message Activity -->
-        <activity android:name=".push.MessageActivity" android:screenOrientation="portrait"
-            android:theme="@style/Theme.Design.Light.NoActionBar"/>
+        <activity
+            android:name=".push.MessageActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
 
         <!-- Polling Service -->
         <service android:name=".push.PollingService">
             <intent-filter>
-                <action android:name="com.ryantang.service.PollingService"/>
+                <action android:name="com.ryantang.service.PollingService" />
             </intent-filter>
         </service>
+
+        <activity
+            android:name=".ui.MeetingHandleActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
+        <activity
+            android:name=".ui.WebViewDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
+        <activity
+            android:name=".ui.AdministrativeApprovalActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
+        <activity android:name=".ui.RouteSetOwnerActivity"></activity>
     </application>
 
 </manifest>

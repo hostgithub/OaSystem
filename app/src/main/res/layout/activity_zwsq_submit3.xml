@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" android:orientation="vertical"
             android:background="@color/title_text_color" android:padding="10dp">
-            <TextView android:id="@+id/tv_title" android:text="省法院机关请假单"
+            <TextView android:id="@+id/tv_title" android:text="省法院领导及部门主要负责人外出请假报告单"
                 android:layout_width="wrap_content" android:layout_marginLeft="5dp"
                 android:layout_height="wrap_content"  android:textSize="25sp"
                 android:layout_marginTop="10dp" android:textColor="@color/red_text"/>
@@ -72,6 +72,25 @@
                 android:layout_width="match_parent" android:layout_marginTop="10dp"
                 android:layout_height="50dp" android:gravity="center_vertical">
 
+                <TextView android:text="职务"
+                    android:layout_width="wrap_content" android:layout_centerVertical="true"
+                    android:layout_height="wrap_content"  android:textSize="18sp"
+                    android:textColor="#000" android:layout_marginLeft="5dp"/>
+                <EditText android:id="@+id/edt_zhiwu"
+                    android:layout_width="200dp" android:textColor="@color/black_text_color"
+                    android:layout_height="wrap_content" android:layout_alignParentRight="true"
+                    android:background="@drawable/editshape" android:layout_marginRight="30dp"
+                    android:textSize="14sp" android:layout_centerVertical="true"/>
+            </RelativeLayout>
+
+            <View android:background="@color/WhiteSmoke"
+                android:layout_width="match_parent"
+                android:layout_height="2dp" android:layout_marginTop="10dp"/>
+            <RelativeLayout
+                android:layout_width="match_parent" android:layout_marginTop="10dp"
+                android:layout_height="50dp" android:gravity="center_vertical"
+                android:visibility="gone">
+
                 <TextView android:text="工作年限"
                     android:layout_width="wrap_content" android:layout_centerVertical="true"
                     android:layout_height="wrap_content"  android:textSize="18sp"
@@ -91,7 +110,6 @@
             <View android:background="@color/WhiteSmoke"
                 android:layout_width="match_parent"
                 android:layout_height="2dp" android:layout_marginTop="10dp"/>
-
             <RelativeLayout
                 android:layout_width="match_parent" android:layout_marginTop="10dp"
                 android:layout_height="50dp" android:gravity="center_vertical">
@@ -217,12 +235,53 @@
             <View android:background="@color/WhiteSmoke"
                 android:layout_width="match_parent"
                 android:layout_height="2dp" android:layout_marginTop="10dp"/>
+            <RelativeLayout
+                android:layout_width="match_parent" android:layout_marginTop="10dp"
+                android:layout_height="50dp" android:gravity="center_vertical">
+
+                <TextView android:text="联系方式"
+                    android:layout_width="wrap_content" android:layout_centerVertical="true"
+                    android:layout_height="wrap_content"  android:textSize="18sp"
+                    android:textColor="#000" android:layout_marginLeft="5dp"/>
+                <EditText android:id="@+id/edt_tel"
+                    android:layout_width="200dp" android:textColor="@color/black_text_color"
+                    android:layout_height="wrap_content" android:layout_alignParentRight="true"
+                    android:layout_marginRight="15dp" android:textSize="14sp"
+                    android:layout_centerVertical="true" android:background="@drawable/editshape"
+                    android:textColorHint="@color/huise_text_color" />
+            </RelativeLayout>
+            <View android:background="@color/WhiteSmoke"
+                android:layout_width="match_parent"
+                android:layout_height="2dp" android:layout_marginTop="10dp"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:layout_marginTop="10dp"
                 android:orientation="horizontal" android:gravity="center_vertical">
 
-                <TextView android:text="备注"
+                <TextView android:text="工作安排"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"  android:textSize="18sp"
+                    android:textColor="#000"/>
+
+                <EditText
+                    android:id="@+id/edt_job"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:background="@drawable/editshape"
+                    android:textColor="@color/black_text_color"
+                    android:gravity="left|top"
+                    android:imeOptions="actionDone" />
+            </LinearLayout>
+
+            <View android:background="@color/WhiteSmoke"
+                android:layout_width="match_parent"
+                android:layout_height="2dp" android:layout_marginTop="10dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:layout_marginTop="10dp"
+                android:orientation="horizontal" android:gravity="center_vertical">
+
+                <TextView android:text="备        注"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"  android:textSize="18sp"
                     android:textColor="#000"/>

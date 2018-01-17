@@ -1,7 +1,10 @@
 package com.gdtc.oasystem.service;
 
+import com.gdtc.oasystem.bean.AdministrativeApproval;
 import com.gdtc.oasystem.bean.Detail;
 import com.gdtc.oasystem.bean.DispatchWaitDeal;
+import com.gdtc.oasystem.bean.MeetingDetail;
+import com.gdtc.oasystem.bean.MeetingHandle;
 import com.gdtc.oasystem.bean.NewCenter;
 import com.gdtc.oasystem.bean.ResponseBean;
 
@@ -39,5 +42,19 @@ public interface Api {
     @GET("app_phone/getProcessedList.do")
     Call<DispatchWaitDeal> getIncomingWaitDealData(@Query("sign") String sign, @Query("deptunit") String deptunit, @Query("page") int page);
 
+    //http://192.168.0.135:8080/app_phone/getMeetingHandleList.do?type=0&page=1&sign=56736&deptunit=10021   会议通知列表
+    @GET("app_phone/getMeetingHandleList.do")
+    Call<MeetingHandle> getMeetingHandleListData(@Query("type") String type, @Query("page") int page,@Query("sign") String sign, @Query("deptunit") String deptunit);
 
+    //http://192.168.0.135:8080/app_phone/getMeetingHandle.do?flowsort=011220181001006AM56104   会议通知列表详情信息
+    @GET("app_phone/getMeetingHandle.do")
+    Call<MeetingDetail> getMeetingDetailData(@Query("flowsort") String flowsort);
+
+    //http://192.168.0.135:8080/app_phone/getAdministrationHandleList.do?page=1&sign=56736   行政审批待办
+    @GET("app_phone/getAdministrationHandleList.do")
+    Call<AdministrativeApproval> getAdministrativeApprovalListData(@Query("page") int page, @Query("sign") String sign);
+
+    // 保留接口 http://192.168.0.135:8080/app_phone/getLeaveApplication.do?deptunit=10021   政务申请表单的数量 每个人员登陆可能申请的表单数不同 参数传 deptunit
+    @GET("app_phone/getLeaveApplication.do") //json有问题
+    Call<AdministrativeApproval> getLeaveApplicationListData( @Query("deptunit") String deptunit);
 }

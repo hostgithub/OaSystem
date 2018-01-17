@@ -62,8 +62,8 @@ public class MineFragmentTest extends BaseFragment {
         sp = new SharePreferenceTools(MyApplication.getContext());
         user_nameTv.setText("登录人:"+sp.getString(Config.USERNAME));
         user_id.setText("ID:"+sp.getString(Config.DEPTUNIT));
-        tv_dept.setText(sp.getString(Config.DEPT_NAME));
-        tv_company.setText(sp.getString(Config.COMPANY));
+        tv_dept.setText(sp.getString(Config.COMPANY));
+        tv_company.setText(sp.getString(Config.DEPT_NAME));
 
         if(sp.getBoolean("IS_select",false)){
             btn_switch.setSelected(true);

@@ -39,7 +39,7 @@ public class ZhengwuApplyActivity extends BaseActivity {
                 startActivity(new Intent(ZhengwuApplyActivity.this,ZwsqSubmitActivity.class));
                 break;
             case R.id.rl3:
-                startActivity(new Intent(ZhengwuApplyActivity.this,ZwsqSubmitActivity.class));
+                startActivity(new Intent(ZhengwuApplyActivity.this,ZwsqSubmit3Activity.class));
                 break;
             default:
                 break;
