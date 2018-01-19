@@ -11,10 +11,10 @@ import android.widget.Toast;
 import com.gdtc.oasystem.Config;
 import com.gdtc.oasystem.MyApplication;
 import com.gdtc.oasystem.R;
-import com.gdtc.oasystem.adapter.SendFileAdapter;
+import com.gdtc.oasystem.adapter.SendFileHasDealAdapter;
 import com.gdtc.oasystem.base.BaseFragment;
-import com.gdtc.oasystem.bean.Detail;
-import com.gdtc.oasystem.bean.DispatchWaitDeal;
+import com.gdtc.oasystem.bean.DispatchHasDeal;
+import com.gdtc.oasystem.bean.DispatchHasDealDetail;
 import com.gdtc.oasystem.service.Api;
 import com.gdtc.oasystem.utils.RecyclerViewSpacesItemDecoration;
 import com.gdtc.oasystem.utils.SharePreferenceTools;
@@ -46,8 +46,8 @@ public class DispatchHasDealFragment extends BaseFragment implements SwipeRefres
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
     //private ArrayList<DataInfo.Info> arrayList;
-    private ArrayList<DispatchWaitDeal.ResultsBean> list;
-    private SendFileAdapter picAdapter;
+    private ArrayList<DispatchHasDeal.ResultsBean> list;
+    private SendFileHasDealAdapter picAdapter;
     private LinearLayoutManager linearLayoutManager;
     private int pages=1;
     private SharePreferenceTools sp;
@@ -86,18 +86,17 @@ public class DispatchHasDealFragment extends BaseFragment implements SwipeRefres
 
         mRecyclerView.addItemDecoration(new RecyclerViewSpacesItemDecoration(stringIntegerHashMap));
 
-        picAdapter=new SendFileAdapter(list,getActivity());
+        picAdapter=new SendFileHasDealAdapter(list,getActivity());
         //条目点击事件
-        picAdapter.setOnItemClickLitener(new SendFileAdapter.OnItemClickListener() {
+        picAdapter.setOnItemClickLitener(new SendFileHasDealAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                //getData(Integer.parseInt(list.get(position)._id));
-                Toast.makeText(getActivity(),"点击了"+position,Toast.LENGTH_SHORT).show();
+//                getData(list.get(position).getFlowsort(),list.get(position).getFile_source_id()); //跳进详情页
+                Toast.makeText(getActivity(),"详情页不知道是什么"+position,Toast.LENGTH_SHORT).show();
             }
         });
         mRecyclerView.setAdapter(picAdapter);
 
-        //mRecyclerView.setAdapter(picAdapter);
         picAdapter.addFooterView(R.layout.view_footer);//添加脚布局
         mRecyclerView.addOnScrollListener(new EndLessOnScrollListener(linearLayoutManager) {//滑动到底部 加载更多
             //EndLessOnScrollListener 是自定义的监听器
@@ -157,10 +156,10 @@ public class DispatchHasDealFragment extends BaseFragment implements SwipeRefres
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         Api api =retrofit.create(Api.class);
-        Call<DispatchWaitDeal> call=api.getDispatchHasDealData(sp.getString(Config.USER_ID),pages);
-        call.enqueue(new Callback<DispatchWaitDeal>() {
+        Call<DispatchHasDeal> call=api.getDispatchHasDealData(sp.getString(Config.USER_ID),pages);
+        call.enqueue(new Callback<DispatchHasDeal>() {
             @Override
-            public void onResponse(Call<DispatchWaitDeal> call, Response<DispatchWaitDeal> response) {
+            public void onResponse(Call<DispatchHasDeal> call, Response<DispatchHasDeal> response) {
                 if(response.body()!=null){
                     list.addAll(response.body().getResults());
                     Log.e("---------->>>",response.body().getSuccess());
@@ -175,7 +174,7 @@ public class DispatchHasDealFragment extends BaseFragment implements SwipeRefres
             }
 
             @Override
-            public void onFailure(Call<DispatchWaitDeal> call, Throwable t) {
+            public void onFailure(Call<DispatchHasDeal> call, Throwable t) {
                 Toast.makeText(getActivity(),"请求失败!",Toast.LENGTH_SHORT).show();
                 refreshLayout.setRefreshing(false);
             }
@@ -183,32 +182,32 @@ public class DispatchHasDealFragment extends BaseFragment implements SwipeRefres
     }
 
 
-    private void getData(int id){
+    private void getData(String flowsort,String file_source_id){
         //使用retrofit配置api
         Retrofit retrofit=new Retrofit.Builder()
                 .baseUrl(Config.BANNER_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         Api api =retrofit.create(Api.class);
-        Call<Detail> call=api.getDetailData(id);
-        call.enqueue(new Callback<Detail>() {
+        Call<DispatchHasDealDetail> call=api.getDispatchHasDetailData(flowsort,file_source_id);
+        call.enqueue(new Callback<DispatchHasDealDetail>() {
             @Override
-            public void onResponse(Call<Detail> call, Response<Detail> response) {
+            public void onResponse(Call<DispatchHasDealDetail> call, Response<DispatchHasDealDetail> response) {
                 if(response!=null){
-                    Detail detail=response.body();
-                    Detail.ResultsBean resultsBean=detail.getResults().get(0);
+                    DispatchHasDealDetail detail=response.body();
+                    DispatchHasDealDetail.ResultsBean resultsBean=detail.getResults().get(0);
 //                    Intent intent = new Intent(getActivity(), MainActivity.class);
 //                    intent.putExtra(Config.NEWS,resultsBean);
 //                    startActivity(intent);
                     Toast.makeText(getActivity(),"现阶段 这里只是做个演示!",Toast.LENGTH_SHORT).show();
-                    Log.e("xxxxxxx",resultsBean.content);
+                    Log.e("---------->>pdfPath",resultsBean.getPdfPath());
                 }else{
                     Toast.makeText(getActivity(),"数据为空!",Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<Detail> call, Throwable t) {
+            public void onFailure(Call<DispatchHasDealDetail> call, Throwable t) {
                 Log.e("-------------",t.getMessage().toString());
             }
         });
