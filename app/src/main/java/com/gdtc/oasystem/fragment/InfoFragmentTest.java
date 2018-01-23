@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +41,10 @@ public class InfoFragmentTest extends BaseFragment implements SwipeRefreshLayout
     private Unbinder mUnbinder;
     @BindView(R.id.title_center)
     TextView title_center;
+    @BindView(R.id.tip_info)
+    TextView tip_info;
+    @BindView(R.id.ll)
+    LinearLayout ll;
 
     @BindView(R.id.refreshLayout)
     SwipeRefreshLayout refreshLayout;
@@ -65,6 +70,13 @@ public class InfoFragmentTest extends BaseFragment implements SwipeRefreshLayout
     public void initViews(View view, Bundle savedInstanceState) {
         mUnbinder = ButterKnife.bind(this, view);
 
+        ll.setVisibility(View.GONE);
+        tip_info.setVisibility(View.VISIBLE);
+        //initData();
+    }
+
+
+    private void initData(){
         refreshLayout.setOnRefreshListener(this);
         list=new ArrayList();
         initData(1);

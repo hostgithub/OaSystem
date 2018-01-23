@@ -10,7 +10,10 @@ import com.gdtc.oasystem.Config;
 import com.gdtc.oasystem.MyApplication;
 import com.gdtc.oasystem.R;
 import com.gdtc.oasystem.base.BaseFragment;
-import com.gdtc.oasystem.ui.ZhengwuApplyActivity;
+import com.gdtc.oasystem.ui.AdministrativeApprovalActivity;
+import com.gdtc.oasystem.ui.FaWenDaiPiActivity;
+import com.gdtc.oasystem.ui.MeetingHandleActivity;
+import com.gdtc.oasystem.ui.ShouWenDaiPiActivity;
 import com.gdtc.oasystem.utils.DataString;
 import com.gdtc.oasystem.utils.SharePreferenceTools;
 
@@ -64,27 +67,28 @@ public class HomeFragmentTest extends BaseFragment {
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.rl1:
-//                startActivity(new Intent(getActivity(),ZhengwuApplyActivity.class));
+                startActivity(new Intent(getActivity(),MeetingHandleActivity.class));
                 Toast.makeText(getActivity(),"会议通知",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.rl2:
-//                startActivity(new Intent(getActivity(),ZhengwuApplyActivity.class));
+                startActivity(new Intent(getActivity(),AdministrativeApprovalActivity.class));
                 Toast.makeText(getActivity(),"行政待批",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.rl3:
-//                startActivity(new Intent(getActivity(),ZhengwuApplyActivity.class));
+                startActivity(new Intent(getActivity(),FaWenDaiPiActivity.class));
                 Toast.makeText(getActivity(),"发文待批",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.rl4:
-//                startActivity(new Intent(getActivity(),ZhengwuApplyActivity.class));
+                startActivity(new Intent(getActivity(),ShouWenDaiPiActivity.class));
                 Toast.makeText(getActivity(),"收文待批",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.rl5:
-                startActivity(new Intent(getActivity(),ZhengwuApplyActivity.class));
+                Toast.makeText(getActivity(),"此模块待定",Toast.LENGTH_SHORT).show();
+//                startActivity(new Intent(getActivity(),ZhengwuApplyActivity.class));
                 break;
             case R.id.rl6:
 //                startActivity(new Intent(getActivity(),ZhengwuApplyActivity.class));
-                Toast.makeText(getActivity(),"办案待批",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),"此模块待定",Toast.LENGTH_SHORT).show();
                 break;
             default:
                 break;

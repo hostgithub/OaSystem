@@ -120,9 +120,16 @@
             android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity android:name=".ui.RouteSetOwnerActivity" />
         <activity android:name=".word.WordActivity" />
-        <activity android:name=".word.WebViewActivity"></activity>
-        <activity android:name=".word.ViewFile"></activity>
-        <activity android:name=".word.FileDirList"></activity>
+        <activity android:name=".word.WebViewActivity" />
+        <activity android:name=".word.ViewFile" />
+        <activity android:name=".word.FileDirList" />
+        <activity
+            android:name=".ui.ShouWenDaiPiActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
+        <activity android:name=".ui.FaWenDaiPiActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar"></activity>
     </application>
 
 </manifest>

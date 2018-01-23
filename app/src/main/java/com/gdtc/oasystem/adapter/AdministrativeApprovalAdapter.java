@@ -79,7 +79,7 @@ public class AdministrativeApprovalAdapter extends RecyclerView.Adapter<BaseView
             //CircleImageView avatar = holder.getView(R.id.avatar);
             holder.setText(R.id.title, item.getTitle());
             holder.setText(R.id.time, item.getSenderTime());
-            holder.setText(R.id.username, item.getSender());
+            holder.setText(R.id.username, "发送人:"+item.getSender());
             holder.setText(R.id.position,String.valueOf(position+1));
             //holder.setText(R.id.content, item.text);
 //            if(item.text.startsWith(";")){

@@ -11,10 +11,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" android:background="@color/colorWhite">
 
+            <TextView
+                android:id="@+id/tip_info"
+                android:layout_width="match_parent"
+                android:text="此模块待定" android:textColor="@color/black_text_color"
+                android:layout_height="30dp" android:gravity="center"
+                android:layout_centerInParent="true"
+                android:textSize="15sp" android:visibility="gone"/>
+
             <LinearLayout
                 android:layout_width="match_parent" android:background="#ffff"
                 android:layout_height="match_parent"
-                android:orientation="vertical" >
+                android:orientation="vertical" android:id="@+id/ll">
                 <android.support.v4.widget.SwipeRefreshLayout
                     android:id="@+id/refreshLayout"
                     android:layout_width="match_parent"
