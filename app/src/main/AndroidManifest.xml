@@ -25,6 +25,17 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Design.Light.NoActionBar"
             android:windowSoftInputMode="adjustPan|stateHidden" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.gdtc.oasystem.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
         <activity
             android:name=".ui.LoginTestActivity"
             android:screenOrientation="portrait"
@@ -45,6 +56,10 @@
             android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
             android:name=".ui.ZwsqSubmitActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
+        <activity
+            android:name=".ui.ZwsqSubmit2Activity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
@@ -103,7 +118,11 @@
             android:name=".ui.AdministrativeApprovalActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Design.Light.NoActionBar" />
-        <activity android:name=".ui.RouteSetOwnerActivity"></activity>
+        <activity android:name=".ui.RouteSetOwnerActivity" />
+        <activity android:name=".word.WordActivity" />
+        <activity android:name=".word.WebViewActivity"></activity>
+        <activity android:name=".word.ViewFile"></activity>
+        <activity android:name=".word.FileDirList"></activity>
     </application>
 
 </manifest>

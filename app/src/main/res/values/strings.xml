@@ -167,4 +167,14 @@
     <string name="soft_update_cancel">取消</string>
     <string name="title_activity_oa_zwsq">OaZwsqActivity</string>
     <string name="title_activity_hr">HrActivity</string>
+
+    <string name="hello">Hello World, docReader!</string>
+    <string name="aboutauthor">关于作者</string>
+    <string name="aboutprogram">关于文件</string>
+    <string name="gotit">我知道了</string>
+    <string name="author">作者：边利军\n指导老师:周庆国\n邮箱：junbianli@gmail.com\n兰州大学飞云楼532\n兰州大学信息科学与学院Dslab(c)</string>
+    <string name="paragrap">段落个数：</string>
+    <string name="word">文字个数：</string>
+    <string name="tables">表格个数：</string>
+    <string name="pictures">图片个数：</string>
 </resources>

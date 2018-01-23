@@ -162,14 +162,20 @@ public class IncomingHasDealFragment extends BaseFragment implements SwipeRefres
             @Override
             public void onResponse(Call<IncomingHasDeal> call, Response<IncomingHasDeal> response) {
                 if(response.body()!=null){
-                    list.addAll(response.body().getResults());
-                    Log.e("---------->>>",response.body().getSuccess());
-                    Log.e("---------->>>请求数据集合大小:", String.valueOf(response.body().getResults().size()));
-                    sp.putInt("apagesize",response.body().getResults().size());
-                    Log.e("---------->>>请求数据发送人:",response.body().getResults().get(0).getUserSend().toString());
-                    Log.e("---------->>>请求数据id:",response.body().getResults().get(0).getTitle().toString());
-                    incomingHasDealAdapter.notifyDataSetChanged();
-                    refreshLayout.setRefreshing(false);
+                    if(response.body().getResults().size()==0){
+                        refreshLayout.setRefreshing(false);
+                        incomingHasDealAdapter.setFooterVisible(View.GONE);
+                        Toast.makeText(getActivity(),"暂无更多数据",Toast.LENGTH_SHORT).show();
+                    }else{
+                        list.addAll(response.body().getResults());
+                        Log.e("---------->>>",response.body().getSuccess());
+                        Log.e("---------->>>请求数据集合大小:", String.valueOf(response.body().getResults().size()));
+                        sp.putInt("apagesize",response.body().getResults().size());
+                        Log.e("---------->>>请求数据发送人:",response.body().getResults().get(0).getUserSend().toString());
+                        Log.e("---------->>>请求数据id:",response.body().getResults().get(0).getTitle().toString());
+                        incomingHasDealAdapter.notifyDataSetChanged();
+                        refreshLayout.setRefreshing(false);
+                    }
                 }
             }
 

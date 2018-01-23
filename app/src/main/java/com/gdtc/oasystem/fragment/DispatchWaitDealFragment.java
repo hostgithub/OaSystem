@@ -106,7 +106,7 @@ public class DispatchWaitDealFragment extends BaseFragment implements SwipeRefre
                 if(sp.getInt("apagesize")<15){
                     refreshLayout.setRefreshing(false);
                     picAdapter.setFooterVisible(View.GONE);
-                    Toast.makeText(getActivity(),"已经是最后一条数据了",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),"暂无更多数据",Toast.LENGTH_SHORT).show();
                 }else{
                     pages++;
                     picAdapter.setFooterVisible(View.VISIBLE);
@@ -164,15 +164,21 @@ public class DispatchWaitDealFragment extends BaseFragment implements SwipeRefre
             @Override
             public void onResponse(Call<DispatchWaitDeal> call, Response<DispatchWaitDeal> response) {
                 if(response.body()!=null){
-                    list.addAll(response.body().getResults());
-                    Log.e("---------->>>",response.body().getSuccess());
-                    sp.putString("count",response.body().getCount());
-                    Log.e("---------->>>请求数据集合大小:", String.valueOf(response.body().getResults().size()));
-                    sp.putInt("apagesize",response.body().getResults().size());
-                    Log.e("---------->>>请求数据发送人:",response.body().getResults().get(0).getSender().toString());
-                    Log.e("---------->>>请求数据id:",response.body().getResults().get(0).get_id().toString());
-                    picAdapter.notifyDataSetChanged();
-                    refreshLayout.setRefreshing(false);
+                    if(response.body().getResults().size()==0){
+                        refreshLayout.setRefreshing(false);
+                        picAdapter.setFooterVisible(View.GONE);
+                        Toast.makeText(getActivity(),"暂无更多数据",Toast.LENGTH_SHORT).show();
+                    }else {
+                        list.addAll(response.body().getResults());
+                        Log.e("---------->>>",response.body().getSuccess());
+                        sp.putString("count",response.body().getCount());
+                        Log.e("---------->>>请求数据集合大小:", String.valueOf(response.body().getResults().size()));
+                        sp.putInt("apagesize",response.body().getResults().size());
+                        Log.e("---------->>>请求数据发送人:",response.body().getResults().get(0).getSender().toString());
+                        Log.e("---------->>>请求数据id:",response.body().getResults().get(0).get_id().toString());
+                        picAdapter.notifyDataSetChanged();
+                        refreshLayout.setRefreshing(false);
+                    }
                 }
             }
 

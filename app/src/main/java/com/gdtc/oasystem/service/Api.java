@@ -42,7 +42,7 @@ public interface Api {
     @GET("app_phone/getProcessedHandleList.do")
     Call<DispatchHasDeal> getDispatchHasDealData(@Query("sign") String sign, @Query("page") int page);
 
-    //http://192.168.0.135:8080/app_phone/dispatchInfoyb.do?flowsort=120520170817026PM56104&file_source_id=120520170817026PM56104 发文已办详情 好像有可能要加载pdf
+    //http://192.168.0.135:8080/app_phone/dispatchInfoyb.do?flowsort=120520170817026PM56104&file_source_id=120520170817026PM56104 发文已办详情 好像有可能要加载word
     @GET("app_phone/dispatchInfoyb.do")
     Call<DispatchHasDealDetail> getDispatchHasDetailData(@Query("flowsort") String flowsort, @Query("file_source_id") String file_source_id);
 

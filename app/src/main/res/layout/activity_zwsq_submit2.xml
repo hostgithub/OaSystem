@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include android:id="@+id/id_title" layout="@layout/layout_title" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent" android:background="@color/title_text_color"
+            android:layout_height="match_parent" android:orientation="vertical"
+            android:padding="2dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" android:orientation="vertical"
+            android:background="@color/title_text_color" android:padding="10dp">
+            <TextView android:id="@+id/tv_title" android:text="省直机关事业单位干部职工带薪休假申请表"
+                android:layout_width="wrap_content" android:layout_marginLeft="5dp"
+                android:layout_height="wrap_content"  android:textSize="25sp"
+                android:layout_marginTop="10dp" android:textColor="@color/red_text"/>
+            <View android:background="@color/WhiteSmoke"
+                android:layout_width="match_parent"
+                android:layout_height="2dp" android:layout_marginTop="10dp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent" android:layout_marginTop="10dp"
+                android:layout_height="50dp" android:gravity="center_vertical">
+
+                <TextView android:text="所在单位"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"  android:textSize="16sp"
+                    android:textColor="#000" android:layout_marginLeft="5dp"/>
+                <Spinner android:id="@+id/spinner_bumen" android:visibility="gone"
+                    android:layout_width="match_parent" android:background="@drawable/spinner"
+                    android:layout_height="40dp" android:layout_marginTop="10dp"/>
+                <TextView android:id="@+id/tv_bumen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:layout_alignParentRight="true"
+                    android:text="" android:layout_marginRight="15dp"
+                    android:textColor="#000" android:textSize="18sp"/>
+            </RelativeLayout>
+
+            <View android:background="@color/WhiteSmoke"
+                android:layout_width="match_parent"
+                android:layout_height="2dp" android:layout_marginTop="10dp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent" android:layout_marginTop="10dp"
+                android:layout_height="50dp" android:gravity="center_vertical">
+
+                <TextView android:text="姓名"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"  android:textSize="16sp"
+                    android:textColor="#000" android:layout_marginLeft="5dp"/>
+                <TextView android:id="@+id/tv_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:layout_alignParentRight="true"
+                    android:text="" android:layout_marginRight="15dp"
+                    android:textSize="18sp" android:textColor="#000"/>
+            </RelativeLayout>
+
+            <View android:background="@color/WhiteSmoke"
+                android:layout_width="match_parent"
+                android:layout_height="2dp" android:layout_marginTop="10dp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent" android:layout_marginTop="10dp"
+                android:layout_height="50dp" android:gravity="center_vertical">
+
+                <TextView android:text="职务"
+                    android:layout_width="wrap_content" android:layout_centerVertical="true"
+                    android:layout_height="wrap_content"  android:textSize="16sp"
+                    android:textColor="#000" android:layout_marginLeft="5dp"/>
+                <EditText android:id="@+id/edt_zhiwu"
+                    android:layout_width="150dp" android:textColor="@color/black_text_color"
+                    android:layout_height="wrap_content" android:layout_alignParentRight="true"
+                    android:background="@drawable/editshape" android:layout_marginRight="30dp"
+                    android:textSize="14sp" android:layout_centerVertical="true"/>
+            </RelativeLayout>
+
+            <View android:background="@color/WhiteSmoke"
+                android:layout_width="match_parent"
+                android:layout_height="2dp" android:layout_marginTop="10dp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent" android:layout_marginTop="10dp"
+                android:layout_height="50dp" android:gravity="center_vertical">
+
+                <TextView android:text="参加工作时间"
+                    android:layout_width="wrap_content" android:layout_centerVertical="true"
+                    android:layout_height="wrap_content"  android:textSize="16sp"
+                    android:textColor="#000" android:layout_marginLeft="5dp"/>
+                <EditText android:id="@+id/edt_join_work_time"
+                    android:layout_width="150dp" android:textColor="@color/black_text_color"
+                    android:layout_height="wrap_content" android:layout_alignParentRight="true"
+                    android:background="@drawable/editshape" android:layout_marginRight="30dp"
+                    android:textSize="14sp" android:layout_centerVertical="true"/>
+            </RelativeLayout>
+
+            <View android:background="@color/WhiteSmoke"
+                android:layout_width="match_parent"
+                android:layout_height="2dp" android:layout_marginTop="10dp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent" android:layout_marginTop="10dp"
+                android:layout_height="50dp" android:gravity="center_vertical">
+
+                <TextView android:text="工作年限"
+                    android:layout_width="wrap_content" android:layout_centerVertical="true"
+                    android:layout_height="wrap_content"  android:textSize="16sp"
+                    android:textColor="#000" android:layout_marginLeft="5dp"/>
+                <EditText android:id="@+id/edt_work_years"
+                    android:layout_width="150dp" android:textColor="@color/black_text_color"
+                    android:layout_height="wrap_content" android:layout_alignParentRight="true"
+                    android:background="@drawable/editshape" android:layout_marginRight="30dp"
+                    android:textSize="14sp" android:layout_centerVertical="true"/>
+            </RelativeLayout>
+
+            <View android:background="@color/WhiteSmoke"
+                android:layout_width="match_parent"
+                android:layout_height="2dp" android:layout_marginTop="10dp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent" android:layout_marginTop="10dp"
+                android:layout_height="50dp" android:gravity="center_vertical">
+
+                <TextView android:text="应休年休假天数"
+                    android:layout_width="wrap_content" android:layout_centerVertical="true"
+                    android:layout_height="wrap_content"  android:textSize="16sp"
+                    android:textColor="#000" android:layout_marginLeft="5dp"/>
+                <EditText android:id="@+id/edt_normal_relax_year_days"
+                    android:layout_width="150dp" android:textColor="@color/black_text_color"
+                    android:layout_height="wrap_content" android:layout_alignParentRight="true"
+                    android:background="@drawable/editshape" android:layout_marginRight="30dp"
+                    android:textSize="14sp" android:layout_centerVertical="true"/>
+            </RelativeLayout>
+
+            <View android:background="@color/WhiteSmoke"
+                android:layout_width="match_parent"
+                android:layout_height="2dp" android:layout_marginTop="10dp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent" android:layout_marginTop="10dp"
+                android:layout_height="50dp" android:gravity="center_vertical">
+
+                <TextView android:text="去年请病假天数"
+                    android:layout_width="wrap_content" android:layout_centerVertical="true"
+                    android:layout_height="wrap_content"  android:textSize="16sp"
+                    android:textColor="#000" android:layout_marginLeft="5dp"/>
+                <EditText android:id="@+id/edt_last_year_sick_days"
+                    android:layout_width="150dp" android:textColor="@color/black_text_color"
+                    android:layout_height="wrap_content" android:layout_alignParentRight="true"
+                    android:background="@drawable/editshape" android:layout_marginRight="30dp"
+                    android:textSize="14sp" android:layout_centerVertical="true"/>
+            </RelativeLayout>
+
+            <View android:background="@color/WhiteSmoke"
+                android:layout_width="match_parent"
+                android:layout_height="2dp" android:layout_marginTop="10dp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent" android:layout_marginTop="10dp"
+                android:layout_height="50dp" android:gravity="center_vertical">
+
+                <TextView android:text="去年请事假天数"
+                    android:layout_width="wrap_content" android:layout_centerVertical="true"
+                    android:layout_height="wrap_content"  android:textSize="16sp"
+                    android:textColor="#000" android:layout_marginLeft="5dp"/>
+                <EditText android:id="@+id/edt_last_year_things_days"
+                    android:layout_width="150dp" android:textColor="@color/black_text_color"
+                    android:layout_height="wrap_content" android:layout_alignParentRight="true"
+                    android:background="@drawable/editshape" android:layout_marginRight="30dp"
+                    android:textSize="14sp" android:layout_centerVertical="true"/>
+            </RelativeLayout>
+
+            <View android:background="@color/WhiteSmoke"
+                android:layout_width="match_parent"
+                android:layout_height="2dp" android:layout_marginTop="10dp"/>
+            <RelativeLayout
+                android:layout_width="match_parent" android:layout_marginTop="10dp"
+                android:layout_height="50dp" android:gravity="center_vertical">
+
+                <TextView android:text="去年年休假未修天数"
+                    android:layout_width="wrap_content" android:layout_centerVertical="true"
+                    android:layout_height="wrap_content"  android:textSize="16sp"
+                    android:textColor="#000" android:layout_marginLeft="5dp"/>
+                <EditText android:id="@+id/edt_last_year_unrelax_days"
+                    android:layout_width="150dp" android:textColor="@color/black_text_color"
+                    android:layout_height="wrap_content" android:layout_alignParentRight="true"
+                    android:background="@drawable/editshape" android:layout_marginRight="30dp"
+                    android:textSize="14sp" android:layout_centerVertical="true"/>
+            </RelativeLayout>
+
+            <View android:background="@color/WhiteSmoke"
+                android:layout_width="match_parent"
+                android:layout_height="2dp" android:layout_marginTop="10dp"/>
+
+            <RelativeLayout  android:visibility="gone"
+                android:layout_width="match_parent" android:layout_marginTop="10dp"
+                android:layout_height="50dp" android:gravity="center_vertical">
+
+                <TextView android:text="请假类型"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"  android:textSize="18sp"
+                    android:textColor="#000" android:layout_marginLeft="5dp"/>
+                <TextView android:id="@+id/tv_kind"
+                    android:layout_width="wrap_content" android:textColor="@color/black_text_color"
+                    android:layout_height="wrap_content" android:layout_alignParentRight="true"
+                    android:hint="请选择类别"  android:layout_marginRight="20dp"
+                    android:gravity="right"
+                    android:textSize="18sp" android:textColorHint="@color/huise_text_color"  />
+                <TextView
+                    android:layout_width="wrap_content" android:text=">"
+                    android:layout_marginRight="10dp" android:textSize="18sp"
+                    android:layout_height="wrap_content" android:layout_alignParentRight="true"/>
+            </RelativeLayout>
+            <View android:background="@color/WhiteSmoke"
+                android:layout_width="match_parent"
+                android:layout_height="2dp" android:layout_marginTop="10dp"/>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent" android:layout_marginTop="10dp"
+                android:layout_height="50dp" android:gravity="center_vertical">
+
+                <TextView android:text="开始日期"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"  android:textSize="16sp"
+                    android:textColor="#000" android:layout_marginLeft="5dp"/>
+                <TextView android:id="@+id/start"
+                    android:layout_width="wrap_content" android:textColor="@color/black_text_color"
+                    android:layout_height="wrap_content" android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"
+                    android:gravity="right" android:hint="选择开始日期"
+                    android:textSize="18sp" android:textColorHint="@color/huise_text_color"/>
+                <TextView
+                    android:layout_width="wrap_content" android:text=">"
+                    android:layout_marginRight="10dp" android:textSize="16sp"
+                    android:layout_height="wrap_content" android:layout_alignParentRight="true"/>
+            </RelativeLayout>
+            <View android:background="@color/WhiteSmoke"
+                android:layout_width="match_parent"
+                android:layout_height="2dp" android:layout_marginTop="10dp"/>
+            <RelativeLayout
+                android:layout_width="match_parent" android:layout_marginTop="10dp"
+                android:layout_height="50dp" android:gravity="center_vertical">
+
+                <TextView android:text="结束日期"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"  android:textSize="16sp"
+                    android:textColor="#000" android:layout_marginLeft="5dp"/>
+                <TextView android:id="@+id/stop"
+                    android:layout_width="wrap_content" android:textColor="@color/black_text_color"
+                    android:layout_height="wrap_content" android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"
+                    android:gravity="right" android:hint="选择结束日期"
+                    android:textSize="18sp" android:textColorHint="@color/huise_text_color"/>
+                <TextView
+                    android:layout_width="wrap_content" android:text=">"
+                    android:layout_marginRight="10dp" android:textSize="16sp"
+                    android:layout_height="wrap_content" android:layout_alignParentRight="true"/>
+            </RelativeLayout>
+            <View android:background="@color/WhiteSmoke"
+                android:layout_width="match_parent"
+                android:layout_height="2dp" android:layout_marginTop="10dp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent" android:layout_marginTop="10dp"
+                android:layout_height="50dp" android:gravity="center_vertical">
+
+                <TextView android:text="休假天数"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"  android:textSize="16sp"
+                    android:textColor="#000" android:layout_marginLeft="5dp"/>
+                <TextView android:id="@+id/day_number"
+                    android:layout_width="wrap_content" android:textColor="@color/black_text_color"
+                    android:layout_height="wrap_content" android:layout_alignParentRight="true"
+                    android:layout_marginRight="25dp" android:textSize="18sp"
+                    android:hint="天" android:textColorHint="@color/huise_text_color"/>
+            </RelativeLayout>
+            <View android:background="@color/WhiteSmoke"
+                android:layout_width="match_parent"
+                android:layout_height="2dp" android:layout_marginTop="10dp"/>
+            <RelativeLayout
+                android:layout_width="match_parent" android:layout_marginTop="10dp"
+                android:layout_height="50dp" android:gravity="center_vertical">
+
+                <TextView android:text="选择发送人"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"  android:textSize="16sp"
+                    android:textColor="#000" android:layout_marginLeft="5dp"/>
+                <TextView android:id="@+id/tv_send_person"
+                    android:layout_width="wrap_content" android:textColor="@color/black_text_color"
+                    android:layout_height="wrap_content" android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"
+                    android:gravity="right" android:hint="选择发送人"
+                    android:textSize="16sp" android:textColorHint="@color/huise_text_color"/>
+                <TextView
+                    android:layout_width="wrap_content" android:text=">"
+                    android:layout_marginRight="10dp" android:textSize="16sp"
+                    android:layout_height="wrap_content" android:layout_alignParentRight="true"/>
+            </RelativeLayout>
+        </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal">
+
+                <Button android:id="@+id/btn_submit" android:layout_marginTop="5dp"
+                    android:text="提  交" android:textColor="#ffff"
+                    android:layout_weight="1"
+                    android:layout_width="0dp" android:layout_gravity="center_horizontal"
+                    android:layout_height="40dp" android:background="@drawable/btnshape"/>
+                <Button android:id="@+id/btn_cancel" android:layout_marginTop="5dp"
+                    android:text="取  消" android:textColor="#ffff"
+                    android:layout_weight="1"
+                    android:layout_width="0dp" android:layout_gravity="center_horizontal"
+                    android:layout_height="40dp" android:background="@drawable/btnshape_cancle"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
+

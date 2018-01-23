@@ -140,20 +140,26 @@ public class MeetingHandleActivity extends BaseActivity implements SwipeRefreshL
             @Override
             public void onResponse(Call<MeetingHandle> call, Response<MeetingHandle> response) {
                 if(response.body()!=null){
-                    list.addAll(response.body().getResults());
-                    Log.e("---------->>>",response.body().getSuccess());
-                    sp.putString("count",response.body().getCount());
-                    Log.e("---------->>>请求数据集合大小:", String.valueOf(response.body().getResults().size()));
-                    sp.putInt("apagesize",response.body().getResults().size());
-                    if(sp.getInt("apagesize")<15){
+                    if(response.body().getResults().size()==0){
+                        refreshLayout.setRefreshing(false);
                         meetingHandleAdapter.setFooterVisible(View.GONE);
+                        Toast.makeText(MeetingHandleActivity.this,"暂无更多数据",Toast.LENGTH_SHORT).show();
                     }else{
-                        meetingHandleAdapter.setFooterVisible(View.VISIBLE);
+                        list.addAll(response.body().getResults());
+                        Log.e("---------->>>",response.body().getSuccess());
+                        sp.putString("count",response.body().getCount());
+                        Log.e("---------->>>请求数据集合大小:", String.valueOf(response.body().getResults().size()));
+                        sp.putInt("apagesize",response.body().getResults().size());
+                        if(sp.getInt("apagesize")<15){
+                            meetingHandleAdapter.setFooterVisible(View.GONE);
+                        }else{
+                            meetingHandleAdapter.setFooterVisible(View.VISIBLE);
+                        }
+                        Log.e("---------->>>请求数据发送人:",response.body().getResults().get(0).getSender().toString());
+                        Log.e("---------->>>请求数据id:",response.body().getResults().get(0).get_id().toString());
+                        meetingHandleAdapter.notifyDataSetChanged();
+                        refreshLayout.setRefreshing(false);
                     }
-                    Log.e("---------->>>请求数据发送人:",response.body().getResults().get(0).getSender().toString());
-                    Log.e("---------->>>请求数据id:",response.body().getResults().get(0).get_id().toString());
-                    meetingHandleAdapter.notifyDataSetChanged();
-                    refreshLayout.setRefreshing(false);
                 }
             }
 

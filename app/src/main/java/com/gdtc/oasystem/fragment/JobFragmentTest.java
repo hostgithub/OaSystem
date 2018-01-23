@@ -10,9 +10,9 @@ import com.gdtc.oasystem.base.BaseFragment;
 import com.gdtc.oasystem.ui.AdministrativeApprovalActivity;
 import com.gdtc.oasystem.ui.IncomingFilesDealActivity;
 import com.gdtc.oasystem.ui.MeetingHandleActivity;
-import com.gdtc.oasystem.ui.RouteSetOwnerActivity;
 import com.gdtc.oasystem.ui.SendFilesDealActivity;
 import com.gdtc.oasystem.ui.ZhengwuApplyActivity;
+import com.gdtc.oasystem.word.WordActivity;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -88,7 +88,8 @@ public class JobFragmentTest extends BaseFragment {
                 break;
             case R.id.table9:
 //                startActivity(new Intent(getActivity(),IntranetActivity.class));
-                startActivity(new Intent(getActivity(),RouteSetOwnerActivity.class));
+//                startActivity(new Intent(getActivity(),RouteSetOwnerActivity.class));//测试日期时间选择器的
+                startActivity(new Intent(getActivity(),WordActivity.class));//测试生成word文档
                 break;
             default:
                 break;

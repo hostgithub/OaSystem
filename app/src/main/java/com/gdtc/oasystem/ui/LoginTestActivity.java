@@ -156,10 +156,15 @@ public class LoginTestActivity extends BaseActivity {
                     }
 
                     sp.putString("userId",response.body().getResults().get(0).getPersonnelId());
+                    Log.e("------------>>userId",response.body().getResults().get(0).getPersonnelId());
                     sp.putString("userName",response.body().getResults().get(0).getUserName());
+                    Log.e("------------>>userName",response.body().getResults().get(0).getUserName());
                     sp.putString("deptName",response.body().getResults().get(0).getDepetName());
+                    Log.e("----------->>deptName",response.body().getResults().get(0).getDepetName());
                     sp.putString("company",response.body().getResults().get(0).getCompany());
+                    Log.e("----------->>company",response.body().getResults().get(0).getCompany());
                     sp.putString(Config.DEPTUNIT,response.body().getResults().get(0).getDepetUnit());
+                    Log.e("------------>>deptunit",response.body().getResults().get(0).getDepetUnit());
                     sp.putBoolean("main",true);
                     //跳转界面
                     Intent intent = new Intent(LoginTestActivity.this,HomePageActivity.class);
