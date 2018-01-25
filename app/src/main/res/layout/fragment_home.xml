@@ -7,9 +7,14 @@
 
     <include android:id="@+id/id_title" layout="@layout/layout_home_title" />
 
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+
+        <ProgressBar android:id="@+id/load_progress"
+            android:layout_width="wrap_content" android:layout_centerInParent="true"
+            android:layout_height="wrap_content" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -45,7 +50,7 @@
                         android:id="@+id/tv_username"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="欢迎,王佳伟"
+                        android:text=""
                         android:textColor="@color/title_color"
                         android:textSize="20.0sp" />
 
@@ -110,7 +115,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20dp"
                     android:layout_toRightOf="@+id/tv_1"
-                    android:text="99"
+                    android:text=""
                     android:textColor="@color/content_text_color"
                     android:textSize="17.0sp" />
             </RelativeLayout>
@@ -150,7 +155,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20dp"
                     android:layout_toRightOf="@+id/tv_2"
-                    android:text="99"
+                    android:text=""
                     android:textColor="@color/content_text_color"
                     android:textSize="17.0sp" />
             </RelativeLayout>
@@ -189,7 +194,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20dp"
                     android:layout_toRightOf="@+id/tv_3"
-                    android:text="99"
+                    android:text=""
                     android:textColor="@color/content_text_color"
                     android:textSize="17.0sp" />
             </RelativeLayout>
@@ -228,7 +233,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20dp"
                     android:layout_toRightOf="@+id/tv_4"
-                    android:text="99"
+                    android:text=""
                     android:textColor="@color/content_text_color"
                     android:textSize="17.0sp" />
             </RelativeLayout>
@@ -267,7 +272,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20dp"
                     android:layout_toRightOf="@+id/tv_5"
-                    android:text="99"
+                    android:text="0"
                     android:textColor="@color/content_text_color"
                     android:textSize="17.0sp" />
             </RelativeLayout>
@@ -306,10 +311,10 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20dp"
                     android:layout_toRightOf="@+id/tv_6"
-                    android:text="99"
+                    android:text="0"
                     android:textColor="@color/content_text_color"
                     android:textSize="17.0sp" />
             </RelativeLayout>
         </LinearLayout>
-    </ScrollView>
+    </RelativeLayout>
 </LinearLayout>

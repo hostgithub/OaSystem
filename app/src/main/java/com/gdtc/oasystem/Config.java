@@ -17,6 +17,7 @@ public class Config
     public static final String DEPT_NAME = "deptName";
     public static final String COMPANY = "company";
     public static final String DEPTUNIT = "deptunit";
+    public static final String PATHDATA = "pathdata";
     public static final String PASSWORD = "password";
     public static final String PUSH = "push";
     public static final String TAG = "---------->>>";

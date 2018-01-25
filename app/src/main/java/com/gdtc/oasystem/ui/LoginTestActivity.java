@@ -165,6 +165,8 @@ public class LoginTestActivity extends BaseActivity {
                     Log.e("----------->>company",response.body().getResults().get(0).getCompany());
                     sp.putString(Config.DEPTUNIT,response.body().getResults().get(0).getDepetUnit());
                     Log.e("------------>>deptunit",response.body().getResults().get(0).getDepetUnit());
+                    sp.putString(Config.PATHDATA,response.body().getResults().get(0).getPathdata());
+                    Log.e("------------>>pathdata",response.body().getResults().get(0).getPathdata());
                     sp.putBoolean("main",true);
                     //跳转界面
                     Intent intent = new Intent(LoginTestActivity.this,HomePageActivity.class);

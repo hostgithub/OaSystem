@@ -1,5 +1,6 @@
 package com.gdtc.oasystem.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,6 +17,7 @@ import com.gdtc.oasystem.base.BaseFragment;
 import com.gdtc.oasystem.bean.DispatchHasDeal;
 import com.gdtc.oasystem.bean.DispatchHasDealDetail;
 import com.gdtc.oasystem.service.Api;
+import com.gdtc.oasystem.ui.DispatchHasWebviewActivity;
 import com.gdtc.oasystem.utils.RecyclerViewSpacesItemDecoration;
 import com.gdtc.oasystem.utils.SharePreferenceTools;
 import com.gdtc.oasystem.widget.EndLessOnScrollListener;
@@ -91,8 +93,7 @@ public class DispatchHasDealFragment extends BaseFragment implements SwipeRefres
         picAdapter.setOnItemClickLitener(new SendFileHasDealAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-//                getData(list.get(position).getFlowsort(),list.get(position).getFile_source_id()); //跳进详情页
-                Toast.makeText(getActivity(),"详情页不知道是什么"+position,Toast.LENGTH_SHORT).show();
+                getData(list.get(position).getFile_source_id(),sp.getString(Config.DEPTUNIT),"OutfileDetailYiBan",sp.getString(Config.PATHDATA)); //跳进详情页/
             }
         });
         mRecyclerView.setAdapter(picAdapter);
@@ -182,25 +183,24 @@ public class DispatchHasDealFragment extends BaseFragment implements SwipeRefres
     }
 
 
-    private void getData(String flowsort,String file_source_id){
+    private void getData(String file_source_id,String deptunit,String type,String pathdata){
         //使用retrofit配置api
         Retrofit retrofit=new Retrofit.Builder()
                 .baseUrl(Config.BANNER_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         Api api =retrofit.create(Api.class);
-        Call<DispatchHasDealDetail> call=api.getDispatchHasDetailData(flowsort,file_source_id);
+        Call<DispatchHasDealDetail> call=api.getDispatchHasDetailData(file_source_id,deptunit,type,pathdata);
         call.enqueue(new Callback<DispatchHasDealDetail>() {
             @Override
             public void onResponse(Call<DispatchHasDealDetail> call, Response<DispatchHasDealDetail> response) {
                 if(response!=null){
                     DispatchHasDealDetail detail=response.body();
                     DispatchHasDealDetail.ResultsBean resultsBean=detail.getResults().get(0);
-//                    Intent intent = new Intent(getActivity(), MainActivity.class);
-//                    intent.putExtra(Config.NEWS,resultsBean);
-//                    startActivity(intent);
-                    Toast.makeText(getActivity(),"现阶段 这里只是做个演示!",Toast.LENGTH_SHORT).show();
-                    Log.e("---------->>pdfPath",resultsBean.getPdfPath());
+                    Intent intent = new Intent(getActivity(), DispatchHasWebviewActivity.class);
+                    intent.putExtra(Config.NEWS,resultsBean);
+                    startActivity(intent);
+                    Log.e("---------->>pdfPath",resultsBean.getHtmls());
                 }else{
                     Toast.makeText(getActivity(),"数据为空!",Toast.LENGTH_SHORT).show();
                 }
@@ -208,7 +208,7 @@ public class DispatchHasDealFragment extends BaseFragment implements SwipeRefres
 
             @Override
             public void onFailure(Call<DispatchHasDealDetail> call, Throwable t) {
-                Log.e("-------------",t.getMessage().toString());
+                Log.e("-------------解析失败",t.getMessage().toString());
             }
         });
     }

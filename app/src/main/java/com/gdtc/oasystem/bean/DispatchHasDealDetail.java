@@ -11,7 +11,7 @@ public class DispatchHasDealDetail implements Serializable{
 
 
     /**
-     * results : [{"type_advice":"","sort_num":"20151220144847sgy","isBianHao":"null","pdfPath":"null","formid":"1222201531543890PM8452","formflow":"20151220144847sgy","flowsort":"120520170817026PM56104","file_source_id":"120520170817026PM56104"}]
+     * results : [{"html":"     黑龙江省高级人民法院文件审批单   文件编号： 密级： 文件标题： wtp测试推送 审核意见： 签发意见： 审核意见输入框 签发意见输入框 主送单位： wtp测试推送 抄送单位： wtp测试推送 拟稿单位： 信息中心运维部 拟稿人： 王天鹏 校对人： wtp测试推送 黑龙江省高级人民法院办公室 印发 共2份   "}]
      * success : true
      */
 
@@ -36,87 +36,17 @@ public class DispatchHasDealDetail implements Serializable{
 
     public static class ResultsBean implements Serializable{
         /**
-         * type_advice :
-         * sort_num : 20151220144847sgy
-         * isBianHao : null
-         * pdfPath : null
-         * formid : 1222201531543890PM8452
-         * formflow : 20151220144847sgy
-         * flowsort : 120520170817026PM56104
-         * file_source_id : 120520170817026PM56104
+         * html :      黑龙江省高级人民法院文件审批单   文件编号： 密级： 文件标题： wtp测试推送 审核意见： 签发意见： 审核意见输入框 签发意见输入框 主送单位： wtp测试推送 抄送单位： wtp测试推送 拟稿单位： 信息中心运维部 拟稿人： 王天鹏 校对人： wtp测试推送 黑龙江省高级人民法院办公室 印发 共2份
          */
 
-        private String type_advice;
-        private String sort_num;
-        private String isBianHao;
-        private String pdfPath;
-        private String formid;
-        private String formflow;
-        private String flowsort;
-        private String file_source_id;
+        private String htmls;
 
-        public String getType_advice() {
-            return type_advice;
+        public String getHtmls() {
+            return htmls;
         }
 
-        public void setType_advice(String type_advice) {
-            this.type_advice = type_advice;
-        }
-
-        public String getSort_num() {
-            return sort_num;
-        }
-
-        public void setSort_num(String sort_num) {
-            this.sort_num = sort_num;
-        }
-
-        public String getIsBianHao() {
-            return isBianHao;
-        }
-
-        public void setIsBianHao(String isBianHao) {
-            this.isBianHao = isBianHao;
-        }
-
-        public String getPdfPath() {
-            return pdfPath;
-        }
-
-        public void setPdfPath(String pdfPath) {
-            this.pdfPath = pdfPath;
-        }
-
-        public String getFormid() {
-            return formid;
-        }
-
-        public void setFormid(String formid) {
-            this.formid = formid;
-        }
-
-        public String getFormflow() {
-            return formflow;
-        }
-
-        public void setFormflow(String formflow) {
-            this.formflow = formflow;
-        }
-
-        public String getFlowsort() {
-            return flowsort;
-        }
-
-        public void setFlowsort(String flowsort) {
-            this.flowsort = flowsort;
-        }
-
-        public String getFile_source_id() {
-            return file_source_id;
-        }
-
-        public void setFile_source_id(String file_source_id) {
-            this.file_source_id = file_source_id;
+        public void setHtmls(String html) {
+            this.htmls = html;
         }
     }
 }

@@ -172,14 +172,14 @@ public class FaWenDaiPiActivity extends BaseActivity implements SwipeRefreshLayo
     }
 
 
-    private void getData(String flowsort){
+    private void getData(String flowsort,String flowid){
         //使用retrofit配置api
         Retrofit retrofit=new Retrofit.Builder()
                 .baseUrl(Config.BANNER_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         Api api =retrofit.create(Api.class);
-        Call<MeetingDetail> call=api.getMeetingDetailData(flowsort);
+        Call<MeetingDetail> call=api.getMeetingDetailData(flowsort,flowid);
         call.enqueue(new Callback<MeetingDetail>() {
             @Override
             public void onResponse(Call<MeetingDetail> call, Response<MeetingDetail> response) {

@@ -3,6 +3,7 @@ package com.gdtc.oasystem.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -10,6 +11,8 @@ import com.gdtc.oasystem.Config;
 import com.gdtc.oasystem.MyApplication;
 import com.gdtc.oasystem.R;
 import com.gdtc.oasystem.base.BaseFragment;
+import com.gdtc.oasystem.bean.AllWaitDealSize;
+import com.gdtc.oasystem.service.Api;
 import com.gdtc.oasystem.ui.AdministrativeApprovalActivity;
 import com.gdtc.oasystem.ui.FaWenDaiPiActivity;
 import com.gdtc.oasystem.ui.MeetingHandleActivity;
@@ -21,6 +24,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by wangjiawei on 2017-11-13.
@@ -29,10 +37,23 @@ import butterknife.Unbinder;
 public class HomeFragmentTest extends BaseFragment {
 
     private Unbinder mUnbinder;
+
+    @BindView(R.id.load_progress)
+    ProgressBar load_progress;
+
     @BindView(R.id.tv_date)
     TextView tv_date;
     @BindView(R.id.tv_username)
     TextView tv_username;
+
+    @BindView(R.id.tv_size1)
+    TextView tv_size1;
+    @BindView(R.id.tv_size2)
+    TextView tv_size2;
+    @BindView(R.id.tv_size3)
+    TextView tv_size3;
+    @BindView(R.id.tv_size4)
+    TextView tv_size4;
     private SharePreferenceTools sp;
     @Override
     public int getLayoutId() {
@@ -51,6 +72,8 @@ public class HomeFragmentTest extends BaseFragment {
         sp = new SharePreferenceTools(MyApplication.getContext());
 
         tv_username.setText("欢迎,"+sp.getString(Config.USERNAME));
+
+        initData(sp.getString(Config.USER_ID));
     }
 
     @Override
@@ -93,5 +116,34 @@ public class HomeFragmentTest extends BaseFragment {
             default:
                 break;
         }
+    }
+
+
+    private void initData(String sign) {
+        //使用retrofit配置api
+        Retrofit retrofit=new Retrofit.Builder()
+                .baseUrl(Config.BANNER_BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        Api api =retrofit.create(Api.class);
+        Call<AllWaitDealSize> call=api.getAllWaitDealNumberData(sign);
+        call.enqueue(new Callback<AllWaitDealSize>() {
+            @Override
+            public void onResponse(Call<AllWaitDealSize> call, Response<AllWaitDealSize> response) {
+                if(response.body()!=null){
+                    tv_size1.setText(response.body().getMeetingCount());
+                    tv_size2.setText(response.body().getAdministrationCount());
+                    tv_size3.setText(response.body().getDispatchCount());
+                    tv_size4.setText(response.body().getInCount());
+                    load_progress.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AllWaitDealSize> call, Throwable t) {
+                load_progress.setVisibility(View.GONE);
+                Toast.makeText(getActivity(),"请求失败!",Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

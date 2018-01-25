@@ -1,6 +1,7 @@
 package com.gdtc.oasystem.service;
 
 import com.gdtc.oasystem.bean.AdministrativeApproval;
+import com.gdtc.oasystem.bean.AllWaitDealSize;
 import com.gdtc.oasystem.bean.Detail;
 import com.gdtc.oasystem.bean.DispatchHasDeal;
 import com.gdtc.oasystem.bean.DispatchHasDealDetail;
@@ -42,9 +43,10 @@ public interface Api {
     @GET("app_phone/getProcessedHandleList.do")
     Call<DispatchHasDeal> getDispatchHasDealData(@Query("sign") String sign, @Query("page") int page);
 
-    //http://192.168.0.135:8080/app_phone/dispatchInfoyb.do?flowsort=120520170817026PM56104&file_source_id=120520170817026PM56104 发文已办详情 好像有可能要加载word
+    //http://192.168.0.135:8080/app_phone/dispatchInfoyb.do?file_source_id=120620170853057AM56736&deptunit=10021&type=OutfileDetailYiBan&pathdata=sgy 发文已办详情 好像有可能要加载word
     @GET("app_phone/dispatchInfoyb.do")
-    Call<DispatchHasDealDetail> getDispatchHasDetailData(@Query("flowsort") String flowsort, @Query("file_source_id") String file_source_id);
+    Call<DispatchHasDealDetail> getDispatchHasDetailData(@Query("file_source_id") String file_source_id,@Query("deptunit") String deptunit
+    ,@Query("type") String type,@Query("pathdata") String pathdata);
 
     //http://192.168.0.135:8080/app_phone/getInHandleList.do?sign=&page=1   收文已办
     @GET("app_phone/getInHandleList.do")
@@ -65,7 +67,7 @@ public interface Api {
 
     //http://192.168.0.135:8080/app_phone/getMeetingHandle.do?flowsort=011220181001006AM56104   会议通知列表详情信息
     @GET("app_phone/getMeetingHandle.do")
-    Call<MeetingDetail> getMeetingDetailData(@Query("flowsort") String flowsort);
+    Call<MeetingDetail> getMeetingDetailData(@Query("flowsort") String flowsort,@Query("flowid") String flowid);
 
     //http://192.168.0.135:8080/app_phone/getAdministrationHandleList.do?page=1&sign=56736   行政审批待办
     @GET("app_phone/getAdministrationHandleList.do")
@@ -74,4 +76,10 @@ public interface Api {
     // 保留接口 http://192.168.0.135:8080/app_phone/getLeaveApplication.do?deptunit=10021   政务申请表单的数量 每个人员登陆可能申请的表单数不同 参数传 deptunit
     @GET("app_phone/getLeaveApplication.do") //json有问题
     Call<AdministrativeApproval> getLeaveApplicationListData( @Query("deptunit") String deptunit);
+
+
+    //    http://192.168.0.135:8080/app_phone/getListCount.do?sign=56736
+    @GET("app_phone/getListCount.do") //获取所有待办列表数
+    Call<AllWaitDealSize> getAllWaitDealNumberData(@Query("sign") String sign);
+
 }

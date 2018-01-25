@@ -44,6 +44,7 @@ public class ResponseBean implements Serializable{
         private String company;
         private String personnelId;
         private String depetUnit;
+        private String pathdata;
 
         public String getInformation() {
             return information;
@@ -91,6 +92,14 @@ public class ResponseBean implements Serializable{
 
         public void setDepetUnit(String depetUnit) {
             this.depetUnit = depetUnit;
+        }
+
+        public String getPathdata() {
+            return pathdata;
+        }
+
+        public void setPathdata(String pathdata) {
+            this.pathdata = pathdata;
         }
     }
 }

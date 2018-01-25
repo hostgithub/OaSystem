@@ -3,21 +3,32 @@ package com.gdtc.oasystem.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gdtc.oasystem.Config;
+import com.gdtc.oasystem.MyApplication;
 import com.gdtc.oasystem.R;
 import com.gdtc.oasystem.base.BaseFragment;
+import com.gdtc.oasystem.bean.AllWaitDealSize;
+import com.gdtc.oasystem.service.Api;
 import com.gdtc.oasystem.ui.AdministrativeApprovalActivity;
 import com.gdtc.oasystem.ui.FaWenDaiPiActivity;
 import com.gdtc.oasystem.ui.IncomingFilesDealActivity;
 import com.gdtc.oasystem.ui.MeetingHandleActivity;
 import com.gdtc.oasystem.ui.SendFilesDealActivity;
 import com.gdtc.oasystem.ui.ShouWenDaiPiActivity;
-import com.gdtc.oasystem.word.OpenWordFromWpsAndInsideActivity;
+import com.gdtc.oasystem.utils.SharePreferenceTools;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by wangjiawei on 2017-11-13.
@@ -26,6 +37,15 @@ import butterknife.Unbinder;
 public class JobFragmentTest extends BaseFragment {
 
     private Unbinder mUnbinder;
+    @BindView(R.id.bumber1)
+    TextView bumber1;
+    @BindView(R.id.bumber2)
+    TextView bumber2;
+    @BindView(R.id.bumber3)
+    TextView bumber3;
+    @BindView(R.id.bumber4)
+    TextView bumber4;
+    private SharePreferenceTools sp;
 
     @Override
     public int getLayoutId() {
@@ -40,6 +60,10 @@ public class JobFragmentTest extends BaseFragment {
     @Override
     public void initViews(View view, Bundle savedInstanceState) {
         mUnbinder = ButterKnife.bind(this, view);
+        //获得实例对象
+        sp = new SharePreferenceTools(MyApplication.getContext());
+
+        initData(sp.getString(Config.USER_ID));
     }
 
     @Override
@@ -109,11 +133,37 @@ public class JobFragmentTest extends BaseFragment {
             case R.id.table9:
 //                startActivity(new Intent(getActivity(),IntranetActivity.class));
 //                startActivity(new Intent(getActivity(),RouteSetOwnerActivity.class));//测试日期时间选择器的
-                startActivity(new Intent(getActivity(),OpenWordFromWpsAndInsideActivity.class));//测试生成word文档
-//                Toast.makeText(getActivity(),"此模块待定",Toast.LENGTH_SHORT).show();
+//                startActivity(new Intent(getActivity(),OpenWordFromWpsAndInsideActivity.class));//测试生成word文档
+                Toast.makeText(getActivity(),"此模块待定",Toast.LENGTH_SHORT).show();
                 break;
             default:
                 break;
         }
+    }
+
+    private void initData(String sign) {
+        //使用retrofit配置api
+        Retrofit retrofit=new Retrofit.Builder()
+                .baseUrl(Config.BANNER_BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        Api api =retrofit.create(Api.class);
+        Call<AllWaitDealSize> call=api.getAllWaitDealNumberData(sign);
+        call.enqueue(new Callback<AllWaitDealSize>() {
+            @Override
+            public void onResponse(Call<AllWaitDealSize> call, Response<AllWaitDealSize> response) {
+                if(response.body()!=null){
+                    bumber1.setText(response.body().getMeetingCount());
+                    bumber2.setText(response.body().getAdministrationCount());
+                    bumber4.setText(response.body().getDispatchCount());
+                    bumber3.setText(response.body().getInCount());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AllWaitDealSize> call, Throwable t) {
+                Toast.makeText(getActivity(),"请求失败!",Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

@@ -118,11 +118,9 @@
             android:name=".ui.AdministrativeApprovalActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Design.Light.NoActionBar" />
-
         <activity android:name=".ui.RouteSetOwnerActivity" />
         <activity android:name=".word.OpenWordFromWpsAndInsideActivity" />
         <activity android:name=".word.WebViewActivity" />
-
         <activity
             android:name=".ui.ShouWenDaiPiActivity"
             android:screenOrientation="portrait"
@@ -131,8 +129,11 @@
             android:name=".ui.FaWenDaiPiActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Design.Light.NoActionBar" />
-
         <activity android:name=".word.PdfActivity" />
-        <activity android:name=".word.PdfWpsActivity"></activity>
+        <activity android:name=".word.PdfWpsActivity" />
+        <activity android:name=".ui.DispatchHasWebviewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" ></activity>
     </application>
+
 </manifest>

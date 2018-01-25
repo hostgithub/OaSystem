@@ -28,7 +28,7 @@
                 <TextView
                     android:layout_width="wrap_content" android:layout_alignParentRight="true"
                     android:layout_height="wrap_content" android:layout_centerVertical="true"
-                    android:text="4" android:textSize="15sp" android:id="@+id/bumber1"
+                    android:text="" android:textSize="15sp" android:id="@+id/bumber1"
                     android:layout_marginRight="10dp" android:textColor="@color/title_color"/>
                 <View
                     android:layout_width="match_parent" android:background="@color/WhiteSmoke"
@@ -48,7 +48,7 @@
                 <TextView
                     android:layout_width="wrap_content" android:layout_alignParentRight="true"
                     android:layout_height="wrap_content" android:layout_centerVertical="true"
-                    android:text="4" android:textSize="15sp" android:id="@+id/bumber2"
+                    android:text="" android:textSize="15sp" android:id="@+id/bumber2"
                     android:layout_marginRight="10dp" android:textColor="@color/red_text"/>
                 <View
                     android:layout_width="match_parent" android:background="@color/WhiteSmoke"
@@ -73,31 +73,49 @@
                 <TextView
                     android:layout_width="wrap_content" android:layout_alignParentRight="true"
                     android:layout_height="wrap_content" android:layout_centerVertical="true"
-                    android:text="4" android:textSize="15sp" android:id="@+id/bumber3"
+                    android:text="" android:textSize="15sp" android:id="@+id/bumber3"
                     android:layout_marginRight="10dp" android:textColor="@color/swdp_bg"/>
                 <View
                     android:layout_width="match_parent" android:background="@color/WhiteSmoke"
                     android:layout_height="1dp" android:layout_alignParentBottom="true"/>
             </RelativeLayout>
-            <RelativeLayout android:id="@+id/rl4"
-                android:layout_width="0dp" android:layout_weight="1"
-                android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/rl4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
                 <ImageView
-                    android:layout_width="3dp" android:src="@color/index_green"
-                    android:layout_height="match_parent" />
+                    android:layout_width="3dp"
+                    android:layout_height="match_parent"
+                    android:src="@color/index_green" />
+
                 <TextView
-                    android:layout_width="wrap_content" android:text="发文待批"
-                    android:textSize="15sp" android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:layout_marginLeft="15dp"
-                    android:layout_height="wrap_content" android:textColor="@color/black_text_color"/>
+                    android:text="发文待批"
+                    android:textColor="@color/black_text_color"
+                    android:textSize="15sp" />
+
                 <TextView
-                    android:layout_width="wrap_content" android:layout_alignParentRight="true"
-                    android:layout_height="wrap_content" android:layout_centerVertical="true"
-                    android:text="4" android:textSize="15sp" android:id="@+id/bumber4"
-                    android:layout_marginRight="10dp" android:textColor="@color/index_green"/>
+                    android:id="@+id/bumber4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:text=""
+                    android:textColor="@color/index_green"
+                    android:textSize="15sp" />
+
                 <View
-                    android:layout_width="match_parent" android:background="@color/WhiteSmoke"
-                    android:layout_height="1dp" android:layout_alignParentBottom="true"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/WhiteSmoke" />
             </RelativeLayout>
         </LinearLayout>
         <LinearLayout
@@ -117,7 +135,7 @@
                 <TextView
                     android:layout_width="wrap_content" android:layout_alignParentRight="true"
                     android:layout_height="wrap_content" android:layout_centerVertical="true"
-                    android:text="4" android:textSize="15sp" android:id="@+id/bumber5"
+                    android:text="0" android:textSize="15sp" android:id="@+id/bumber5"
                     android:layout_marginRight="10dp" android:textColor="@color/zwsq_bg"/>
             </RelativeLayout>
             <RelativeLayout android:id="@+id/rl6"
@@ -134,7 +152,7 @@
                 <TextView
                     android:layout_width="wrap_content" android:layout_alignParentRight="true"
                     android:layout_height="wrap_content" android:layout_centerVertical="true"
-                    android:text="4" android:textSize="15sp" android:id="@+id/bumber6"
+                    android:text="0" android:textSize="15sp" android:id="@+id/bumber6"
                     android:layout_marginRight="10dp" android:textColor="@color/pink_bg"/>
             </RelativeLayout>
         </LinearLayout>
