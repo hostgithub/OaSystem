@@ -15,10 +15,10 @@ import com.gdtc.oasystem.R;
 import com.gdtc.oasystem.base.BaseFragment;
 import com.gdtc.oasystem.push.PollingService;
 import com.gdtc.oasystem.push.PollingUtils;
-import com.gdtc.oasystem.ui.ChangePasswordActivity;
 import com.gdtc.oasystem.ui.LoginTestActivity;
 import com.gdtc.oasystem.utils.DataCleanManagerUtils;
 import com.gdtc.oasystem.utils.SharePreferenceTools;
+import com.gdtc.oasystem.word.PdfActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -61,7 +61,8 @@ public class MineFragmentTest extends BaseFragment {
         mUnbinder = ButterKnife.bind(this, view);
         sp = new SharePreferenceTools(MyApplication.getContext());
         user_nameTv.setText("登录人:"+sp.getString(Config.USERNAME));
-        user_id.setText("ID:"+sp.getString(Config.DEPTUNIT));
+//        user_id.setText("ID:"+sp.getString(Config.DEPTUNIT));//部门id
+        user_id.setText("ID:"+sp.getString(Config.USER_ID));//登录人id
         tv_dept.setText(sp.getString(Config.COMPANY));
         tv_company.setText(sp.getString(Config.DEPT_NAME));
 
@@ -86,7 +87,8 @@ public class MineFragmentTest extends BaseFragment {
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.updataPasswordRlt://改密码
-                startActivity(new Intent(getActivity(),ChangePasswordActivity.class));
+//                startActivity(new Intent(getActivity(),ChangePasswordActivity.class));
+                startActivity(new Intent(getActivity(),PdfActivity.class));
                 break;
             case R.id.btn_switch:
                 if(btn_switch.isSelected()==true){

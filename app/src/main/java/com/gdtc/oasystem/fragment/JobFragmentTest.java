@@ -13,6 +13,7 @@ import com.gdtc.oasystem.ui.IncomingFilesDealActivity;
 import com.gdtc.oasystem.ui.MeetingHandleActivity;
 import com.gdtc.oasystem.ui.SendFilesDealActivity;
 import com.gdtc.oasystem.ui.ShouWenDaiPiActivity;
+import com.gdtc.oasystem.word.OpenWordFromWpsAndInsideActivity;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -108,8 +109,8 @@ public class JobFragmentTest extends BaseFragment {
             case R.id.table9:
 //                startActivity(new Intent(getActivity(),IntranetActivity.class));
 //                startActivity(new Intent(getActivity(),RouteSetOwnerActivity.class));//测试日期时间选择器的
-//                startActivity(new Intent(getActivity(),WordActivity.class));//测试生成word文档
-                Toast.makeText(getActivity(),"此模块待定",Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getActivity(),OpenWordFromWpsAndInsideActivity.class));//测试生成word文档
+//                Toast.makeText(getActivity(),"此模块待定",Toast.LENGTH_SHORT).show();
                 break;
             default:
                 break;

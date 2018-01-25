@@ -70,7 +70,6 @@
     <string name="publish_dept_text">发布部门:</string>
     <string name="publish_time_text">发布时间:</string>
     <string name="publish_user_text">发 布 人:</string>
-    <string name="test_text">      习近平指出，在国际社会共同努力下，联合国气候变化巴黎大会成功通过了《巴黎协定》，为2020年后全球合作应对气候变化问题指明了方向和目 标，这是一件造福世界人民的大好事。中美两国及有关各方保持密切沟通，共同为巴黎大会成功作出了积极贡献。巴黎大会是应对气候变化国际合作的新起点，中方 愿同包括美方在内有关各方保持协调合作，确保《巴黎协定》有效实施，拓展应对气候变化领域双边务实合作，更多更好惠及中美两国人民和世界各国人民。中方愿同美方就重大国际问题保持沟通和合作。 　　奥巴马表示，联合国气候变化巴黎大会达成历史性协定，值得祝贺。这是美中两国及有关各方加强协调、通力合作的结果。美方愿同中方及各方共同努力，确保协定生效和落实。美中两国在气候变化问题上的沟通合作表明，我们两国完全能够在广泛国际事务中开展建设性合作。</string>
     <string name="title_activity_common">CommonActivity</string>
     <string name="common_title_text">通知</string>
     <string name="meeting_notice_hf">会议通知回复</string>
@@ -85,15 +84,6 @@
     <string name="title_activity_banan">办案已批</string>
     <string name="title_activity_banand">办案待批</string>
     <string name="title_activity_banany">办案已批</string>
-    <string name="title_activity_oabanan_info">OaBanAnActivity</string>
-    <string name="title_activity_book">BookActivity</string>
-    <string name="book_title">电子图书</string>
-    <string name="title_activity_nbwz">OaNbwzActivity</string>
-    <string name="nbwz_title">在线培训</string>
-    <string name="title_activity_zxpx">OaZxpxActivity</string>
-    <string name="title_activity_jgcj">JGCJActivity</string>
-    <string name="jgcj_title">金格注册</string>
-    <string name="title_activity_setting">SettingActivity</string>
     <string name="setting_title">设置</string>
     <string name="name_title">姓名：</string>
     <string name="units_title">所在单位：</string>
@@ -165,16 +155,4 @@
     <string name="soft_update_later">稍后更新</string>
     <string name="soft_updating">正在更新</string>
     <string name="soft_update_cancel">取消</string>
-    <string name="title_activity_oa_zwsq">OaZwsqActivity</string>
-    <string name="title_activity_hr">HrActivity</string>
-
-    <string name="hello">Hello World, docReader!</string>
-    <string name="aboutauthor">关于作者</string>
-    <string name="aboutprogram">关于文件</string>
-    <string name="gotit">我知道了</string>
-    <string name="author">作者：边利军\n指导老师:周庆国\n邮箱：junbianli@gmail.com\n兰州大学飞云楼532\n兰州大学信息科学与学院Dslab(c)</string>
-    <string name="paragrap">段落个数：</string>
-    <string name="word">文字个数：</string>
-    <string name="tables">表格个数：</string>
-    <string name="pictures">图片个数：</string>
 </resources>

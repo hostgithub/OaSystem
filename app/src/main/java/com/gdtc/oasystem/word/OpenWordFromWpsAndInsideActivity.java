@@ -1,10 +1,13 @@
 package com.gdtc.oasystem.word;
 
+import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
 import android.view.View;
 import android.widget.Button;
@@ -21,11 +24,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
+import pub.devrel.easypermissions.AppSettingsDialog;
+import pub.devrel.easypermissions.EasyPermissions;
 
-public class WordActivity extends BaseActivity {
+public class OpenWordFromWpsAndInsideActivity extends BaseActivity implements EasyPermissions.PermissionCallbacks{
 
     @BindView(R.id.btn_open)
     Button btn_open;
@@ -33,6 +39,7 @@ public class WordActivity extends BaseActivity {
     Button btn_wps;
     @BindView(R.id.btn_file_list)
     Button btn_file_list;
+    public static final int PERMISSION = 100;
 
     // 创建生成的文件地址
     private static final String newPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/doc/test.doc";
@@ -49,15 +56,15 @@ public class WordActivity extends BaseActivity {
 
         btn_open.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                startActivity(new Intent(WordActivity.this, WebViewActivity.class));
+            public void onClick(View v) { //手机内部打开 webview显示word
+                startActivity(new Intent(OpenWordFromWpsAndInsideActivity.this, WebViewActivity.class));
 //                doOpenWord();//报空指针异常
             }
         });
 
         btn_wps.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) {//调用WPS
                 doOpenWord(newPath);// 清单文件中配置的authorities android 版本高打开文件方式就会不同
             }
         });
@@ -65,9 +72,18 @@ public class WordActivity extends BaseActivity {
         btn_file_list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(WordActivity.this,ViewFile.class);
-                intent.putExtra("name",newPath);
-                startActivity(intent);
+//                Intent intent=new Intent(OpenWordFromWpsAndInsideActivity.this,ViewFile.class);
+//                intent.putExtra("name",newPath);
+//                startActivity(intent);
+                /**
+                 * 6.0系统动态权限申请需要
+                 */
+                String[] params = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE};
+                if (EasyPermissions.hasPermissions(OpenWordFromWpsAndInsideActivity.this, params)) {
+                    startActivity(new Intent(OpenWordFromWpsAndInsideActivity.this,PdfWpsActivity.class));
+                } else {
+                    EasyPermissions.requestPermissions(OpenWordFromWpsAndInsideActivity.this, "应用需要权限才能安全运行", PERMISSION, params);
+                }
             }
         });
     }
@@ -84,7 +100,7 @@ public class WordActivity extends BaseActivity {
         Uri data;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             // "net.csdn.blog.ruancoder.fileprovider"即是在清单文件中配置的authorities
-            data = FileProvider.getUriForFile(WordActivity.this, "com.gdtc.oasystem.fileprovider", docFile);
+            data = FileProvider.getUriForFile(OpenWordFromWpsAndInsideActivity.this, "com.gdtc.oasystem.fileprovider", docFile);
             // 给目标应用一个临时授权
             in.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         } else {
@@ -94,13 +110,13 @@ public class WordActivity extends BaseActivity {
         in.setDataAndType(data, "application/msword");
         startActivity(in);
 //        try{
-//            WordActivity.this.startActivity(intent);
+//            OpenWordFromWpsAndInsideActivity.this.startActivity(intent);
 //        } catch(ActivityNotFoundException e) {
 //            //检测到系统尚未安装OliveOffice的apk程序
-//            Toast.makeText(WordActivity.this, "未找到软件", Toast.LENGTH_LONG).show();
+//            Toast.makeText(OpenWordFromWpsAndInsideActivity.this, "未找到软件", Toast.LENGTH_LONG).show();
 //            //请先到www.olivephone.com/e.apk下载并安装
 //        }catch (NullPointerException e){
-//            startActivity(new Intent(WordActivity.this, WebViewActivity.class));
+//            startActivity(new Intent(OpenWordFromWpsAndInsideActivity.this, WebViewActivity.class));
 //        }
     }
     /**
@@ -154,5 +170,37 @@ public class WordActivity extends BaseActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> perms) {
+        startActivity(new Intent(OpenWordFromWpsAndInsideActivity.this,PdfWpsActivity.class));
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, List<String> perms) {
+        switch (requestCode) {
+            case PERMISSION:
+                //引导用户跳转到设置界面
+                new AppSettingsDialog.Builder(OpenWordFromWpsAndInsideActivity.this, "希望您通过权限")
+                        .setTitle("权限设置")
+                        .setPositiveButton("设置")
+                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                finish();
+                            }
+                        })
+                        .setRequestCode(PERMISSION)
+                        .build()
+                        .show();
+                break;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
 }
