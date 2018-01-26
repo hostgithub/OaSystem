@@ -2,6 +2,7 @@ package com.gdtc.oasystem.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -11,6 +12,7 @@ import com.gdtc.oasystem.MyApplication;
 import com.gdtc.oasystem.R;
 import com.gdtc.oasystem.base.BaseFragment;
 import com.gdtc.oasystem.bean.AllWaitDealSize;
+import com.gdtc.oasystem.bean.EventUtil;
 import com.gdtc.oasystem.service.Api;
 import com.gdtc.oasystem.ui.AdministrativeApprovalActivity;
 import com.gdtc.oasystem.ui.FaWenDaiPiActivity;
@@ -19,6 +21,9 @@ import com.gdtc.oasystem.ui.MeetingHandleActivity;
 import com.gdtc.oasystem.ui.SendFilesDealActivity;
 import com.gdtc.oasystem.ui.ShouWenDaiPiActivity;
 import com.gdtc.oasystem.utils.SharePreferenceTools;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -165,5 +170,28 @@ public class JobFragmentTest extends BaseFragment {
                 Toast.makeText(getActivity(),"请求失败!",Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    // 接收函数二
+    @Subscribe
+    public void onEventBackgroundThread(EventUtil event){
+        String msglog = "----onEventBackground收到了消息："+event.getMsg();
+        Log.d("EventBus",msglog);
+        initData(sp.getString(Config.USER_ID));
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!EventBus.getDefault().isRegistered(this))
+        {
+            EventBus.getDefault().register(this);
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

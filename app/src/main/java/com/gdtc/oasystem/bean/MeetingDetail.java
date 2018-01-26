@@ -52,6 +52,8 @@ public class MeetingDetail implements Serializable{
         private String host;
         private String Explain;
         private String dept;
+        private String user;
+        private String flowsort;
 
         public String getTitle() {
             return title;
@@ -107,6 +109,22 @@ public class MeetingDetail implements Serializable{
 
         public void setDept(String dept) {
             this.dept = dept;
+        }
+
+        public String getUser() {
+            return user;
+        }
+
+        public void setUser(String user) {
+            this.user = user;
+        }
+
+        public String getFlowsort() {
+            return flowsort;
+        }
+
+        public void setFlowsort(String flowsort) {
+            this.flowsort = flowsort;
         }
     }
 }

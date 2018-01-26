@@ -131,7 +131,11 @@
             android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity android:name=".word.PdfActivity" />
         <activity android:name=".word.PdfWpsActivity" />
-        <activity android:name=".ui.DispatchHasWebviewActivity"
+        <activity
+            android:name=".ui.DispatchHasWebviewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
+        <activity android:name=".ui.MeetingHandleDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Design.Light.NoActionBar" ></activity>
     </application>

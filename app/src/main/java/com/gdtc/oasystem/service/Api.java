@@ -6,6 +6,7 @@ import com.gdtc.oasystem.bean.Detail;
 import com.gdtc.oasystem.bean.DispatchHasDeal;
 import com.gdtc.oasystem.bean.DispatchHasDealDetail;
 import com.gdtc.oasystem.bean.DispatchWaitDeal;
+import com.gdtc.oasystem.bean.HuiZhiBean;
 import com.gdtc.oasystem.bean.IncomingHasDeal;
 import com.gdtc.oasystem.bean.IncomingHasDealDetail;
 import com.gdtc.oasystem.bean.MeetingDetail;
@@ -68,6 +69,10 @@ public interface Api {
     //http://192.168.0.135:8080/app_phone/getMeetingHandle.do?flowsort=011220181001006AM56104   会议通知列表详情信息
     @GET("app_phone/getMeetingHandle.do")
     Call<MeetingDetail> getMeetingDetailData(@Query("flowsort") String flowsort,@Query("flowid") String flowid);
+
+    //http://192.168.0.135:8080/app_phone/hyblRebacks.do?sign=56736&advice=111&flowsort=011620181014045AM56104   会议通知列表详情信息
+    @GET("app_phone/hyblRebacks.do")
+    Call<HuiZhiBean> getHuiZhiData(@Query("sign") String sign, @Query("advice") String advice, @Query("flowsort") String flowsort);
 
     //http://192.168.0.135:8080/app_phone/getAdministrationHandleList.do?page=1&sign=56736   行政审批待办
     @GET("app_phone/getAdministrationHandleList.do")

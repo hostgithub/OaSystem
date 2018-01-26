@@ -186,8 +186,9 @@ public class MeetingHandleActivity extends BaseActivity implements SwipeRefreshL
                 if(response!=null){
                     MeetingDetail detail=response.body();
                     MeetingDetail.ResultsBean resultsBean=detail.getResults().get(0);
-                    Intent intent = new Intent(MeetingHandleActivity.this, WebViewDetailActivity.class);
+                    Intent intent = new Intent(MeetingHandleActivity.this, MeetingHandleDetailActivity.class);
                     intent.putExtra(Config.NEWS,resultsBean);
+                    finish();
                     startActivity(intent);
                     Log.e("xxxxxxx",resultsBean.getContent());
                 }else{
