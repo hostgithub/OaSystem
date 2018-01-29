@@ -8,7 +8,6 @@ import com.gdtc.oasystem.bean.DispatchHasDealDetail;
 import com.gdtc.oasystem.bean.DispatchWaitDeal;
 import com.gdtc.oasystem.bean.HuiZhiBean;
 import com.gdtc.oasystem.bean.IncomingHasDeal;
-import com.gdtc.oasystem.bean.IncomingHasDealDetail;
 import com.gdtc.oasystem.bean.MeetingDetail;
 import com.gdtc.oasystem.bean.MeetingHandle;
 import com.gdtc.oasystem.bean.NewCenter;
@@ -49,13 +48,14 @@ public interface Api {
     Call<DispatchHasDealDetail> getDispatchHasDetailData(@Query("file_source_id") String file_source_id,@Query("deptunit") String deptunit
     ,@Query("type") String type,@Query("pathdata") String pathdata);
 
-    //http://192.168.0.135:8080/app_phone/getInHandleList.do?sign=&page=1   收文已办
+    //http://192.168.0.135:8080/app_phone/getInHandleList.do?sign56736=&page=1   收文已办
     @GET("app_phone/getInHandleList.do")
     Call<IncomingHasDeal> getIncomingHasDealData(@Query("sign") String sign, @Query("page") int page);
 
-    //http://192.168.0.135:8080/app_phone/getInfileFlowSingle.do?file_source_id=091520170219028PM56736 收文已办详情
+    //http://192.168.0.135:8080/app_phone/getInfileFlowSingle.do?pathdata=sgy&file_source_id=091520170219028PM56736&deptunit=10021 收文已办详情
     @GET("app_phone/getInfileFlowSingle.do")
-    Call<IncomingHasDealDetail> getIncomingHasDetailData(@Query("file_source_id") String file_source_id);
+    Call<DispatchHasDealDetail> getIncomingHasDetailData(@Query("pathdata") String pathdata,
+            @Query("file_source_id") String file_source_id,@Query("deptunit") String deptunit);
 
 
     //http://192.168.0.135:8080/app_phone/getProcessedList.do?page=1   收文待办

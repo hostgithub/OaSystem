@@ -40,6 +40,7 @@ public class DispatchHasDealDetail implements Serializable{
          */
 
         private String htmls;
+        private String file_source_id;
 
         public String getHtmls() {
             return htmls;
@@ -47,6 +48,14 @@ public class DispatchHasDealDetail implements Serializable{
 
         public void setHtmls(String html) {
             this.htmls = html;
+        }
+
+        public String getFile_source_id() {
+            return file_source_id;
+        }
+
+        public void setFile_source_id(String file_source_id) {
+            this.file_source_id = file_source_id;
         }
     }
 }

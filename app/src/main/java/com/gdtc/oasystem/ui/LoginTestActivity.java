@@ -185,4 +185,12 @@ public class LoginTestActivity extends BaseActivity {
             }
         });
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(sp!=null){
+            sp=null;
+        }
+    }
 }

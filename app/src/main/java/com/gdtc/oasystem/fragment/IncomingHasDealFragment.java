@@ -1,5 +1,6 @@
 package com.gdtc.oasystem.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,9 +14,10 @@ import com.gdtc.oasystem.MyApplication;
 import com.gdtc.oasystem.R;
 import com.gdtc.oasystem.adapter.IncomingHasDealAdapter;
 import com.gdtc.oasystem.base.BaseFragment;
+import com.gdtc.oasystem.bean.DispatchHasDealDetail;
 import com.gdtc.oasystem.bean.IncomingHasDeal;
-import com.gdtc.oasystem.bean.IncomingHasDealDetail;
 import com.gdtc.oasystem.service.Api;
+import com.gdtc.oasystem.ui.DispatchHasWebviewActivity;
 import com.gdtc.oasystem.utils.RecyclerViewSpacesItemDecoration;
 import com.gdtc.oasystem.utils.SharePreferenceTools;
 import com.gdtc.oasystem.widget.EndLessOnScrollListener;
@@ -34,7 +36,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by wangjiawei on 2017-11-13.
- * 发文已办
+ * 收文已办
  */
 
 public class IncomingHasDealFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
@@ -91,8 +93,8 @@ public class IncomingHasDealFragment extends BaseFragment implements SwipeRefres
         incomingHasDealAdapter.setOnItemClickLitener(new IncomingHasDealAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-//                getData(list.get(position).getFile_source_id());   //跳进详情页
-                Toast.makeText(getActivity(),"点击了"+position,Toast.LENGTH_SHORT).show();
+                getData(sp.getString(Config.PATHDATA ),list.get(position).getFile_source_id(),sp.getString(Config.DEPTUNIT));   //跳进详情页
+//                Toast.makeText(getActivity(),"点击了"+position,Toast.LENGTH_SHORT).show();
             }
         });
         mRecyclerView.setAdapter(incomingHasDealAdapter);
@@ -188,33 +190,32 @@ public class IncomingHasDealFragment extends BaseFragment implements SwipeRefres
     }
 
 
-    private void getData(String file_source_id){
+    private void getData(String pathdata,String file_source_id,String deptunit){
         //使用retrofit配置api
         Retrofit retrofit=new Retrofit.Builder()
                 .baseUrl(Config.BANNER_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         Api api =retrofit.create(Api.class);
-        Call<IncomingHasDealDetail> call=api.getIncomingHasDetailData(file_source_id);
-        call.enqueue(new Callback<IncomingHasDealDetail>() {
+        Call<DispatchHasDealDetail> call=api.getIncomingHasDetailData(pathdata,file_source_id,deptunit);
+        call.enqueue(new Callback<DispatchHasDealDetail>() {
             @Override
-            public void onResponse(Call<IncomingHasDealDetail> call, Response<IncomingHasDealDetail> response) {
+            public void onResponse(Call<DispatchHasDealDetail> call, Response<DispatchHasDealDetail> response) {
                 if(response!=null){
-                    IncomingHasDealDetail detail=response.body();
-                    IncomingHasDealDetail.ResultsBean resultsBean=detail.getResults().get(0);
-//                    Intent intent = new Intent(getActivity(), MainActivity.class);
-//                    intent.putExtra(Config.NEWS,resultsBean);
-//                    startActivity(intent);
-                    Toast.makeText(getActivity(),"现阶段 这里只是做个演示!",Toast.LENGTH_SHORT).show();
-                    Log.e("xxxxxxx",resultsBean.getFormid());
+                    DispatchHasDealDetail detail=response.body();
+                    DispatchHasDealDetail.ResultsBean resultsBean=detail.getResults().get(0);
+                    Intent intent = new Intent(getActivity(), DispatchHasWebviewActivity.class);
+                    intent.putExtra(Config.NEWS,resultsBean);
+                    startActivity(intent);
+                    Log.e("---------->>",resultsBean.getHtmls());
                 }else{
                     Toast.makeText(getActivity(),"数据为空!",Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<IncomingHasDealDetail> call, Throwable t) {
-                Log.e("-------------",t.getMessage().toString());
+            public void onFailure(Call<DispatchHasDealDetail> call, Throwable t) {
+                Log.e("------------->>",t.getMessage().toString());
             }
         });
     }
