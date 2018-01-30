@@ -93,7 +93,7 @@ public class DispatchHasDealFragment extends BaseFragment implements SwipeRefres
         picAdapter.setOnItemClickLitener(new SendFileHasDealAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                getData(list.get(position).getFile_source_id(),sp.getString(Config.DEPTUNIT),"OutfileDetailYiBan",sp.getString(Config.PATHDATA)); //跳进详情页/
+                getData(list.get(position).getFile_source_id(),sp.getString(Config.DEPTUNIT),"OutfileDetailYiBan",sp.getString(Config.PATHDATA),position); //跳进详情页/
             }
         });
         mRecyclerView.setAdapter(picAdapter);
@@ -169,6 +169,7 @@ public class DispatchHasDealFragment extends BaseFragment implements SwipeRefres
                     sp.putInt("apagesize",response.body().getResults().size());
                     Log.e("---------->>>请求数据发送人:",response.body().getResults().get(0).getSender().toString());
                     Log.e("---------->>>请求数据id:",response.body().getResults().get(0).get_id().toString());
+                    Log.e("---------->>>请求数据标题:",response.body().getResults().get(0).getTitle().toString());
                     picAdapter.notifyDataSetChanged();
                     refreshLayout.setRefreshing(false);
                 }
@@ -183,7 +184,7 @@ public class DispatchHasDealFragment extends BaseFragment implements SwipeRefres
     }
 
 
-    private void getData(String file_source_id,String deptunit,String type,String pathdata){
+    private void getData(String file_source_id,String deptunit,String type,String pathdata,final int position){
         //使用retrofit配置api
         Retrofit retrofit=new Retrofit.Builder()
                 .baseUrl(Config.BANNER_BASE_URL)
@@ -199,6 +200,9 @@ public class DispatchHasDealFragment extends BaseFragment implements SwipeRefres
                     DispatchHasDealDetail.ResultsBean resultsBean=detail.getResults().get(0);
                     Intent intent = new Intent(getActivity(), DispatchHasWebviewActivity.class);
                     intent.putExtra(Config.NEWS,resultsBean);
+                    intent.putExtra("title",list.get(position).getTitle());
+                    intent.putExtra("sender",list.get(position).getSender());
+                    intent.putExtra("time",list.get(position).getSenderTime());
                     startActivity(intent);
                     Log.e("---------->>pdfPath",resultsBean.getHtmls());
                 }else{

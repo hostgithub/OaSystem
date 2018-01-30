@@ -135,7 +135,11 @@
             android:name=".ui.DispatchHasWebviewActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Design.Light.NoActionBar" />
-        <activity android:name=".ui.MeetingHandleDetailActivity"
+        <activity
+            android:name=".ui.MeetingHandleDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
+        <activity android:name=".ui.WebviewDispatchdbActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Design.Light.NoActionBar" ></activity>
     </application>

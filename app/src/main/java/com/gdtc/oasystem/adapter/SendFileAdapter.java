@@ -77,7 +77,7 @@ public class SendFileAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 //                ImageLoaderUtils.loadingImg(mContext, (ImageView) holder.getView(R.id.cover), Config.BANNER_BASE_URL + item.picName);
 //            }
             //CircleImageView avatar = holder.getView(R.id.avatar);
-            holder.setText(R.id.title, item.getTitle());
+            holder.setText(R.id.title, item.getTitle().toString().trim());
             holder.setText(R.id.time, item.getSenderTime());
             holder.setText(R.id.username, "发送人 :"+item.getSender());
             holder.setText(R.id.position,String.valueOf(position+1));

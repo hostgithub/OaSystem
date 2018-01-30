@@ -3,6 +3,7 @@ package com.gdtc.oasystem.service;
 import com.gdtc.oasystem.bean.AdministrativeApproval;
 import com.gdtc.oasystem.bean.AllWaitDealSize;
 import com.gdtc.oasystem.bean.Detail;
+import com.gdtc.oasystem.bean.DetailDispatchdb;
 import com.gdtc.oasystem.bean.DispatchHasDeal;
 import com.gdtc.oasystem.bean.DispatchHasDealDetail;
 import com.gdtc.oasystem.bean.DispatchWaitDeal;
@@ -38,6 +39,11 @@ public interface Api {
     //http://192.168.0.135:8080/app_phone/getUntreatedList.do?page=1   发文待办
     @GET("app_phone/getUntreatedList.do")
     Call<DispatchWaitDeal> getDispatchWaitDealData(@Query("sign") String sign, @Query("deptunit") String deptunit, @Query("page") int page);
+
+    //http://192.168.0.135:8080/app_phone/dispatchInfodb.do?file_source_id=012920180904008AM56104&deptunit=10021&pathdata=sgy&type=OutfileDetail 发文待办详情
+    @GET("app_phone/dispatchInfodb.do")
+    Call<DetailDispatchdb> getDispatchdbDetailData(@Query("file_source_id") String file_source_id, @Query("deptunit") String deptunit,
+                                                   @Query("pathdata") String pathdata, @Query("type") String type);
 
     //http://192.168.0.135:8080/app_phone/getProcessedHandleList.do?sign=10021&page=1   发文已办
     @GET("app_phone/getProcessedHandleList.do")

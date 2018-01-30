@@ -55,6 +55,12 @@ public class DispatchWaitDeal implements Serializable{
         private String sender;
         private String senderTime;
 
+        private String wordfileid;
+        private String formid;
+        private String flowsort;
+        private String fileSourceId;
+        private String type;
+
         public String get_id() {
             return _id;
         }
@@ -85,6 +91,47 @@ public class DispatchWaitDeal implements Serializable{
 
         public void setSenderTime(String jieanTime) {
             this.senderTime = jieanTime;
+        }
+
+
+        public String getWordfileid() {
+            return wordfileid;
+        }
+
+        public void setWordfileid(String wordfileid) {
+            this.wordfileid = wordfileid;
+        }
+
+        public String getFormid() {
+            return formid;
+        }
+
+        public void setFormid(String formid) {
+            this.formid = formid;
+        }
+
+        public String getFlowsort() {
+            return flowsort;
+        }
+
+        public void setFlowsort(String flowsort) {
+            this.flowsort = flowsort;
+        }
+
+        public String getFileSourceId() {
+            return fileSourceId;
+        }
+
+        public void setFileSourceId(String fileSourceId) {
+            this.fileSourceId = fileSourceId;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
         }
     }
 }

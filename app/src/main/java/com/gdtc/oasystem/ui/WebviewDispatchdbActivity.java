@@ -22,13 +22,14 @@ import android.widget.Toast;
 import com.gdtc.oasystem.Config;
 import com.gdtc.oasystem.R;
 import com.gdtc.oasystem.base.BaseActivity;
-import com.gdtc.oasystem.bean.DispatchHasDealDetail;
+import com.gdtc.oasystem.bean.DetailDispatchdb;
+import com.gdtc.oasystem.utils.MyScrollView;
 import com.gdtc.oasystem.utils.NetWorkUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class DispatchHasWebviewActivity extends BaseActivity {
+public class WebviewDispatchdbActivity extends BaseActivity {
 
     @BindView(R.id.tv_title)
     TextView tv_title;
@@ -37,11 +38,14 @@ public class DispatchHasWebviewActivity extends BaseActivity {
     @BindView(R.id.tv_username)
     TextView tv_username;
     @BindView(R.id.tv_content)
-    WebView webView;
+    WebView webView;//xml中最好是自适应 不要match
+    @BindView(R.id.scrollView)
+    MyScrollView scrollView;
+
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_notice_detail;
+        return R.layout.activity_webview_dispatchdb;
     }
 
     @Override
@@ -93,7 +97,6 @@ public class DispatchHasWebviewActivity extends BaseActivity {
         webSettings.setAppCacheEnabled(true);
         String appCachePath = getApplicationContext().getCacheDir().getAbsolutePath();
         webSettings.setAppCachePath(appCachePath);
-
         //辅助处理请求，点击链接在本browser中打开
         webView.setWebViewClient(new WebViewClient() {
             //处理https请求
@@ -122,7 +125,7 @@ public class DispatchHasWebviewActivity extends BaseActivity {
                         startActivity(intent);
                     } catch (Exception e) {
                         e.printStackTrace();
-                        Toast.makeText(DispatchHasWebviewActivity.this, "没有安装微信，请选择其他支付方式", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(WebviewDispatchdbActivity.this, "没有安装微信，请选择其他支付方式", Toast.LENGTH_SHORT).show();
                     }
                     return true;
                 }
@@ -148,7 +151,6 @@ public class DispatchHasWebviewActivity extends BaseActivity {
                 webView.setVisibility(View.VISIBLE);
                 stopProgressDialog();
             }
-
         });
 
         //辅助处理js的对话框，网站图标，网站title，加载进度
@@ -160,7 +162,7 @@ public class DispatchHasWebviewActivity extends BaseActivity {
 
             @Override
             public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
-                Toast.makeText(DispatchHasWebviewActivity.this, message, Toast.LENGTH_LONG).show();
+                Toast.makeText(WebviewDispatchdbActivity.this, message, Toast.LENGTH_LONG).show();
                 return true;
             }
         });
@@ -179,14 +181,15 @@ public class DispatchHasWebviewActivity extends BaseActivity {
 
 
         //mDetailWebView.loadUrl(it.getStringExtra(Config.NEWS));
-        DispatchHasDealDetail.ResultsBean resultsBean= (DispatchHasDealDetail.ResultsBean) intent.getSerializableExtra(Config.NEWS);
+        DetailDispatchdb.ResultsBean resultsBean= (DetailDispatchdb.ResultsBean) intent.getSerializableExtra(Config.NEWS);
         //tv_content.setText(Html.fromHtml(resultsBean.content));
         if(resultsBean.getHtmls().startsWith("http")){
             webView.loadUrl(resultsBean.getHtmls());
         }else{
             webView.loadDataWithBaseURL(Config.BANNER_BASE_URL, resultsBean.getHtmls().toString().trim(), "text/html", "utf-8", null);
+//            webView.loadDataWithBaseURL(Config.BANNER_BASE_URL, resultsBean.getHtmls(), "text/html", "utf-8", null);
         }
-        tv_title.setText(intent.getStringExtra("title").toString().trim());
+        tv_title.setText(intent.getStringExtra("title"));
         tv_username.setText("发送人:"+intent.getStringExtra("sender"));
         tv_time.setText(intent.getStringExtra("time"));
     }
@@ -206,6 +209,27 @@ public class DispatchHasWebviewActivity extends BaseActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
+
+    /**
+     * 滑轮处理
+     */
+//    @Override
+//    public boolean onGenericMotionEvent(MotionEvent event) {
+//        if (callback != null)
+//            return callback.onGenericMotionEvent(event);
+//        return super.onGenericMotionEvent(event);
+//    }
+//
+//    //定义一个接口，把滚动事件传递出去
+//    public interface GenericMotionCallback {
+//        boolean onGenericMotionEvent(MotionEvent event);
+//    }
+//
+//    GenericMotionCallback callback;
+//
+//    public void setCallback(GenericMotionCallback callback) {
+//        this.callback = callback;
+//    }
 
     @Override
     protected void onStop() {

@@ -77,7 +77,7 @@ public class IncomingHasDealAdapter extends RecyclerView.Adapter<BaseViewHolder>
 //                ImageLoaderUtils.loadingImg(mContext, (ImageView) holder.getView(R.id.cover), Config.BANNER_BASE_URL + item.picName);
 //            }
             //CircleImageView avatar = holder.getView(R.id.avatar);
-            holder.setText(R.id.title, item.getTitle());
+            holder.setText(R.id.title, item.getTitle().toString().trim());
             holder.setText(R.id.time, item.getSendTime());
             holder.setText(R.id.username, "发送人 :"+item.getUserSend());
             holder.setText(R.id.position,String.valueOf(position+1));

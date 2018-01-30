@@ -93,7 +93,7 @@ public class IncomingHasDealFragment extends BaseFragment implements SwipeRefres
         incomingHasDealAdapter.setOnItemClickLitener(new IncomingHasDealAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                getData(sp.getString(Config.PATHDATA ),list.get(position).getFile_source_id(),sp.getString(Config.DEPTUNIT));   //跳进详情页
+                getData(sp.getString(Config.PATHDATA ),list.get(position).getFile_source_id(),sp.getString(Config.DEPTUNIT),position);   //跳进详情页
 //                Toast.makeText(getActivity(),"点击了"+position,Toast.LENGTH_SHORT).show();
             }
         });
@@ -190,7 +190,7 @@ public class IncomingHasDealFragment extends BaseFragment implements SwipeRefres
     }
 
 
-    private void getData(String pathdata,String file_source_id,String deptunit){
+    private void getData(String pathdata,String file_source_id,String deptunit,final int position){
         //使用retrofit配置api
         Retrofit retrofit=new Retrofit.Builder()
                 .baseUrl(Config.BANNER_BASE_URL)
@@ -206,6 +206,9 @@ public class IncomingHasDealFragment extends BaseFragment implements SwipeRefres
                     DispatchHasDealDetail.ResultsBean resultsBean=detail.getResults().get(0);
                     Intent intent = new Intent(getActivity(), DispatchHasWebviewActivity.class);
                     intent.putExtra(Config.NEWS,resultsBean);
+                    intent.putExtra("title",list.get(position).getTitle());
+                    intent.putExtra("sender",list.get(position).getUserSend());
+                    intent.putExtra("time",list.get(position).getSendTime());
                     startActivity(intent);
                     Log.e("---------->>",resultsBean.getHtmls());
                 }else{

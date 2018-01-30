@@ -1,5 +1,6 @@
 package com.gdtc.oasystem.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,9 +14,10 @@ import com.gdtc.oasystem.MyApplication;
 import com.gdtc.oasystem.R;
 import com.gdtc.oasystem.adapter.SendFileAdapter;
 import com.gdtc.oasystem.base.BaseFragment;
-import com.gdtc.oasystem.bean.Detail;
+import com.gdtc.oasystem.bean.DetailDispatchdb;
 import com.gdtc.oasystem.bean.DispatchWaitDeal;
 import com.gdtc.oasystem.service.Api;
+import com.gdtc.oasystem.ui.WebviewDispatchdbActivity;
 import com.gdtc.oasystem.utils.RecyclerViewSpacesItemDecoration;
 import com.gdtc.oasystem.utils.SharePreferenceTools;
 import com.gdtc.oasystem.widget.EndLessOnScrollListener;
@@ -45,7 +47,6 @@ public class DispatchWaitDealFragment extends BaseFragment implements SwipeRefre
     SwipeRefreshLayout refreshLayout;
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
-    //private ArrayList<DataInfo.Info> arrayList;
     private ArrayList<DispatchWaitDeal.ResultsBean> list;
     private SendFileAdapter picAdapter;
     private LinearLayoutManager linearLayoutManager;
@@ -91,8 +92,8 @@ public class DispatchWaitDealFragment extends BaseFragment implements SwipeRefre
         picAdapter.setOnItemClickLitener(new SendFileAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                //getData(Integer.parseInt(list.get(position)._id));
-                Toast.makeText(getActivity(),"点击了"+position,Toast.LENGTH_SHORT).show();
+                getData(list.get(position).getFileSourceId(),sp.getString(Config.DEPTUNIT),sp.getString(Config.PATHDATA),list.get(position).getType(),position);
+//                Toast.makeText(getActivity(),"点击了"+position,Toast.LENGTH_SHORT).show();
             }
         });
         mRecyclerView.setAdapter(picAdapter);
@@ -176,6 +177,7 @@ public class DispatchWaitDealFragment extends BaseFragment implements SwipeRefre
                         sp.putInt("apagesize",response.body().getResults().size());
                         Log.e("---------->>>请求数据发送人:",response.body().getResults().get(0).getSender().toString());
                         Log.e("---------->>>请求数据id:",response.body().getResults().get(0).get_id().toString());
+                        Log.e("---------->>>请求数据标题:",response.body().getResults().get(0).getTitle().toString());
                         picAdapter.notifyDataSetChanged();
                         refreshLayout.setRefreshing(false);
                     }
@@ -191,32 +193,33 @@ public class DispatchWaitDealFragment extends BaseFragment implements SwipeRefre
     }
 
 
-    private void getData(int id){
+    private void getData(String file_source_id, String deptunit, String pathdata, String type, final int position){
         //使用retrofit配置api
         Retrofit retrofit=new Retrofit.Builder()
                 .baseUrl(Config.BANNER_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         Api api =retrofit.create(Api.class);
-        Call<Detail> call=api.getDetailData(id);
-        call.enqueue(new Callback<Detail>() {
+        Call<DetailDispatchdb> call=api.getDispatchdbDetailData(file_source_id,deptunit,pathdata,type);
+        call.enqueue(new Callback<DetailDispatchdb>() {
             @Override
-            public void onResponse(Call<Detail> call, Response<Detail> response) {
+            public void onResponse(Call<DetailDispatchdb> call, Response<DetailDispatchdb> response) {
                 if(response!=null){
-                    Detail detail=response.body();
-                    Detail.ResultsBean resultsBean=detail.getResults().get(0);
-//                    Intent intent = new Intent(getActivity(), MainActivity.class);
-//                    intent.putExtra(Config.NEWS,resultsBean);
-//                    startActivity(intent);
-                    Toast.makeText(getActivity(),"现阶段 这里只是做个演示!",Toast.LENGTH_SHORT).show();
-                    Log.e("xxxxxxx",resultsBean.content);
+                    DetailDispatchdb.ResultsBean resultsBean=response.body().getResults().get(0);
+                    Intent intent = new Intent(getActivity(), WebviewDispatchdbActivity.class);
+                    intent.putExtra(Config.NEWS,resultsBean);
+                    intent.putExtra("title",list.get(position).getTitle());
+                    intent.putExtra("sender",list.get(position).getSender());
+                    intent.putExtra("time",list.get(position).getSenderTime());
+                    startActivity(intent);
+                    Log.e("xxxxxxx",resultsBean.getHtmls());
                 }else{
                     Toast.makeText(getActivity(),"数据为空!",Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<Detail> call, Throwable t) {
+            public void onFailure(Call<DetailDispatchdb> call, Throwable t) {
                 Log.e("-------------",t.getMessage().toString());
             }
         });
