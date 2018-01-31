@@ -48,7 +48,7 @@ public class AdministrativeApproval implements Serializable{
         /**
          * title : 办公用品申领单(信息中心运维部-王天鹏)
          * typeAdvice : 办理
-         * sender : 邢纪文
+         * userSend : 邢纪文
          * isRead : 1
          * flowsort : 011020180203013PM56104
          * file_source_id : 010520180932006PM56736
@@ -61,7 +61,7 @@ public class AdministrativeApproval implements Serializable{
 
         private String title;
         private String typeAdvice;
-        private String sender;
+        private String userSend;
         private String isRead;
         private String flowsort;
         private String file_source_id;
@@ -88,11 +88,11 @@ public class AdministrativeApproval implements Serializable{
         }
 
         public String getSender() {
-            return sender;
+            return userSend;
         }
 
-        public void setSender(String sender) {
-            this.sender = sender;
+        public void setSender(String userSend) {
+            this.userSend = userSend;
         }
 
         public String getIsRead() {

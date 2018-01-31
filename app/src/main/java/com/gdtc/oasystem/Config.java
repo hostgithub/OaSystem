@@ -18,6 +18,8 @@ public class Config
     public static final String COMPANY = "company";
     public static final String DEPTUNIT = "deptunit";
     public static final String PATHDATA = "pathdata";
+    public static final String USER_DEPARTMENT = "user_department";
+    public static final String USER_DEPARTMENT_BIG = "user_department_big";
     public static final String PASSWORD = "password";
     public static final String PUSH = "push";
     public static final String TAG = "---------->>>";

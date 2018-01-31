@@ -1,5 +1,6 @@
 package com.gdtc.oasystem.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,9 +14,10 @@ import com.gdtc.oasystem.MyApplication;
 import com.gdtc.oasystem.R;
 import com.gdtc.oasystem.adapter.SendFileAdapter;
 import com.gdtc.oasystem.base.BaseFragment;
-import com.gdtc.oasystem.bean.Detail;
 import com.gdtc.oasystem.bean.DispatchWaitDeal;
+import com.gdtc.oasystem.bean.ShouWenDbDetail;
 import com.gdtc.oasystem.service.Api;
+import com.gdtc.oasystem.ui.WebviewIncomingdbActivity;
 import com.gdtc.oasystem.utils.RecyclerViewSpacesItemDecoration;
 import com.gdtc.oasystem.utils.SharePreferenceTools;
 import com.gdtc.oasystem.widget.EndLessOnScrollListener;
@@ -91,8 +93,9 @@ public class IncomingWaitDealFragment extends BaseFragment implements SwipeRefre
         picAdapter.setOnItemClickLitener(new SendFileAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                //getData(Integer.parseInt(list.get(position)._id));
-                Toast.makeText(getActivity(),"点击了"+position,Toast.LENGTH_SHORT).show();
+                getData(sp.getString(Config.PATHDATA),list.get(position).getFlowsort(),
+                        sp.getString(Config.DEPTUNIT),list.get(position).getFileSourceId(),sp.getString(Config.USER_ID),position);
+//                Toast.makeText(getActivity(),"点击了"+position,Toast.LENGTH_SHORT).show();
             }
         });
         mRecyclerView.setAdapter(picAdapter);
@@ -191,33 +194,36 @@ public class IncomingWaitDealFragment extends BaseFragment implements SwipeRefre
     }
 
 
-    private void getData(int id){
+    private void getData(String pathdata,String flowsort,String deptunit,String file_source_id,String sign,final int position){
         //使用retrofit配置api
         Retrofit retrofit=new Retrofit.Builder()
                 .baseUrl(Config.BANNER_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         Api api =retrofit.create(Api.class);
-        Call<Detail> call=api.getDetailData(id);
-        call.enqueue(new Callback<Detail>() {
+        Call<ShouWenDbDetail> call=api.getIncomingDbData(pathdata,flowsort,deptunit,file_source_id,sign);
+        call.enqueue(new Callback<ShouWenDbDetail>() {
             @Override
-            public void onResponse(Call<Detail> call, Response<Detail> response) {
+            public void onResponse(Call<ShouWenDbDetail> call, Response<ShouWenDbDetail> response) {
                 if(response!=null){
-                    Detail detail=response.body();
-                    Detail.ResultsBean resultsBean=detail.getResults().get(0);
-//                    Intent intent = new Intent(getActivity(), MainActivity.class);
-//                    intent.putExtra(Config.NEWS,resultsBean);
-//                    startActivity(intent);
-                    Toast.makeText(getActivity(),"现阶段 这里只是做个演示!",Toast.LENGTH_SHORT).show();
-                    Log.e("xxxxxxx",resultsBean.content);
+                    ShouWenDbDetail detail=response.body();
+                    ShouWenDbDetail.ResultsBean resultsBean=detail.getResults().get(0);
+                    Intent intent = new Intent(getActivity(), WebviewIncomingdbActivity.class);
+                    intent.putExtra(Config.NEWS,resultsBean);
+                    intent.putExtra("title",list.get(position).getTitle());
+                    intent.putExtra("sender",list.get(position).getSender());
+                    intent.putExtra("time",list.get(position).getSenderTime());
+                    startActivity(intent);
+                    Log.e("----------->>",resultsBean.getUserQc());
+                    Log.e("----------->>",resultsBean.getHtmls());
                 }else{
                     Toast.makeText(getActivity(),"数据为空!",Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<Detail> call, Throwable t) {
-                Log.e("-------------",t.getMessage().toString());
+            public void onFailure(Call<ShouWenDbDetail> call, Throwable t) {
+                Log.e("------------->>",t.getMessage().toString());
             }
         });
     }

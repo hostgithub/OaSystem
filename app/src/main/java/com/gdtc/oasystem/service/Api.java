@@ -1,6 +1,7 @@
 package com.gdtc.oasystem.service;
 
 import com.gdtc.oasystem.bean.AdministrativeApproval;
+import com.gdtc.oasystem.bean.AdministrativeApprovalDetail;
 import com.gdtc.oasystem.bean.AllWaitDealSize;
 import com.gdtc.oasystem.bean.Detail;
 import com.gdtc.oasystem.bean.DetailDispatchdb;
@@ -13,6 +14,7 @@ import com.gdtc.oasystem.bean.MeetingDetail;
 import com.gdtc.oasystem.bean.MeetingHandle;
 import com.gdtc.oasystem.bean.NewCenter;
 import com.gdtc.oasystem.bean.ResponseBean;
+import com.gdtc.oasystem.bean.ShouWenDbDetail;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -64,9 +66,16 @@ public interface Api {
             @Query("file_source_id") String file_source_id,@Query("deptunit") String deptunit);
 
 
-    //http://192.168.0.135:8080/app_phone/getProcessedList.do?page=1   收文待办
+    //http://192.168.0.135:8080/app_phone/getProcessedList.do?sign=56736&deptunit=10021&page=1   收文待办
     @GET("app_phone/getProcessedList.do")
     Call<DispatchWaitDeal> getIncomingWaitDealData(@Query("sign") String sign, @Query("deptunit") String deptunit, @Query("page") int page);
+
+
+    //http://192.168.0.135:8080/app_phone/processedInfo.do?pathdata=&flowsort=&deptunit=&file_source_id=&sign=    收文待办详情
+    @GET("app_phone/processedInfo.do")
+    Call<ShouWenDbDetail> getIncomingDbData(@Query("pathdata") String pathdata, @Query("flowsort") String flowsort,
+                                            @Query("deptunit") String deptunit,
+                                            @Query("file_source_id") String file_source_id, @Query("sign") String sign);
 
     //http://192.168.0.135:8080/app_phone/getMeetingHandleList.do?type=0&page=1&sign=56736&deptunit=10021   会议通知列表
     @GET("app_phone/getMeetingHandleList.do")
@@ -83,6 +92,18 @@ public interface Api {
     //http://192.168.0.135:8080/app_phone/getAdministrationHandleList.do?page=1&sign=56736   行政审批待办
     @GET("app_phone/getAdministrationHandleList.do")
     Call<AdministrativeApproval> getAdministrativeApprovalListData(@Query("page") int page, @Query("sign") String sign);
+
+
+    //http://192.168.0.135:8080/app_phone/administrationInfo.do?file_source_id=010520180932006PM56736&usersend=邢纪文&flowsort=011020180203013PM56104&typeAdvice=办理&pathdata=sgy&sort=custom&isRead=1&deptunit=10021&user_department_big=信息中心运维部&user_department=信息中心运维部   行政审批待办详情
+    @GET("app_phone/administrationInfo.do")
+    Call<AdministrativeApprovalDetail> getAdministrativeApprovalDetailData(@Query("file_source_id") String file_source_id, @Query("usersend") String usersend,
+                                                                           @Query("flowsort") String flowsort, @Query("typeAdvice") String typeAdvice,
+                                                                           @Query("pathdata") String pathdata, @Query("sort") String sort,
+                                                                           @Query("isRead") String isRead, @Query("deptunit") String deptunit,
+                                                                           @Query("user_department_big") String user_department_big,
+                                                                           @Query("user_department") String user_department);
+
+
 
     // 保留接口 http://192.168.0.135:8080/app_phone/getLeaveApplication.do?deptunit=10021   政务申请表单的数量 每个人员登陆可能申请的表单数不同 参数传 deptunit
     @GET("app_phone/getLeaveApplication.do") //json有问题

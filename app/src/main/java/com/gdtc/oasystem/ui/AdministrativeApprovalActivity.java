@@ -16,7 +16,7 @@ import com.gdtc.oasystem.R;
 import com.gdtc.oasystem.adapter.AdministrativeApprovalAdapter;
 import com.gdtc.oasystem.base.BaseActivity;
 import com.gdtc.oasystem.bean.AdministrativeApproval;
-import com.gdtc.oasystem.bean.MeetingDetail;
+import com.gdtc.oasystem.bean.AdministrativeApprovalDetail;
 import com.gdtc.oasystem.service.Api;
 import com.gdtc.oasystem.utils.RecyclerViewSpacesItemDecoration;
 import com.gdtc.oasystem.utils.SharePreferenceTools;
@@ -84,7 +84,9 @@ public class AdministrativeApprovalActivity extends BaseActivity implements Swip
         administrativeApprovalAdapter.setOnItemClickLitener(new AdministrativeApprovalAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-//                getData(list.get(position).getFlowsort());
+                getData(list.get(position).getFile_source_id(),list.get(position).getSender(),list.get(position).getFlowsort(),list.get(position).getTypeAdvice(),
+                        sp.getString(Config.PATHDATA),list.get(position).getSort(),list.get(position).getIsRead(),sp.getString(Config.DEPTUNIT),
+                sp.getString(Config.USER_DEPARTMENT_BIG),sp.getString(Config.USER_DEPARTMENT),position);
                 //Toast.makeText(AdministrativeApprovalActivity.this,"点击了"+position,Toast.LENGTH_SHORT).show();
             }
         });
@@ -170,31 +172,36 @@ public class AdministrativeApprovalActivity extends BaseActivity implements Swip
     }
 
 
-    private void getData(String flowsort,String flowid){
+    private void getData(String file_source_id,String usersend,String flowsort,String typeAdvice,String pathdata,
+                         String sort,String isRead,String deptunit,String user_department_big,String user_department,final int position){
         //使用retrofit配置api
         Retrofit retrofit=new Retrofit.Builder()
                 .baseUrl(Config.BANNER_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         Api api =retrofit.create(Api.class);
-        Call<MeetingDetail> call=api.getMeetingDetailData(flowsort,flowid);
-        call.enqueue(new Callback<MeetingDetail>() {
+        Call<AdministrativeApprovalDetail> call=api.getAdministrativeApprovalDetailData(file_source_id,usersend,flowsort,typeAdvice,pathdata,
+                sort,isRead,deptunit,user_department_big,user_department);
+        call.enqueue(new Callback<AdministrativeApprovalDetail>() {
             @Override
-            public void onResponse(Call<MeetingDetail> call, Response<MeetingDetail> response) {
+            public void onResponse(Call<AdministrativeApprovalDetail> call, Response<AdministrativeApprovalDetail> response) {
                 if(response!=null){
-                    MeetingDetail detail=response.body();
-                    MeetingDetail.ResultsBean resultsBean=detail.getResults().get(0);
-                    Intent intent = new Intent(AdministrativeApprovalActivity.this, WebViewDetailActivity.class);
+                    AdministrativeApprovalDetail detail=response.body();
+                    AdministrativeApprovalDetail.ResultsBean resultsBean=detail.getResults().get(0);
+                    Intent intent = new Intent(AdministrativeApprovalActivity.this, AdministrativeApprovalWebviewActivity.class);
                     intent.putExtra(Config.NEWS,resultsBean);
+                    intent.putExtra("title",list.get(position).getTitle());
+                    intent.putExtra("sender",list.get(position).getSender());
+                    intent.putExtra("time",list.get(position).getSenderTime());
                     startActivity(intent);
-                    Log.e("xxxxxxx",resultsBean.getContent());
+                    Log.e("---------------",resultsBean.getHtmls());
                 }else{
                     Toast.makeText(AdministrativeApprovalActivity.this,"数据为空!",Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<MeetingDetail> call, Throwable t) {
+            public void onFailure(Call<AdministrativeApprovalDetail> call, Throwable t) {
                 Log.e("-------------",t.getMessage().toString());
             }
         });

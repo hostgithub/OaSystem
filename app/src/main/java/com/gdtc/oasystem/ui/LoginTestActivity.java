@@ -167,6 +167,12 @@ public class LoginTestActivity extends BaseActivity {
                     Log.e("------------>>deptunit",response.body().getResults().get(0).getDepetUnit());
                     sp.putString(Config.PATHDATA,response.body().getResults().get(0).getPathdata());
                     Log.e("------------>>pathdata",response.body().getResults().get(0).getPathdata());
+
+                    sp.putString(Config.USER_DEPARTMENT,response.body().getResults().get(0).getUser_department());
+                    Log.e("--user_department",response.body().getResults().get(0).getUser_department());
+
+                    sp.putString(Config.USER_DEPARTMENT_BIG,response.body().getResults().get(0).getUser_department_big());
+                    Log.e("--user_department_big",response.body().getResults().get(0).getUser_department_big());
                     sp.putBoolean("main",true);
                     //跳转界面
                     Intent intent = new Intent(LoginTestActivity.this,HomePageActivity.class);

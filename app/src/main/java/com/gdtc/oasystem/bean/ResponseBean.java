@@ -12,11 +12,6 @@ import java.util.List;
 public class ResponseBean implements Serializable{
 
 
-    /**
-     * results : [{"information":"登陆成功!","userName":"王天鹏","depetName":"信息中心运维部","company":"黑龙江省高级人民法院"}]
-     * success : true
-     */
-
     @SerializedName("success")
     public String success;
 
@@ -31,12 +26,7 @@ public class ResponseBean implements Serializable{
     }
 
     public static class ResultsBean implements Serializable{
-        /**
-         * information : 登陆成功!
-         * userName : 王天鹏
-         * depetName : 信息中心运维部
-         * company : 黑龙江省高级人民法院
-         */
+
 
         private String information;
         private String userName;
@@ -45,6 +35,8 @@ public class ResponseBean implements Serializable{
         private String personnelId;
         private String depetUnit;
         private String pathdata;
+        private String user_department;
+        private String user_department_big;
 
         public String getInformation() {
             return information;
@@ -100,6 +92,22 @@ public class ResponseBean implements Serializable{
 
         public void setPathdata(String pathdata) {
             this.pathdata = pathdata;
+        }
+
+        public String getUser_department() {
+            return user_department;
+        }
+
+        public void setUser_department(String user_department) {
+            this.user_department = user_department;
+        }
+
+        public String getUser_department_big() {
+            return user_department_big;
+        }
+
+        public void setUser_department_big(String user_department_big) {
+            this.user_department_big = user_department_big;
         }
     }
 }

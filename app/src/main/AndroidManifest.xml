@@ -142,6 +142,12 @@
         <activity android:name=".ui.WebviewDispatchdbActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Design.Light.NoActionBar" ></activity>
+        <activity android:name=".ui.WebviewIncomingdbActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" ></activity>
+        <activity android:name=".ui.AdministrativeApprovalWebviewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" ></activity>
     </application>
 
 </manifest>
