@@ -14,8 +14,8 @@ import com.gdtc.oasystem.MyApplication;
 import com.gdtc.oasystem.R;
 import com.gdtc.oasystem.adapter.SendFileAdapter;
 import com.gdtc.oasystem.base.BaseActivity;
+import com.gdtc.oasystem.bean.DetailDispatchdb;
 import com.gdtc.oasystem.bean.DispatchWaitDeal;
-import com.gdtc.oasystem.bean.MeetingDetail;
 import com.gdtc.oasystem.service.Api;
 import com.gdtc.oasystem.utils.RecyclerViewSpacesItemDecoration;
 import com.gdtc.oasystem.utils.SharePreferenceTools;
@@ -79,8 +79,7 @@ public class FaWenDaiPiActivity extends BaseActivity implements SwipeRefreshLayo
         meetingHandleAdapter.setOnItemClickLitener(new SendFileAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-//                getData(list.get(position).getFlowsort());
-                Toast.makeText(FaWenDaiPiActivity.this,"点击了"+position,Toast.LENGTH_SHORT).show();
+                getData(list.get(position).getFileSourceId(),sp.getString(Config.DEPTUNIT),sp.getString(Config.PATHDATA),list.get(position).getType(),position);
             }
         });
         mRecyclerView.setAdapter(meetingHandleAdapter);
@@ -172,31 +171,33 @@ public class FaWenDaiPiActivity extends BaseActivity implements SwipeRefreshLayo
     }
 
 
-    private void getData(String flowsort,String flowid){
+    private void getData(String file_source_id, String deptunit, String pathdata, String type, final int position){
         //使用retrofit配置api
         Retrofit retrofit=new Retrofit.Builder()
                 .baseUrl(Config.BANNER_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         Api api =retrofit.create(Api.class);
-        Call<MeetingDetail> call=api.getMeetingDetailData(flowsort,flowid);
-        call.enqueue(new Callback<MeetingDetail>() {
+        Call<DetailDispatchdb> call=api.getDispatchdbDetailData(file_source_id,deptunit,pathdata,type);
+        call.enqueue(new Callback<DetailDispatchdb>() {
             @Override
-            public void onResponse(Call<MeetingDetail> call, Response<MeetingDetail> response) {
+            public void onResponse(Call<DetailDispatchdb> call, Response<DetailDispatchdb> response) {
                 if(response!=null){
-                    MeetingDetail detail=response.body();
-                    MeetingDetail.ResultsBean resultsBean=detail.getResults().get(0);
-                    Intent intent = new Intent(FaWenDaiPiActivity.this, WebViewDetailActivity.class);
+                    DetailDispatchdb.ResultsBean resultsBean=response.body().getResults().get(0);
+                    Intent intent = new Intent(FaWenDaiPiActivity.this, WebviewDispatchdbActivity.class);
                     intent.putExtra(Config.NEWS,resultsBean);
+                    intent.putExtra("title",list.get(position).getTitle());
+                    intent.putExtra("sender",list.get(position).getSender());
+                    intent.putExtra("time",list.get(position).getSenderTime());
                     startActivity(intent);
-                    Log.e("xxxxxxx",resultsBean.getContent());
+                    Log.e("xxxxxxx",resultsBean.getHtmls());
                 }else{
                     Toast.makeText(FaWenDaiPiActivity.this,"数据为空!",Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<MeetingDetail> call, Throwable t) {
+            public void onFailure(Call<DetailDispatchdb> call, Throwable t) {
                 Log.e("-------------",t.getMessage().toString());
             }
         });

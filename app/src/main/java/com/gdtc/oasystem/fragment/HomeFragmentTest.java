@@ -91,6 +91,12 @@ public class HomeFragmentTest extends BaseFragment {
 
     }
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        initData(sp.getString(Config.USER_ID));
+    }
+
     @OnClick({ R.id.rl1,R.id.rl2,R.id.rl3,R.id.rl4,R.id.rl5,R.id.rl6})
     public void onClick(View view) {
         switch (view.getId()){

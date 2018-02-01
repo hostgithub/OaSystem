@@ -15,7 +15,7 @@ import com.gdtc.oasystem.R;
 import com.gdtc.oasystem.adapter.SendFileAdapter;
 import com.gdtc.oasystem.base.BaseActivity;
 import com.gdtc.oasystem.bean.DispatchWaitDeal;
-import com.gdtc.oasystem.bean.MeetingDetail;
+import com.gdtc.oasystem.bean.ShouWenDbDetail;
 import com.gdtc.oasystem.service.Api;
 import com.gdtc.oasystem.utils.RecyclerViewSpacesItemDecoration;
 import com.gdtc.oasystem.utils.SharePreferenceTools;
@@ -79,8 +79,8 @@ public class ShouWenDaiPiActivity extends BaseActivity implements SwipeRefreshLa
         meetingHandleAdapter.setOnItemClickLitener(new SendFileAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-//                getData(list.get(position).getFlowsort());
-                Toast.makeText(ShouWenDaiPiActivity.this,"点击了"+position,Toast.LENGTH_SHORT).show();
+                getData(sp.getString(Config.PATHDATA),list.get(position).getFlowsort(),
+                        sp.getString(Config.DEPTUNIT),list.get(position).getFileSourceId(),sp.getString(Config.USER_ID),position);
             }
         });
         mRecyclerView.setAdapter(meetingHandleAdapter);
@@ -172,32 +172,36 @@ public class ShouWenDaiPiActivity extends BaseActivity implements SwipeRefreshLa
     }
 
 
-    private void getData(String flowsort,String flowid){
+    private void getData(String pathdata,String flowsort,String deptunit,String file_source_id,String sign,final int position){
         //使用retrofit配置api
         Retrofit retrofit=new Retrofit.Builder()
                 .baseUrl(Config.BANNER_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         Api api =retrofit.create(Api.class);
-        Call<MeetingDetail> call=api.getMeetingDetailData(flowsort,flowid);
-        call.enqueue(new Callback<MeetingDetail>() {
+        Call<ShouWenDbDetail> call=api.getIncomingDbData(pathdata,flowsort,deptunit,file_source_id,sign);
+        call.enqueue(new Callback<ShouWenDbDetail>() {
             @Override
-            public void onResponse(Call<MeetingDetail> call, Response<MeetingDetail> response) {
+            public void onResponse(Call<ShouWenDbDetail> call, Response<ShouWenDbDetail> response) {
                 if(response!=null){
-                    MeetingDetail detail=response.body();
-                    MeetingDetail.ResultsBean resultsBean=detail.getResults().get(0);
-                    Intent intent = new Intent(ShouWenDaiPiActivity.this, WebViewDetailActivity.class);
+                    ShouWenDbDetail detail=response.body();
+                    ShouWenDbDetail.ResultsBean resultsBean=detail.getResults().get(0);
+                    Intent intent = new Intent(ShouWenDaiPiActivity.this, WebviewIncomingdbActivity.class);
                     intent.putExtra(Config.NEWS,resultsBean);
+                    intent.putExtra("title",list.get(position).getTitle());
+                    intent.putExtra("sender",list.get(position).getSender());
+                    intent.putExtra("time",list.get(position).getSenderTime());
                     startActivity(intent);
-                    Log.e("xxxxxxx",resultsBean.getContent());
+                    Log.e("----------->>",resultsBean.getUserQc());
+                    Log.e("----------->>",resultsBean.getHtmls());
                 }else{
                     Toast.makeText(ShouWenDaiPiActivity.this,"数据为空!",Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<MeetingDetail> call, Throwable t) {
-                Log.e("-------------",t.getMessage().toString());
+            public void onFailure(Call<ShouWenDbDetail> call, Throwable t) {
+                Log.e("------------->>",t.getMessage().toString());
             }
         });
     }

@@ -190,6 +190,12 @@ public class JobFragmentTest extends BaseFragment {
     }
 
     @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        initData(sp.getString(Config.USER_ID));
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
