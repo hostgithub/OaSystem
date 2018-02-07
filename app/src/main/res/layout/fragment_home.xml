@@ -118,6 +118,11 @@
                     android:text=""
                     android:textColor="@color/content_text_color"
                     android:textSize="17.0sp" />
+
+                <TextView android:textSize="18.0sp" android:textColor="@color/content_gray_color"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text=">"  android:layout_marginRight="10.0dip"
+                    android:layout_alignParentRight="true" android:layout_centerVertical="true" />
             </RelativeLayout>
 
             <View
@@ -158,6 +163,10 @@
                     android:text=""
                     android:textColor="@color/content_text_color"
                     android:textSize="17.0sp" />
+                <TextView android:textSize="18.0sp" android:textColor="@color/content_gray_color"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text=">"  android:layout_marginRight="10.0dip"
+                    android:layout_alignParentRight="true" android:layout_centerVertical="true" />
             </RelativeLayout>
 
             <View
@@ -197,6 +206,10 @@
                     android:text=""
                     android:textColor="@color/content_text_color"
                     android:textSize="17.0sp" />
+                <TextView android:textSize="18.0sp" android:textColor="@color/content_gray_color"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text=">"  android:layout_marginRight="10.0dip"
+                    android:layout_alignParentRight="true" android:layout_centerVertical="true" />
             </RelativeLayout>
 
             <View
@@ -236,6 +249,10 @@
                     android:text=""
                     android:textColor="@color/content_text_color"
                     android:textSize="17.0sp" />
+                <TextView android:textSize="18.0sp" android:textColor="@color/content_gray_color"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text=">"  android:layout_marginRight="10.0dip"
+                    android:layout_alignParentRight="true" android:layout_centerVertical="true" />
             </RelativeLayout>
 
             <View
@@ -275,6 +292,10 @@
                     android:text="0"
                     android:textColor="@color/content_text_color"
                     android:textSize="17.0sp" />
+                <TextView android:textSize="18.0sp" android:textColor="@color/content_gray_color"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text=">"  android:layout_marginRight="10.0dip"
+                    android:layout_alignParentRight="true" android:layout_centerVertical="true" />
             </RelativeLayout>
 
             <View
@@ -314,6 +335,10 @@
                     android:text="0"
                     android:textColor="@color/content_text_color"
                     android:textSize="17.0sp" />
+                <TextView android:textSize="18.0sp" android:textColor="@color/content_gray_color"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text=">"  android:layout_marginRight="10.0dip"
+                    android:layout_alignParentRight="true" android:layout_centerVertical="true" />
             </RelativeLayout>
         </LinearLayout>
     </RelativeLayout>

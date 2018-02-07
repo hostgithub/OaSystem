@@ -14,12 +14,14 @@ import com.gdtc.oasystem.base.BaseFragment;
 import com.gdtc.oasystem.bean.AllWaitDealSize;
 import com.gdtc.oasystem.bean.EventUtil;
 import com.gdtc.oasystem.service.Api;
+import com.gdtc.oasystem.tablayout.TabActivity;
 import com.gdtc.oasystem.ui.AdministrativeApprovalActivity;
 import com.gdtc.oasystem.ui.FaWenDaiPiActivity;
 import com.gdtc.oasystem.ui.IncomingFilesDealActivity;
+import com.gdtc.oasystem.ui.IntranetActivity;
 import com.gdtc.oasystem.ui.MeetingHandleActivity;
-import com.gdtc.oasystem.ui.SendFilesDealActivity;
 import com.gdtc.oasystem.ui.ShouWenDaiPiActivity;
+import com.gdtc.oasystem.ui.ZhengwuApplyActivity;
 import com.gdtc.oasystem.utils.SharePreferenceTools;
 
 import org.greenrobot.eventbus.EventBus;
@@ -102,8 +104,8 @@ public class JobFragmentTest extends BaseFragment {
                 startActivity(new Intent(getActivity(),FaWenDaiPiActivity.class));
                 break;
             case R.id.rl5:
-                //startActivity(new Intent(getActivity(),ZhengwuApplyActivity.class));
-                Toast.makeText(getActivity(),"此模块待定",Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getActivity(),ZhengwuApplyActivity.class));
+//                Toast.makeText(getActivity(),"此模块待定",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.rl6:
                 Toast.makeText(getActivity(),"此模块待定",Toast.LENGTH_SHORT).show();
@@ -124,10 +126,12 @@ public class JobFragmentTest extends BaseFragment {
                 startActivity(new Intent(getActivity(),IncomingFilesDealActivity.class));
                 break;
             case R.id.table5:
-                startActivity(new Intent(getActivity(),SendFilesDealActivity.class));
+//                startActivity(new Intent(getActivity(),SendFilesDealActivity.class));
+                startActivity(new Intent(getActivity(),TabActivity.class));
                 break;
             case R.id.table6:
-                Toast.makeText(getActivity(),"此模块待定",Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getActivity(),ZhengwuApplyActivity.class));
+//                Toast.makeText(getActivity(),"此模块待定",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.table7:
                 Toast.makeText(getActivity(),"此模块待定",Toast.LENGTH_SHORT).show();
@@ -136,10 +140,10 @@ public class JobFragmentTest extends BaseFragment {
                 Toast.makeText(getActivity(),"此模块待定",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.table9:
-//                startActivity(new Intent(getActivity(),IntranetActivity.class));
+                startActivity(new Intent(getActivity(),IntranetActivity.class));
 //                startActivity(new Intent(getActivity(),RouteSetOwnerActivity.class));//测试日期时间选择器的
 //                startActivity(new Intent(getActivity(),OpenWordFromWpsAndInsideActivity.class));//测试生成word文档
-                Toast.makeText(getActivity(),"此模块待定",Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(),"此模块待定",Toast.LENGTH_SHORT).show();
                 break;
             default:
                 break;

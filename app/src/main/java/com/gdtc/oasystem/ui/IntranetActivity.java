@@ -58,8 +58,8 @@ public class IntranetActivity extends BaseActivity {
         mWebSettings.setDefaultTextEncodingName("utf-8");//设置编码格式
 
 //        mWebview.loadUrl("http://www.baidu.com/");
-        mWebview.loadUrl("http://www.hljcourt.gov.cn/");
-
+//        mWebview.loadUrl("http://www.hljcourt.gov.cn/");
+        mWebview.loadUrl("http://192.0.0.18/");
         //设置不用系统浏览器打开,直接显示在当前Webview
         mWebview.setWebViewClient(new WebViewClient() {
             @Override

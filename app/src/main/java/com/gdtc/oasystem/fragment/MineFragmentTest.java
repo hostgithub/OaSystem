@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
-import android.widget.Button;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,12 +13,17 @@ import com.gdtc.oasystem.Config;
 import com.gdtc.oasystem.MyApplication;
 import com.gdtc.oasystem.R;
 import com.gdtc.oasystem.base.BaseFragment;
+import com.gdtc.oasystem.header.HeaderImageView;
+import com.gdtc.oasystem.header.HeaderInfo;
 import com.gdtc.oasystem.push.PollingService;
 import com.gdtc.oasystem.push.PollingUtils;
+import com.gdtc.oasystem.ui.ChangePasswordActivity;
 import com.gdtc.oasystem.ui.LoginTestActivity;
 import com.gdtc.oasystem.utils.DataCleanManagerUtils;
 import com.gdtc.oasystem.utils.SharePreferenceTools;
-import com.gdtc.oasystem.word.PdfActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,6 +41,7 @@ public class MineFragmentTest extends BaseFragment {
     TextView title_center;
     @BindView(R.id.user_nameTv)
     TextView user_nameTv;
+
     @BindView(R.id.user_id)
     TextView user_id;
     @BindView(R.id.tv_dept)
@@ -43,8 +49,13 @@ public class MineFragmentTest extends BaseFragment {
     @BindView(R.id.tv_company)
     TextView tv_company;
     @BindView(R.id.btn_switch)
-    Button btn_switch;
+    Switch btn_switch;
     private SharePreferenceTools sp;
+
+    @BindView(R.id.user_iconIv)
+    HeaderImageView headerImageView;
+    private List<HeaderInfo> list = new ArrayList<>();
+    private HeaderInfo headerInfo;
 
     @Override
     public int getLayoutId() {
@@ -60,11 +71,18 @@ public class MineFragmentTest extends BaseFragment {
     public void initViews(View view, Bundle savedInstanceState) {
         mUnbinder = ButterKnife.bind(this, view);
         sp = new SharePreferenceTools(MyApplication.getContext());
-        user_nameTv.setText("登录人:"+sp.getString(Config.USERNAME));
+        user_nameTv.setText(sp.getString(Config.USERNAME));
 //        user_id.setText("ID:"+sp.getString(Config.DEPTUNIT));//部门id
         user_id.setText("ID:"+sp.getString(Config.USER_ID));//登录人id
         tv_dept.setText(sp.getString(Config.COMPANY));
         tv_company.setText(sp.getString(Config.DEPT_NAME));
+
+        //https需另做支持
+        headerInfo = new HeaderInfo(sp.getString(Config.USERNAME), "",Long.valueOf(sp.getString(Config.USER_ID)));
+
+        list.clear();
+        list.add(headerInfo);
+        headerImageView.setTextSize1(20f).setTextSizeOther(15f).setList(list);
 
         if(sp.getBoolean("IS_select",false)){
             btn_switch.setSelected(true);
@@ -87,8 +105,8 @@ public class MineFragmentTest extends BaseFragment {
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.updataPasswordRlt://改密码
-//                startActivity(new Intent(getActivity(),ChangePasswordActivity.class));
-                startActivity(new Intent(getActivity(),PdfActivity.class));
+                startActivity(new Intent(getActivity(),ChangePasswordActivity.class));
+//                startActivity(new Intent(getActivity(),PdfActivity.class));
                 break;
             case R.id.btn_switch:
                 if(btn_switch.isSelected()==true){

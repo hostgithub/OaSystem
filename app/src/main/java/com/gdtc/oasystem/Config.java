@@ -9,7 +9,6 @@ public class Config
     public static final String HOME_NEWS_URL = "http://v.juhe.cn/toutiao/";
     //http://v.juhe.cn/toutiao/index?type=top&key=988e51c45bbe88a33e032f8da38a61dd
     public static final String NEWS = "news";
-    public static final String LIST_ID = "list_id";
     public static final String PREFERENCE_DEFAULT_NAME = "preference_default_name";
     public static final String USER_NAME = "user_name";
     public static final String USER_ID = "userId";
@@ -25,8 +24,7 @@ public class Config
     public static final String TAG = "---------->>>";
 
        public static final String BANNER_BASE_URL = "http://192.168.0.135:8080/";
-//    public static final String BANNER_BASE_URL = "http://www.jms.gov.cn/";
+//       public static final String BANNER_BASE_URL = "http://136.11.5.104:8080/";
 
     public static final String CACHE = "cache";
-
 }
