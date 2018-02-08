@@ -16,8 +16,14 @@ import com.gdtc.oasystem.bean.NewCenter;
 import com.gdtc.oasystem.bean.ResponseBean;
 import com.gdtc.oasystem.bean.ShouWenDbDetail;
 
+import okhttp3.RequestBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /**
@@ -38,16 +44,17 @@ public interface Api {
     @GET("app_phone/appLogin.do")
     Call<ResponseBean> getLoginData(@Query("userid") String userid, @Query("user_password") String user_password,@Query("dept_properties") String dept_properties);
 
-    //http://192.168.0.135:8080/app_phone/getUntreatedList.do?page=1   发文待办
+    //http://192.168.0.135:8080/app_phone/getUntreatedList.do?sign=56736&deptunit10021&=page=1   发文待办
     @GET("app_phone/getUntreatedList.do")
     Call<DispatchWaitDeal> getDispatchWaitDealData(@Query("sign") String sign, @Query("deptunit") String deptunit, @Query("page") int page);
 
-    //http://192.168.0.135:8080/app_phone/dispatchInfodb.do?file_source_id=012920180904008AM56104&deptunit=10021&pathdata=sgy&type=OutfileDetail 发文待办详情
+    //http://192.168.0.135:8080/app_phone/dispatchInfodb.do?pathdata=sgy&deptunit=10021&sign=&userid=&file_source_id=&flowsort=               发文待办详情2版本
     @GET("app_phone/dispatchInfodb.do")
-    Call<DetailDispatchdb> getDispatchdbDetailData(@Query("file_source_id") String file_source_id, @Query("deptunit") String deptunit,
-                                                   @Query("pathdata") String pathdata, @Query("type") String type);
+    Call<DetailDispatchdb> getDispatchdbDetailData(@Query("pathdata") String pathdata, @Query("deptunit") String deptunit,
+                                                   @Query("sign") String sign, @Query("userid") String userid,
+                                                   @Query("file_source_id") String file_source_id, @Query("flowsort") String flowsort);
 
-    //http://192.168.0.135:8080/app_phone/getProcessedHandleList.do?sign=10021&page=1   发文已办
+    //http://192.168.0.135:8080/app_phone/getProcessedHandleList.do?sign=56736&page=1   发文已办
     @GET("app_phone/getProcessedHandleList.do")
     Call<DispatchHasDeal> getDispatchHasDealData(@Query("sign") String sign, @Query("page") int page);
 
@@ -56,7 +63,7 @@ public interface Api {
     Call<DispatchHasDealDetail> getDispatchHasDetailData(@Query("file_source_id") String file_source_id,@Query("deptunit") String deptunit
     ,@Query("type") String type,@Query("pathdata") String pathdata);
 
-    //http://192.168.0.135:8080/app_phone/getInHandleList.do?sign56736=&page=1   收文已办
+    //http://192.168.0.135:8080/app_phone/getInHandleList.do?sign=56736=&page=1   收文已办
     @GET("app_phone/getInHandleList.do")
     Call<IncomingHasDeal> getIncomingHasDealData(@Query("sign") String sign, @Query("page") int page);
 
@@ -114,4 +121,54 @@ public interface Api {
     @GET("app_phone/getListCount.do") //获取所有待办列表数
     Call<AllWaitDealSize> getAllWaitDealNumberData(@Query("sign") String sign);
 
+
+    @Headers({"Content-Type: application/json","Accept: application/json"})//需要添加头
+    @POST("app/receiveData.do")
+    Call<ResponseBean> postFlyRoute(@Body RequestBody route);//传入的参数为RequestBody
+
+    ///app_phone/writeBack.do?user_department=&user_department_big=&sign=&deptunit=&title=  &jijian=  &userid=  &file_source_id=&flowsort=&advice=  &ip=  &type_advice_sa=  &yffs=  &column1= &column2=  &column3=  &column6=  &column75=  &column76=  &column77=  &column78=  &column79=
+
+    /** 表单提交要加 @FormUrlEncoded
+     * 登录
+     * @param user_department 用户名
+     * @param user_department_big 密码
+     * @param sign 设置ID
+     * @param deptunit 平台这里是Android
+     * @param title 版本号
+     * @param jijian 版本号
+     * @param userid 版本号
+     * @param file_source_id 版本号
+     * @param flowsort 版本号
+     * @param advice 版本号
+     * @param ip 版本号
+     * @param type_advice_sa 版本号
+     * @param yffs 版本号
+     * @param column1 版本号
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("app_phone/writeBack.do")
+    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8") //添加
+    Call<HuiZhiBean> dispatchBack(@Field("user_department") String user_department,
+                       @Field("user_department_big") String user_department_big,
+                       @Field("sign") String sign,
+                       @Field("deptunit") String deptunit,
+                       @Field("title") String title,
+                       @Field("jijian") String jijian,
+                       @Field("userid") String userid,
+                       @Field("file_source_id") String file_source_id,
+                       @Field("flowsort") String flowsort,
+                       @Field("advice") String advice,
+                       @Field("ip") String ip,
+                       @Field("type_advice_sa") String type_advice_sa,
+                       @Field("yffs") String yffs,
+                       @Field("column1") String column1,
+                       @Field("column2") String column2,
+                       @Field("column3") String column3,
+                       @Field("column6") String column6,
+                       @Field("column75") String column75,
+                       @Field("column76") String column76,
+                       @Field("column77") String column77,
+                       @Field("column78") String column78,
+                       @Field("column79") String column79);
 }

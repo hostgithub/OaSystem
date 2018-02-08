@@ -29,7 +29,7 @@ public class ResponseBean implements Serializable{
 
 
         private String information;
-        private String userName;
+        private String userid;
         private String depetName;
         private String company;
         private String personnelId;
@@ -47,11 +47,11 @@ public class ResponseBean implements Serializable{
         }
 
         public String getUserName() {
-            return userName;
+            return userid;
         }
 
         public void setUserName(String userName) {
-            this.userName = userName;
+            this.userid = userName;
         }
 
         public String getDepetName() {

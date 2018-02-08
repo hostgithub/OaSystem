@@ -1,11 +1,14 @@
 package com.gdtc.oasystem.ui;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -16,18 +19,30 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gdtc.oasystem.Config;
+import com.gdtc.oasystem.MyApplication;
 import com.gdtc.oasystem.R;
 import com.gdtc.oasystem.base.BaseActivity;
 import com.gdtc.oasystem.bean.DetailDispatchdb;
+import com.gdtc.oasystem.bean.HuiZhiBean;
+import com.gdtc.oasystem.service.Api;
 import com.gdtc.oasystem.utils.MyScrollView;
 import com.gdtc.oasystem.utils.NetWorkUtil;
+import com.gdtc.oasystem.utils.SharePreferenceTools;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class WebviewDispatchdbActivity extends BaseActivity {
 
@@ -41,7 +56,14 @@ public class WebviewDispatchdbActivity extends BaseActivity {
     WebView webView;//xml中最好是自适应 不要match
     @BindView(R.id.scrollView)
     MyScrollView scrollView;
-
+    @BindView(R.id.edt_content)
+    EditText edt_content;
+    @BindView(R.id.btn_agree)
+    Button btn_agree;
+    @BindView(R.id.btn_un_agree)
+    Button btn_un_agree;
+    private DetailDispatchdb.ResultsBean resultsBean;
+    private SharePreferenceTools sp;
 
     @Override
     protected int getLayoutId() {
@@ -51,6 +73,7 @@ public class WebviewDispatchdbActivity extends BaseActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
 
+        sp = new SharePreferenceTools(MyApplication.getContext());
         Intent intent = getIntent();
 
 //        LinearLayout.LayoutParams mWebViewLP = new LinearLayout.LayoutParams(
@@ -181,7 +204,7 @@ public class WebviewDispatchdbActivity extends BaseActivity {
 
 
         //mDetailWebView.loadUrl(it.getStringExtra(Config.NEWS));
-        DetailDispatchdb.ResultsBean resultsBean= (DetailDispatchdb.ResultsBean) intent.getSerializableExtra(Config.NEWS);
+        resultsBean= (DetailDispatchdb.ResultsBean) intent.getSerializableExtra(Config.NEWS);
         //tv_content.setText(Html.fromHtml(resultsBean.content));
         if(resultsBean.getHtmls().startsWith("http")){
             webView.loadUrl(resultsBean.getHtmls());
@@ -254,8 +277,86 @@ public class WebviewDispatchdbActivity extends BaseActivity {
         super.onDestroy();
     }
 
-    @OnClick({ R.id.title_left})
+    @OnClick({ R.id.title_left,R.id.btn_agree,R.id.btn_un_agree})
     public void onClick(View view) {
-        finish();
+        switch (view.getId()){
+            case R.id.title_left:
+                finish();
+                break;
+            case R.id.btn_agree:
+                dispatchBack();
+                break;
+            case R.id.btn_un_agree:
+                dispatchBack();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void dispatchBack(){
+
+        /**
+         * 初始化
+         */
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Config.BANNER_BASE_URL)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        //生成对象的Service
+        Api api = retrofit.create(Api.class);
+        //调用方法得到Call
+        Call<HuiZhiBean> call = api.dispatchBack(sp.getString(Config.USER_DEPARTMENT),
+                sp.getString(Config.USER_DEPARTMENT_BIG),
+                sp.getString(Config.USER_ID),
+                sp.getString(Config.DEPTUNIT),
+                resultsBean.getTitle(),
+                resultsBean.getJijian(),
+                sp.getString(Config.USERNAME),
+                resultsBean.getFile_source_id(),
+                resultsBean.getFlowsort(),
+                edt_content.getText().toString().trim(),
+                sp.getString("ip"),
+                resultsBean.getType_advice_sa(),
+                resultsBean.getYffs(),
+                resultsBean.getColumn1(),resultsBean.getColumn2(),resultsBean.getColumn3(),resultsBean.getColumn6(),
+                resultsBean.getColumn75(),resultsBean.getColumn76(),resultsBean.getColumn77(),resultsBean.getColumn78(),resultsBean.getColumn79());
+
+        //异步执行
+        call.enqueue(new Callback<HuiZhiBean>() {
+            @Override
+            public void onResponse(Call<HuiZhiBean> call, Response<HuiZhiBean> response) {
+                Log.e("-----------",response.message()+"   "+response.body().getSuccess());
+                if(response.body().getSuccess()=="true"){
+                    AlertDialog.Builder builder=new AlertDialog.Builder(WebviewDispatchdbActivity.this);
+                    builder.setTitle("通知详情");//设置对话框的标题
+                    builder.setMessage("您填写的信息已成功提交，请返回");//设置对话框的内容
+                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {  //这个是设置确定按钮
+
+                        @Override
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            //Toast.makeText(Some_suggestionsActivity.this, "确定", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+                    });
+//                    builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {  //取消按钮
+//
+//                        @Override
+//                        public void onClick(DialogInterface arg0, int arg1) {
+//                            Toast.makeText(Some_suggestionsActivity.this, "取消",Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
+                    AlertDialog b=builder.create();
+                    b.show();  //必须show一下才能看到对话框，跟Toast一样的道理
+                }
+            }
+            @Override
+            public void onFailure(Call<HuiZhiBean> call, Throwable t) {
+                Log.e("-------------",t.getMessage());
+                Log.e("-------------",t.toString());
+            }
+        });
     }
 }

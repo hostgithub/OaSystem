@@ -1,7 +1,6 @@
 package com.gdtc.oasystem.ui;
 
 import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -23,7 +22,6 @@ import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.gdtc.oasystem.Config;
@@ -301,9 +299,10 @@ public class ZwsqSubmitActivity extends BaseActivity{
                 backgroundAlpha(0.5f);
                 break;
             case R.id.btn_submit://提交
-                if(dayCount==0.0){
+                dayNumber(start.getText().toString(),stop.getText().toString());
+                if(dayCount==0.0|dayCount<0){
                     AlertDialog.Builder builder=new AlertDialog.Builder(ZwsqSubmitActivity.this);
-                    builder.setMessage("天数不能为0");//设置对话框的内容
+                    builder.setMessage("开始日期与结束日期错误");//设置对话框的内容
                     builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {  //这个是设置确定按钮
 
                         @Override
@@ -314,7 +313,6 @@ public class ZwsqSubmitActivity extends BaseActivity{
                     AlertDialog b=builder.create();
                     b.show();  //必须show一下才能看到对话框，跟Toast一样的道理
                 }
-                Toast.makeText(ZwsqSubmitActivity.this,"提交",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.btn_cancel://取消
                 finish();
@@ -343,16 +341,72 @@ public class ZwsqSubmitActivity extends BaseActivity{
         Calendar calendar = Calendar.getInstance();
 
 
-        TimePickerDialog timePickerDialog=new TimePickerDialog(ZwsqSubmitActivity.this, new TimePickerDialog.OnTimeSetListener() {
+//        TimePickerDialog timePickerDialog=new TimePickerDialog(ZwsqSubmitActivity.this, new TimePickerDialog.OnTimeSetListener() {
+//            @Override
+//            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+//                mhourOfDay=hourOfDay;
+//                mminute=minute;
+//                textView.setText(myear + "-" + mmonthOfYear + "-" + mdayOfMonth +" " +mhourOfDay+":"+mminute);
+//
+//                if(textView.getId()==R.id.stop){
+////                    stop.setText(year + "-" + monthOfYear + "-" + dayOfMonth);
+//                    stop.setText(myear + "-" + mmonthOfYear + "-" + mdayOfMonth +" " +mhourOfDay+":"+mminute);
+//                    Log.e("----选完日期后的stop_date",stop.getText().toString());
+//                    dayNumber(start.getText().toString(),stop.getText().toString());
+//                    if(dayCount<0){
+//                        AlertDialog.Builder builder=new AlertDialog.Builder(ZwsqSubmitActivity.this);
+//                        builder.setMessage("开始时间不能大于结束时间");//设置对话框的内容
+//                        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {  //这个是设置确定按钮
+//
+//                            @Override
+//                            public void onClick(DialogInterface arg0, int arg1) {
+//                                day_number.setText("天");
+//                                start.setText("请选择");
+//                                stop.setText("请选择");
+//                                arg0.dismiss();
+//                            }
+//                        });
+//                        AlertDialog b=builder.create();
+//                        b.show();  //必须show一下才能看到对话框，跟Toast一样的道理
+//                    }
+//                }
+//                if(textView.getId()==R.id.start&&!day_number.getText().toString().equals("天")&&!day_number.getText().toString().equals("")){
+//                    dayNumber(start.getText().toString(),stop.getText().toString());
+//                    if(dayCount<0){
+//                        AlertDialog.Builder builder=new AlertDialog.Builder(ZwsqSubmitActivity.this);
+//                        builder.setMessage("开始时间不能大于结束时间");//设置对话框的内容
+//                        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {  //这个是设置确定按钮
+//
+//                            @Override
+//                            public void onClick(DialogInterface arg0, int arg1) {
+//                                day_number.setText("天");
+//                                start.setText("请选择");
+//                                stop.setText("请选择");
+//                                arg0.dismiss();
+//                            }
+//                        });
+//                        AlertDialog b=builder.create();
+//                        b.show();  //必须show一下才能看到对话框，跟Toast一样的道理
+//                    }
+//                }
+//            }
+//        },calendar.get(Calendar.HOUR_OF_DAY),calendar.get(Calendar.MINUTE),false);
+//        timePickerDialog.setCanceledOnTouchOutside(false);
+//        timePickerDialog.show();
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(ZwsqSubmitActivity.this, new DatePickerDialog.OnDateSetListener() {
+
             @Override
-            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                mhourOfDay=hourOfDay;
-                mminute=minute;
-                textView.setText(myear + "-" + mmonthOfYear + "-" + mdayOfMonth +" " +mhourOfDay+":"+mminute);
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+//                textView.setText(year + "-" + ++monthOfYear + "-" + dayOfMonth +" " +mhourOfDay+":"+mminute);
+                textView.setText(year + "-" + ++monthOfYear + "-" + dayOfMonth );
+//                myear=year;
+//                mmonthOfYear=++monthOfYear;
+//                mdayOfMonth=dayOfMonth;
 
                 if(textView.getId()==R.id.stop){
-//                    stop.setText(year + "-" + monthOfYear + "-" + dayOfMonth);
-                    stop.setText(myear + "-" + mmonthOfYear + "-" + mdayOfMonth +" " +mhourOfDay+":"+mminute);
+                    stop.setText(year + "-" + monthOfYear + "-" + dayOfMonth);
+//                    stop.setText(myear + "-" + mmonthOfYear + "-" + mdayOfMonth +" " +mhourOfDay+":"+mminute);
                     Log.e("----选完日期后的stop_date",stop.getText().toString());
                     dayNumber(start.getText().toString(),stop.getText().toString());
                     if(dayCount<0){
@@ -363,8 +417,6 @@ public class ZwsqSubmitActivity extends BaseActivity{
                             @Override
                             public void onClick(DialogInterface arg0, int arg1) {
                                 day_number.setText("天");
-                                start.setText("请选择");
-                                stop.setText("请选择");
                                 arg0.dismiss();
                             }
                         });
@@ -372,7 +424,7 @@ public class ZwsqSubmitActivity extends BaseActivity{
                         b.show();  //必须show一下才能看到对话框，跟Toast一样的道理
                     }
                 }
-                if(textView.getId()==R.id.start&&!day_number.getText().toString().equals("天")&&!day_number.getText().toString().equals("")){
+                if(textView.getId()==R.id.start&&!day_number.getText().equals("天")&&!day_number.getText().toString().equals("")){
                     dayNumber(start.getText().toString(),stop.getText().toString());
                     if(dayCount<0){
                         AlertDialog.Builder builder=new AlertDialog.Builder(ZwsqSubmitActivity.this);
@@ -382,8 +434,6 @@ public class ZwsqSubmitActivity extends BaseActivity{
                             @Override
                             public void onClick(DialogInterface arg0, int arg1) {
                                 day_number.setText("天");
-                                start.setText("请选择");
-                                stop.setText("请选择");
                                 arg0.dismiss();
                             }
                         });
@@ -391,19 +441,6 @@ public class ZwsqSubmitActivity extends BaseActivity{
                         b.show();  //必须show一下才能看到对话框，跟Toast一样的道理
                     }
                 }
-            }
-        },calendar.get(Calendar.HOUR_OF_DAY),calendar.get(Calendar.MINUTE),false);
-        timePickerDialog.setCanceledOnTouchOutside(false);
-        timePickerDialog.show();
-
-        DatePickerDialog datePickerDialog = new DatePickerDialog(ZwsqSubmitActivity.this, new DatePickerDialog.OnDateSetListener() {
-
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                //textView.setText(year + "-" + ++monthOfYear + "-" + dayOfMonth +" " +mhourOfDay+":"+mminute);
-                myear=year;
-                mmonthOfYear=++monthOfYear;
-                mdayOfMonth=dayOfMonth;
 
             }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
@@ -456,7 +493,7 @@ public class ZwsqSubmitActivity extends BaseActivity{
         cal1.setTime(date1);
         cal2.setTime(date2);
         dayCount = (cal2.getTimeInMillis() - cal1.getTimeInMillis()) / (1000 * 3600 * 24);// 从间隔毫秒变成间隔天数
-        day_number.setText(String.valueOf(dayCount));
+//        day_number.setText(String.valueOf(dayCount));
     }
 
 

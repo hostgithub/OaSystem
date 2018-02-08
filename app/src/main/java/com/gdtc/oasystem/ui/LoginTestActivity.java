@@ -19,6 +19,11 @@ import com.gdtc.oasystem.bean.ResponseBean;
 import com.gdtc.oasystem.service.Api;
 import com.gdtc.oasystem.utils.SharePreferenceTools;
 
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.util.Enumeration;
+
 import butterknife.BindView;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -174,6 +179,8 @@ public class LoginTestActivity extends BaseActivity {
                     sp.putString(Config.USER_DEPARTMENT_BIG,response.body().getResults().get(0).getUser_department_big());
                     Log.e("--user_department_big",response.body().getResults().get(0).getUser_department_big());
                     sp.putBoolean("main",true);
+                    sp.putString("ip",getLocalIpAddress());
+                    Log.e("--ip--",getLocalIpAddress());
                     //跳转界面
                     Intent intent = new Intent(LoginTestActivity.this,HomePageActivity.class);
                     startActivity(intent);
@@ -198,5 +205,29 @@ public class LoginTestActivity extends BaseActivity {
         if(sp!=null){
             sp=null;
         }
+    }
+
+    public String getLocalIpAddress()
+    {
+        try
+        {
+            for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();)
+            {
+                NetworkInterface intf = en.nextElement();
+                for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();)
+                {
+                    InetAddress inetAddress = enumIpAddr.nextElement();
+                    if (!inetAddress.isLoopbackAddress())
+                    {
+                        return inetAddress.getHostAddress().toString();
+                    }
+                }
+            }
+        }
+        catch (SocketException ex)
+        {
+            Log.e("WifiPreferenceIpAddress", ex.toString());
+        }
+        return null;
     }
 }

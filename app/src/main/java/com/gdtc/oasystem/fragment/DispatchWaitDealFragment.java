@@ -92,7 +92,8 @@ public class DispatchWaitDealFragment extends BaseFragment implements SwipeRefre
         picAdapter.setOnItemClickLitener(new SendFileAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                getData(list.get(position).getFileSourceId(),sp.getString(Config.DEPTUNIT),sp.getString(Config.PATHDATA),list.get(position).getType(),position);
+                getData(sp.getString(Config.PATHDATA),sp.getString(Config.DEPTUNIT),sp.getString(Config.USER_ID),sp.getString(Config.USERNAME)
+                        ,list.get(position).getFileSourceId(),list.get(position).getFlowsort(),position);
 //                Toast.makeText(getActivity(),"点击了"+position,Toast.LENGTH_SHORT).show();
             }
         });
@@ -175,6 +176,9 @@ public class DispatchWaitDealFragment extends BaseFragment implements SwipeRefre
                         sp.putString("count",response.body().getCount());
                         Log.e("---------->>>请求数据集合大小:", String.valueOf(response.body().getResults().size()));
                         sp.putInt("apagesize",response.body().getResults().size());
+                        if(response.body().getResults().size()<15){
+                            picAdapter.setFooterVisible(View.GONE);
+                        }
                         Log.e("---------->>>请求数据发送人:",response.body().getResults().get(0).getSender().toString());
                         Log.e("---------->>>请求数据id:",response.body().getResults().get(0).get_id().toString());
                         Log.e("---------->>>请求数据标题:",response.body().getResults().get(0).getTitle().toString());
@@ -193,14 +197,14 @@ public class DispatchWaitDealFragment extends BaseFragment implements SwipeRefre
     }
 
 
-    private void getData(String file_source_id, String deptunit, String pathdata, String type, final int position){
+    private void getData(String pathdata, String deptunit, String sign, String userid, String file_source_id,String flowsort,final int position){
         //使用retrofit配置api
         Retrofit retrofit=new Retrofit.Builder()
                 .baseUrl(Config.BANNER_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         Api api =retrofit.create(Api.class);
-        Call<DetailDispatchdb> call=api.getDispatchdbDetailData(file_source_id,deptunit,pathdata,type);
+        Call<DetailDispatchdb> call=api.getDispatchdbDetailData(pathdata,deptunit,sign,userid,file_source_id,flowsort);
         call.enqueue(new Callback<DetailDispatchdb>() {
             @Override
             public void onResponse(Call<DetailDispatchdb> call, Response<DetailDispatchdb> response) {

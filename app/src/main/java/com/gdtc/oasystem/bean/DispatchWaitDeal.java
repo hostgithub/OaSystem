@@ -51,6 +51,8 @@ public class DispatchWaitDeal implements Serializable{
          */
 
         private String _id;
+        private String sign;
+        private String deptunit;
         private String title;
         private String sender;
         private String senderTime;
@@ -59,7 +61,8 @@ public class DispatchWaitDeal implements Serializable{
         private String formid;
         private String flowsort;
         private String fileSourceId;
-        private String type;
+        private String advice;
+        private String typeAdvice;
 
         public String get_id() {
             return _id;
@@ -126,12 +129,36 @@ public class DispatchWaitDeal implements Serializable{
             this.fileSourceId = fileSourceId;
         }
 
-        public String getType() {
-            return type;
+        public String getSign() {
+            return sign;
         }
 
-        public void setType(String type) {
-            this.type = type;
+        public void setSign(String sign) {
+            this.sign = sign;
+        }
+
+        public String getDeptunit() {
+            return deptunit;
+        }
+
+        public void setDeptunit(String deptunit) {
+            this.deptunit = deptunit;
+        }
+
+        public String getAdvice() {
+            return advice;
+        }
+
+        public void setAdvice(String advice) {
+            this.advice = advice;
+        }
+
+        public String getTypeAdvice() {
+            return typeAdvice;
+        }
+
+        public void setTypeAdvice(String typeAdvice) {
+            this.typeAdvice = typeAdvice;
         }
     }
 }

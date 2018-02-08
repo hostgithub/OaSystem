@@ -33,7 +33,7 @@
 
                 <TextView android:text="所在部门"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"  android:textSize="18sp"
+                    android:layout_height="wrap_content"  style="@style/TextSize16"
                     android:textColor="#000" android:layout_marginLeft="5dp"/>
                 <Spinner android:id="@+id/spinner_bumen" android:visibility="gone"
                     android:layout_width="match_parent" android:background="@drawable/spinner"
@@ -42,7 +42,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" android:layout_alignParentRight="true"
                     android:text="高法部" android:layout_marginRight="15dp"
-                    android:textColor="#000" android:textSize="18sp"/>
+                    android:textColor="#000" style="@style/TextSize16"/>
             </RelativeLayout>
 
             <View android:background="@color/WhiteSmoke"
@@ -53,15 +53,15 @@
                 android:layout_width="match_parent" android:layout_marginTop="10dp"
                 android:layout_height="50dp" android:gravity="center_vertical">
 
-                <TextView android:text="姓名"
+                <TextView android:text="姓        名"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"  android:textSize="18sp"
+                    android:layout_height="wrap_content"  style="@style/TextSize16"
                     android:textColor="#000" android:layout_marginLeft="5dp"/>
                 <TextView android:id="@+id/tv_username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" android:layout_alignParentRight="true"
                     android:text="xxx" android:layout_marginRight="15dp"
-                    android:textSize="18sp" android:textColor="#000"/>
+                    style="@style/TextSize16" android:textColor="#000"/>
             </RelativeLayout>
 
             <View android:background="@color/WhiteSmoke"
@@ -74,18 +74,13 @@
 
                 <TextView android:text="工作年限"
                     android:layout_width="wrap_content" android:layout_centerVertical="true"
-                    android:layout_height="wrap_content"  android:textSize="18sp"
+                    android:layout_height="wrap_content"  style="@style/TextSize16"
                     android:textColor="#000" android:layout_marginLeft="5dp"/>
                 <EditText android:id="@+id/edt_work_years"
-                    android:layout_width="50dp" android:textColor="@color/black_text_color"
+                    android:layout_width="200dp" android:textColor="@color/black_text_color"
                     android:layout_height="wrap_content" android:layout_alignParentRight="true"
-                    android:background="@drawable/editshape" android:layout_marginRight="30dp"
+                    android:background="@drawable/editshape" android:layout_marginRight="15dp"
                     android:textSize="15sp" android:layout_centerVertical="true"/>
-                <TextView android:text="年"
-                    android:layout_width="wrap_content" android:layout_marginRight="11dp"
-                    android:layout_height="wrap_content"  android:textSize="18sp"
-                    android:textColor="#000" android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"/>
             </RelativeLayout>
 
             <View android:background="@color/WhiteSmoke"
@@ -98,14 +93,14 @@
 
                 <TextView android:text="请假类型"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"  android:textSize="18sp"
+                    android:layout_height="wrap_content"  style="@style/TextSize16"
                     android:textColor="#000" android:layout_marginLeft="5dp"/>
                 <TextView android:id="@+id/tv_kind"
                     android:layout_width="wrap_content" android:textColor="@color/black_text_color"
                     android:layout_height="wrap_content" android:layout_alignParentRight="true"
                     android:hint="请选择类别"  android:layout_marginRight="20dp"
                     android:gravity="right"
-                    android:textSize="18sp" android:textColorHint="@color/huise_text_color"  />
+                    style="@style/TextSize16" android:textColorHint="@color/huise_text_color"  />
                 <TextView
                     android:layout_width="wrap_content" android:text=">"
                     android:layout_marginRight="10dp" android:textSize="18sp"
@@ -122,14 +117,14 @@
 
                 <TextView android:text="开始日期"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"  android:textSize="18sp"
+                    android:layout_height="wrap_content"  style="@style/TextSize16"
                     android:textColor="#000" android:layout_marginLeft="5dp"/>
                 <TextView android:id="@+id/start"
                     android:layout_width="wrap_content" android:textColor="@color/black_text_color"
                     android:layout_height="wrap_content" android:layout_alignParentRight="true"
                     android:layout_marginRight="20dp"
                     android:gravity="right" android:hint="选择开始日期"
-                    android:textSize="18sp" android:textColorHint="@color/huise_text_color"/>
+                    style="@style/TextSize16" android:textColorHint="@color/huise_text_color"/>
                 <TextView
                     android:layout_width="wrap_content" android:text=">"
                     android:layout_marginRight="10dp" android:textSize="18sp"
@@ -144,14 +139,14 @@
 
                 <TextView android:text="结束日期"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"  android:textSize="18sp"
+                    android:layout_height="wrap_content"  style="@style/TextSize16"
                     android:textColor="#000" android:layout_marginLeft="5dp"/>
                 <TextView android:id="@+id/stop"
                     android:layout_width="wrap_content" android:textColor="@color/black_text_color"
                     android:layout_height="wrap_content" android:layout_alignParentRight="true"
                     android:layout_marginRight="20dp"
                     android:gravity="right" android:hint="选择结束日期"
-                    android:textSize="18sp" android:textColorHint="@color/huise_text_color"/>
+                    style="@style/TextSize16" android:textColorHint="@color/huise_text_color"/>
                 <TextView
                     android:layout_width="wrap_content" android:text=">"
                     android:layout_marginRight="10dp" android:textSize="18sp"
@@ -163,7 +158,8 @@
 
             <RelativeLayout
                 android:layout_width="match_parent" android:layout_marginTop="10dp"
-                android:layout_height="50dp" android:gravity="center_vertical">
+                android:layout_height="50dp" android:gravity="center_vertical"
+                android:visibility="gone">
 
                 <TextView android:text="天数"
                     android:layout_width="wrap_content"
@@ -176,7 +172,7 @@
                     android:hint="天" android:textColorHint="@color/huise_text_color"/>
             </RelativeLayout>
             <View android:background="@color/WhiteSmoke"
-                android:layout_width="match_parent"
+                android:layout_width="match_parent" android:visibility="gone"
                 android:layout_height="2dp" android:layout_marginTop="10dp"/>
 
             <RelativeLayout
@@ -185,7 +181,7 @@
 
                 <TextView android:text="外出地点"
                     android:layout_width="wrap_content" android:layout_centerVertical="true"
-                    android:layout_height="wrap_content"  android:textSize="18sp"
+                    android:layout_height="wrap_content"  style="@style/TextSize16"
                     android:textColor="#000" android:layout_marginLeft="5dp"/>
                 <EditText android:id="@+id/edt_location"
                     android:layout_width="200dp" android:textColor="@color/black_text_color"
@@ -205,7 +201,7 @@
 
                 <TextView android:text="外出事由"
                     android:layout_width="wrap_content" android:layout_centerVertical="true"
-                    android:layout_height="wrap_content"  android:textSize="18sp"
+                    android:layout_height="wrap_content"  style="@style/TextSize16"
                     android:textColor="#000" android:layout_marginLeft="5dp"/>
                 <EditText android:id="@+id/edt_cause"
                     android:layout_width="200dp" android:textColor="@color/black_text_color"
@@ -217,25 +213,25 @@
             <View android:background="@color/WhiteSmoke"
                 android:layout_width="match_parent"
                 android:layout_height="2dp" android:layout_marginTop="10dp"/>
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:layout_marginTop="10dp"
-                android:orientation="horizontal" android:gravity="center_vertical">
+                android:gravity="center_vertical">
 
-                <TextView android:text="备注"
+                <TextView android:text="备        注"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"  android:textSize="18sp"
-                    android:textColor="#000"/>
+                    android:layout_height="wrap_content"  style="@style/TextSize16"
+                    android:textColor="#000" android:layout_marginLeft="5dp"/>
 
                 <EditText
                     android:id="@+id/edt_content"
-                    android:layout_width="match_parent"
+                    android:layout_width="200dp"
                     android:layout_height="80dp"
                     android:background="@drawable/editshape"
                     android:textColor="@color/black_text_color"
-                    android:gravity="left|top"
-                    android:imeOptions="actionDone" />
-            </LinearLayout>
+                    android:gravity="left|top" android:layout_marginRight="15dp"
+                    android:imeOptions="actionDone" android:layout_alignParentRight="true"/>
+            </RelativeLayout>
 
             <View android:background="@color/WhiteSmoke"
                 android:layout_width="match_parent"
@@ -246,17 +242,17 @@
 
                 <TextView android:text="选择发送人"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"  android:textSize="18sp"
+                    android:layout_height="wrap_content"  style="@style/TextSize16"
                     android:textColor="#000" android:layout_marginLeft="5dp"/>
                 <TextView android:id="@+id/tv_send_person"
                     android:layout_width="wrap_content" android:textColor="@color/black_text_color"
                     android:layout_height="wrap_content" android:layout_alignParentRight="true"
                     android:layout_marginRight="20dp"
                     android:gravity="right" android:hint="选择发送人"
-                    android:textSize="18sp" android:textColorHint="@color/huise_text_color"/>
+                    style="@style/TextSize16" android:textColorHint="@color/huise_text_color"/>
                 <TextView
                     android:layout_width="wrap_content" android:text=">"
-                    android:layout_marginRight="10dp" android:textSize="18sp"
+                    android:layout_marginRight="10dp" style="@style/TextSize16"
                     android:layout_height="wrap_content" android:layout_alignParentRight="true"/>
             </RelativeLayout>
         </LinearLayout>

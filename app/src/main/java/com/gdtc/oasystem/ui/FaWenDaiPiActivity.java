@@ -79,7 +79,8 @@ public class FaWenDaiPiActivity extends BaseActivity implements SwipeRefreshLayo
         meetingHandleAdapter.setOnItemClickLitener(new SendFileAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                getData(list.get(position).getFileSourceId(),sp.getString(Config.DEPTUNIT),sp.getString(Config.PATHDATA),list.get(position).getType(),position);
+                getData(sp.getString(Config.PATHDATA),sp.getString(Config.DEPTUNIT),sp.getString(Config.USER_ID),sp.getString(Config.USERNAME)
+                        ,list.get(position).getFileSourceId(),list.get(position).getFlowsort(),position);
             }
         });
         mRecyclerView.setAdapter(meetingHandleAdapter);
@@ -171,14 +172,14 @@ public class FaWenDaiPiActivity extends BaseActivity implements SwipeRefreshLayo
     }
 
 
-    private void getData(String file_source_id, String deptunit, String pathdata, String type, final int position){
+    private void getData(String pathdata, String deptunit, String sign, String userid, String file_source_id,String flowsort,final int position){
         //使用retrofit配置api
         Retrofit retrofit=new Retrofit.Builder()
                 .baseUrl(Config.BANNER_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         Api api =retrofit.create(Api.class);
-        Call<DetailDispatchdb> call=api.getDispatchdbDetailData(file_source_id,deptunit,pathdata,type);
+        Call<DetailDispatchdb> call=api.getDispatchdbDetailData(pathdata,deptunit,sign,userid,file_source_id,flowsort);
         call.enqueue(new Callback<DetailDispatchdb>() {
             @Override
             public void onResponse(Call<DetailDispatchdb> call, Response<DetailDispatchdb> response) {

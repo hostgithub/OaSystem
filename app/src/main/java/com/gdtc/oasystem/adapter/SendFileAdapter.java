@@ -80,6 +80,7 @@ public class SendFileAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             holder.setText(R.id.title, item.getTitle().toString().trim());
             holder.setText(R.id.time, item.getSenderTime());
             holder.setText(R.id.username, "发送人 :"+item.getSender());
+            holder.setText(R.id.state, "状态 :"+item.getTypeAdvice());
             holder.setText(R.id.position,String.valueOf(position+1));
             //holder.setText(R.id.content, item.text);
 //            if(item.text.startsWith(";")){
