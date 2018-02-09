@@ -16,11 +16,15 @@ import com.gdtc.oasystem.adapter.SendFileAdapter;
 import com.gdtc.oasystem.base.BaseFragment;
 import com.gdtc.oasystem.bean.DetailDispatchdb;
 import com.gdtc.oasystem.bean.DispatchWaitDeal;
+import com.gdtc.oasystem.bean.EventUtil;
 import com.gdtc.oasystem.service.Api;
 import com.gdtc.oasystem.ui.WebviewDispatchdbActivity;
 import com.gdtc.oasystem.utils.RecyclerViewSpacesItemDecoration;
 import com.gdtc.oasystem.utils.SharePreferenceTools;
 import com.gdtc.oasystem.widget.EndLessOnScrollListener;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -227,5 +231,34 @@ public class DispatchWaitDealFragment extends BaseFragment implements SwipeRefre
                 Log.e("-------------",t.getMessage().toString());
             }
         });
+    }
+
+    // 接收函数二
+    @Subscribe
+    public void onEventBackgroundThread(EventUtil event){
+        String msglog = "----onEventBackground收到了消息："+event.getMsg();
+        Log.d("EventBus",msglog);
+        initData(1);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!EventBus.getDefault().isRegistered(this))
+        {
+            EventBus.getDefault().register(this);
+        }
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        initData(1);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

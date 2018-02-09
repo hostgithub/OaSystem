@@ -29,11 +29,14 @@ import com.gdtc.oasystem.MyApplication;
 import com.gdtc.oasystem.R;
 import com.gdtc.oasystem.base.BaseActivity;
 import com.gdtc.oasystem.bean.DetailDispatchdb;
+import com.gdtc.oasystem.bean.EventUtil;
 import com.gdtc.oasystem.bean.HuiZhiBean;
 import com.gdtc.oasystem.service.Api;
 import com.gdtc.oasystem.utils.MyScrollView;
 import com.gdtc.oasystem.utils.NetWorkUtil;
 import com.gdtc.oasystem.utils.SharePreferenceTools;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -337,17 +340,10 @@ public class WebviewDispatchdbActivity extends BaseActivity {
 
                         @Override
                         public void onClick(DialogInterface arg0, int arg1) {
-                            //Toast.makeText(Some_suggestionsActivity.this, "确定", Toast.LENGTH_SHORT).show();
+                            EventBus.getDefault().post(new EventUtil("发送消息"));
                             finish();
                         }
                     });
-//                    builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {  //取消按钮
-//
-//                        @Override
-//                        public void onClick(DialogInterface arg0, int arg1) {
-//                            Toast.makeText(Some_suggestionsActivity.this, "取消",Toast.LENGTH_SHORT).show();
-//                        }
-//                    });
                     AlertDialog b=builder.create();
                     b.show();  //必须show一下才能看到对话框，跟Toast一样的道理
                 }
