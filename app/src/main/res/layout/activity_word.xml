@@ -19,13 +19,13 @@
 
         <Button
             android:layout_width="wrap_content" android:id="@+id/btn_open"
-            android:layout_height="wrap_content" android:text="查看全文"
+            android:layout_height="wrap_content" android:text="使用webview"
             android:background="@drawable/btnshape_bluewhite" android:layout_centerInParent="true"
             />
 
         <Button
             android:layout_width="wrap_content" android:id="@+id/btn_file_list"
-            android:layout_height="wrap_content" android:text="文件列表"
+            android:layout_height="wrap_content" android:text="查看正文编辑保存"
             android:background="@drawable/btnshape_bluewhite" android:layout_centerInParent="true"
             android:layout_below="@+id/btn_open"
             />

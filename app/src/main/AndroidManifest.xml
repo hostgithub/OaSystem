@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
 
@@ -149,6 +150,15 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Design.Light.NoActionBar" ></activity>
         <activity android:name=".tablayout.TabActivity"/>
+        <activity android:name=".ui.XRecyclerViewActivity"/>
+        <receiver android:name=".word.MyBroadCastReciver">
+            <intent-filter>
+                <action android:name="com.kingsoft.writer.back.key.down" />
+                <action android:name="cn.wps.moffice.file.close" />
+                <action android:name="com.wps.moffice.file.save" />
+                <action android:name="com.kingsoft.writer.home.key.down" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

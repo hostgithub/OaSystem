@@ -1,6 +1,7 @@
 package com.gdtc.oasystem.word;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -9,17 +10,39 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.content.FileProvider;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
+import com.gdtc.oasystem.Config;
+import com.gdtc.oasystem.MyApplication;
 import com.gdtc.oasystem.R;
 import com.gdtc.oasystem.base.BaseActivity;
+import com.gdtc.oasystem.bean.EventUtil;
+import com.gdtc.oasystem.service.Api;
+import com.gdtc.oasystem.utils.SharePreferenceTools;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import butterknife.BindView;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * 下载网络PDF 保存在本地 完了调用WPS
@@ -34,8 +57,15 @@ public class PdfWpsActivity extends BaseActivity {
     public static final int DOWNLOAD_SUCCESS = 1;
     private File file1;
 
-    private String pdfUrl= "http://file.chmsp.com.cn/colligate/file/00100000224821.pdf";
+//    private String pdfUrl= "http://file.chmsp.com.cn/colligate/file/00100000224821.pdf";
+//    private String pdfUrl= "http://192.168.0.105:8080/html/2222.doc";
+    private String pdfUrl= "http://192.168.0.113:8080/02122018124541220PM8452.doc";
     private String s;
+    private MyBroadCastReciver receiver;
+
+    @BindView(R.id.btn_check)
+    Button btn_check;
+    private SharePreferenceTools sp;
 
     @Override
     protected int getLayoutId() {
@@ -45,9 +75,15 @@ public class PdfWpsActivity extends BaseActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
 
-        init();
-    }
+        sp = new SharePreferenceTools(MyApplication.getContext());
 
+        btn_check.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                init();
+            }
+        });
+    }
 
     private void init() {
         // TODO Auto-generated method stub
@@ -58,8 +94,9 @@ public class PdfWpsActivity extends BaseActivity {
         mProgressDialog.setCancelable(false);
         mProgressDialog.show();
         //截取最后14位 作为文件名
+//        s = pdfUrl.substring(pdfUrl.length()-14);
         s = pdfUrl.substring(pdfUrl.length()-14);
-        Log.e("------------>文件名",s);
+        Log.e("------------>将地址截取14位",s);
         //文件存储
         file1 = new File(Environment.getExternalStorageDirectory(), getFileName(s));
         Log.e("------------>文件路径",file1.toString());
@@ -151,7 +188,21 @@ public class PdfWpsActivity extends BaseActivity {
                 case DOWNLOAD_SUCCESS:
                     File file = (File) msg.obj;
                     Log.e("------------成功接收文件>",file.toString());
+
                     Intent intent = new Intent("android.intent.action.VIEW");
+                    Bundle bundle = new Bundle();
+                    bundle.putString(WpsModel.OPEN_MODE, WpsModel.ENTER_REVISE_MODE); // 打开模式
+                    bundle.putString(WpsModel.USER_NAME, sp.getString(Config.USERNAME)); // 批注人
+                    bundle.putBoolean(WpsModel.SEND_CLOSE_BROAD, true); // 关闭时是否发送广播
+                    bundle.putBoolean(WpsModel.SEND_SAVE_BROAD, true); // 保存时是否发送广播
+                    bundle.putString(WpsModel.THIRD_PACKAGE, getPackageName()); // 第三方应用的包名，用于对改应用合法性的验证
+                    bundle.putString(WpsModel.SAVE_PATH, file1.getAbsolutePath()); // 第三方应用的包名，用于对改应用合法性的验证
+                    bundle.putBoolean(WpsModel.CLEAR_TRACE, true);// 清除打开记录
+                     bundle.putBoolean(WpsModel.CLEAR_FILE, true); //关闭后删除打开文件
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.setAction(android.content.Intent.ACTION_VIEW);
+                    intent.setClassName(WpsModel.PackageName.NORMAL, WpsModel.ClassName.NORMAL);
+
                     intent.addCategory("android.intent.category.DEFAULT");
                     Uri data;
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -161,14 +212,15 @@ public class PdfWpsActivity extends BaseActivity {
                         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                     } else {
                         data = Uri.fromFile(file);
+                        intent.addFlags (Intent.FLAG_ACTIVITY_NEW_TASK);
                     }
-                    intent.addFlags (Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.setDataAndType (data, "application/pdf");
+                    intent.setDataAndType (data, "application/doc");
+                    intent.putExtras(bundle);
                     startActivity(Intent.createChooser(intent, "标题"));
                     /**
                      * 弹出选择框   把本activity销毁
                      */
-                    finish();
+//                    finish();
                     break;
                 case DOWNLOAD_ERROR:
                     Toast.makeText(PdfWpsActivity.this, "文件加载失败", Toast.LENGTH_SHORT).show();
@@ -176,4 +228,73 @@ public class PdfWpsActivity extends BaseActivity {
             }
         }
     };
+
+
+    // 接收函数二
+    @Subscribe
+    public void onEventBackgroundThread(EventUtil event){
+        String msglog = "----onEventBackground收到了消息："+event.getMsg();
+        Log.e("EventBus",msglog);
+
+        AlertDialog.Builder builder=new AlertDialog.Builder(PdfWpsActivity.this);
+//        builder.setTitle("通知详情");//设置对话框的标题
+        builder.setMessage("请将您批注的信息进行痕迹保留！");//设置对话框的内容
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {  //这个是设置确定按钮
+
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+                Toast.makeText(PdfWpsActivity.this,"保存",Toast.LENGTH_SHORT).show();
+//                Intent intent=new Intent(PdfWpsActivity.this,OpenWordFromWpsAndInsideActivity.class);
+//                intent.putExtra("filepath",file1.getAbsolutePath());
+//                startActivity(intent);
+                Retrofit retrofit = new Retrofit.Builder()
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .baseUrl("http://192.168.12.101:8080/happy/")
+                        .build();
+                Api service = retrofit.create(Api.class);
+                File file = new File(file1.getAbsolutePath());//访问手机端的文件资源，保证手机端sdcdrd中必须有这个文件
+                RequestBody requestFile =
+                        RequestBody.create(MediaType.parse("multipart/form-data"), file);
+
+                MultipartBody.Part body = MultipartBody.Part.createFormData("aFile", file.getName(), requestFile);
+
+                String descriptionString = "This is a description";
+                RequestBody description =
+                        RequestBody.create(MediaType.parse("multipart/form-data"), descriptionString);
+
+                Call<ResponseBody> call = service.upload(description, body);
+                call.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call,
+                                           Response<ResponseBody> response) {
+                        System.out.println("success");
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        t.printStackTrace();
+                    }
+                });
+
+            }
+        });
+        AlertDialog b=builder.create();
+        b.show();  //必须show一下才能看到对话框，跟Toast一样的道理
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!EventBus.getDefault().isRegistered(this))
+        {
+            EventBus.getDefault().register(this);
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
 }

@@ -6,4 +6,16 @@
     android:layout_height="match_parent"
     tools:context="com.gdtc.oasystem.word.PdfWpsActivity">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <Button android:id="@+id/btn_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="查看正文"
+            android:background="@drawable/btnshape_bluewhite"/>
+    </RelativeLayout>
+
+
 </android.support.constraint.ConstraintLayout>

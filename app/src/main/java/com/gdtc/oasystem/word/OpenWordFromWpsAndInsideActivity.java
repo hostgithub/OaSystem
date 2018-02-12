@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -71,7 +72,7 @@ public class OpenWordFromWpsAndInsideActivity extends BaseActivity implements Ea
 
         btn_file_list.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) {  //打开网络制定PDF
 //                Intent intent=new Intent(OpenWordFromWpsAndInsideActivity.this,ViewFile.class);
 //                intent.putExtra("name",newPath);
 //                startActivity(intent);
@@ -86,6 +87,40 @@ public class OpenWordFromWpsAndInsideActivity extends BaseActivity implements Ea
                 }
             }
         });
+
+        if(getIntent()!=null){
+            if(getIntent().getStringExtra("filepath")!=null){
+                File file = new File(getIntent().getStringExtra("filepath"));
+                Log.e("------------成功接收文件>",file.toString());
+
+                Intent intent = new Intent("android.intent.action.VIEW");
+                Bundle bundle = new Bundle();
+                bundle.putString(WpsModel.OPEN_MODE, WpsModel.OpenMode.NORMAL); // 打开模式
+                bundle.putBoolean(WpsModel.SEND_CLOSE_BROAD, true); // 关闭时是否发送广播
+                bundle.putBoolean(WpsModel.SEND_SAVE_BROAD, true); // 保存时是否发送广播
+                bundle.putString(WpsModel.THIRD_PACKAGE, getPackageName()); // 第三方应用的包名，用于对改应用合法性的验证
+                bundle.putBoolean(WpsModel.CLEAR_TRACE, true);// 清除打开记录
+//                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.setAction(android.content.Intent.ACTION_VIEW);
+                intent.setClassName(WpsModel.PackageName.NORMAL, WpsModel.ClassName.NORMAL);
+
+                intent.addCategory("android.intent.category.DEFAULT");
+                Uri data;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    // "net.csdn.blog.ruancoder.fileprovider"即是在清单文件中配置的authorities
+                    data = FileProvider.getUriForFile(OpenWordFromWpsAndInsideActivity.this, "com.gdtc.oasystem.fileprovider", file);
+                    // 给目标应用一个临时授权
+                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                } else {
+                    data = Uri.fromFile(file);
+                    intent.addFlags (Intent.FLAG_ACTIVITY_NEW_TASK);
+                }
+                intent.setDataAndType (data, "application/doc");
+                intent.putExtras(bundle);
+                startActivity(Intent.createChooser(intent, "标题"));
+            }
+
+        }
     }
 
     /**

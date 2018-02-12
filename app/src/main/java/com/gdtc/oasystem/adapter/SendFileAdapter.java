@@ -50,9 +50,9 @@ public class SendFileAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == ITEM_NOIMAGE) {
-            return new BaseViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_send_file_list, parent, false));
+            return new BaseViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_send_filestate_list, parent, false));
         } else if (viewType == ITEM_HASIMAGE) {
-            return new BaseViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_send_file_list, parent, false));
+            return new BaseViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_send_filestate_list, parent, false));
         } else {
             footerView = LayoutInflater.from(mContext).inflate(viewFooter, parent, false);
             return new BaseViewHolder(footerView);

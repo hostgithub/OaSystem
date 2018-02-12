@@ -18,11 +18,11 @@ import com.gdtc.oasystem.tablayout.TabActivity;
 import com.gdtc.oasystem.ui.AdministrativeApprovalActivity;
 import com.gdtc.oasystem.ui.FaWenDaiPiActivity;
 import com.gdtc.oasystem.ui.IncomingFilesDealActivity;
-import com.gdtc.oasystem.ui.IntranetActivity;
 import com.gdtc.oasystem.ui.MeetingHandleActivity;
 import com.gdtc.oasystem.ui.ShouWenDaiPiActivity;
 import com.gdtc.oasystem.ui.ZhengwuApplyActivity;
 import com.gdtc.oasystem.utils.SharePreferenceTools;
+import com.gdtc.oasystem.word.OpenWordFromWpsAndInsideActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -140,10 +140,10 @@ public class JobFragmentTest extends BaseFragment {
                 Toast.makeText(getActivity(),"此模块待定",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.table9:
-                startActivity(new Intent(getActivity(),IntranetActivity.class));
+//                startActivity(new Intent(getActivity(),IntranetActivity.class));
+//                startActivity(new Intent(getActivity(),XRecyclerViewActivity.class));
 //                startActivity(new Intent(getActivity(),RouteSetOwnerActivity.class));//测试日期时间选择器的
-//                startActivity(new Intent(getActivity(),OpenWordFromWpsAndInsideActivity.class));//测试生成word文档
-//                Toast.makeText(getActivity(),"此模块待定",Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getActivity(),OpenWordFromWpsAndInsideActivity.class));//测试生成word文档
                 break;
             default:
                 break;

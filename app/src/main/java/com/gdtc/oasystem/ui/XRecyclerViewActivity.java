@@ -5,16 +5,15 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gdtc.oasystem.Config;
 import com.gdtc.oasystem.MyApplication;
 import com.gdtc.oasystem.R;
-import com.gdtc.oasystem.adapter.AdministrativeApprovalAdapter;
+import com.gdtc.oasystem.adapter.MeetingHandleAdapter;
 import com.gdtc.oasystem.base.BaseActivity;
-import com.gdtc.oasystem.bean.AdministrativeApproval;
-import com.gdtc.oasystem.bean.AdministrativeApprovalDetail;
+import com.gdtc.oasystem.bean.MeetingDetail;
+import com.gdtc.oasystem.bean.MeetingHandle;
 import com.gdtc.oasystem.service.Api;
 import com.gdtc.oasystem.utils.RecyclerViewSpacesItemDecoration;
 import com.gdtc.oasystem.utils.SharePreferenceTools;
@@ -32,15 +31,13 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class AdministrativeApprovalActivity extends BaseActivity{
+public class XRecyclerViewActivity extends BaseActivity{
 
     @BindView(R.id.xrecyclerview)
     XRecyclerView mRecyclerView;
-    @BindView(R.id.title_center)
-    TextView title_center;
 
-    private ArrayList<AdministrativeApproval.ResultsBean> list;
-    private AdministrativeApprovalAdapter administrativeApprovalAdapter;
+    private ArrayList<MeetingHandle.ResultsBean> list;
+    private MeetingHandleAdapter meetingHandleAdapter;
     private LinearLayoutManager linearLayoutManager;
     private int pages=1;
     private SharePreferenceTools sp;
@@ -53,8 +50,6 @@ public class AdministrativeApprovalActivity extends BaseActivity{
     @Override
     protected void initView(Bundle savedInstanceState) {
 
-        title_center.setText("行政待批");
-
         sp = new SharePreferenceTools(MyApplication.getContext());
         list=new ArrayList();
         initData(1);
@@ -63,7 +58,6 @@ public class AdministrativeApprovalActivity extends BaseActivity{
         mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setNestedScrollingEnabled(false);
-
         HashMap<String, Integer> stringIntegerHashMap = new HashMap<>();
         stringIntegerHashMap.put(RecyclerViewSpacesItemDecoration.TOP_DECORATION,0);//top间距
         stringIntegerHashMap.put(RecyclerViewSpacesItemDecoration.BOTTOM_DECORATION,0);//底部间距
@@ -73,17 +67,16 @@ public class AdministrativeApprovalActivity extends BaseActivity{
         mRecyclerView.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
         mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.SquareSpin);
         mRecyclerView.setArrowImageView(R.drawable.iconfont_downgrey);
-        administrativeApprovalAdapter=new AdministrativeApprovalAdapter(list,this);
+
+        meetingHandleAdapter=new MeetingHandleAdapter(list,this);
         //条目点击事件
-        administrativeApprovalAdapter.setOnItemClickLitener(new AdministrativeApprovalAdapter.OnItemClickListener() {
+        meetingHandleAdapter.setOnItemClickLitener(new MeetingHandleAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                getData(list.get(position).getFile_source_id(),list.get(position).getSender(),list.get(position).getFlowsort(),list.get(position).getTypeAdvice(),
-                        sp.getString(Config.PATHDATA),list.get(position).getSort(),list.get(position).getIsRead(),sp.getString(Config.DEPTUNIT),
-                sp.getString(Config.USER_DEPARTMENT_BIG),sp.getString(Config.USER_DEPARTMENT),position);
+                getData(list.get(position).getFlowsort(),list.get(position).get_id());
             }
         });
-        mRecyclerView.setAdapter(administrativeApprovalAdapter);
+        mRecyclerView.setAdapter(meetingHandleAdapter);
 
         mRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
@@ -106,20 +99,22 @@ public class AdministrativeApprovalActivity extends BaseActivity{
 //            @Override
 //            public void onLoadMore() {
 //                if(sp.getInt("apagesize")<15){
-//                    refreshLayout.setRefreshing(false);
-//                    administrativeApprovalAdapter.setFooterVisible(View.GONE);
-//                    Toast.makeText(AdministrativeApprovalActivity.this,"已经是最后一条数据了",Toast.LENGTH_SHORT).show();
+//                    meetingHandleAdapter.setFooterVisible(View.GONE);
+//                    Toast.makeText(XRecyclerViewActivity.this,"已经是最后一条数据了",Toast.LENGTH_SHORT).show();
 //                }else{
 //                    pages++;
-//                    administrativeApprovalAdapter.setFooterVisible(View.VISIBLE);
+//                    meetingHandleAdapter.setFooterVisible(View.VISIBLE);
 //                    initData(pages);
 //                }
 //            }
 //            @Override
 //            public void hide() {
 //            }
+//
 //            @Override
 //            public void show() {
+////                relativeLayout.animate().translationY(0).setInterpolator(new AccelerateDecelerateInterpolator());
+////                relativeLayout.setVisibility(View.VISIBLE);
 //            }
 //        });
     }
@@ -131,7 +126,7 @@ public class AdministrativeApprovalActivity extends BaseActivity{
 
 //    @Override
 //    public void onRefresh() {
-//        administrativeApprovalAdapter.setFooterVisible(View.GONE);
+//        meetingHandleAdapter.setFooterVisible(View.GONE);
 //        pages = 1;
 //        list.clear();
 //        initData(1);
@@ -144,71 +139,68 @@ public class AdministrativeApprovalActivity extends BaseActivity{
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         Api api =retrofit.create(Api.class);
-        Call<AdministrativeApproval> call=api.getAdministrativeApprovalListData(pages,sp.getString(Config.USER_ID));
+        Call<MeetingHandle> call=api.getMeetingHandleListData("0",pages,sp.getString(Config.USER_ID),sp.getString(Config.DEPTUNIT));
         Log.e("---------->>>",sp.getString(Config.USER_ID));
         Log.e("---------->>>",sp.getString(Config.DEPTUNIT));
-        call.enqueue(new Callback<AdministrativeApproval>() {
+        call.enqueue(new Callback<MeetingHandle>() {
             @Override
-            public void onResponse(Call<AdministrativeApproval> call, Response<AdministrativeApproval> response) {
+            public void onResponse(Call<MeetingHandle> call, Response<MeetingHandle> response) {
                 if(response.body()!=null){
                     if(response.body().getResults().size()==0){
 //                        meetingHandleAdapter.setFooterVisible(View.GONE);
-                        Toast.makeText(AdministrativeApprovalActivity.this,"暂无更多数据",Toast.LENGTH_SHORT).show();
-                    }else {
+                        Toast.makeText(XRecyclerViewActivity.this,"暂无更多数据",Toast.LENGTH_SHORT).show();
+                    }else{
                         list.addAll(response.body().getResults());
                         Log.e("---------->>>",response.body().getSuccess());
                         sp.putString("count",response.body().getCount());
                         Log.e("---------->>>请求数据集合大小:", String.valueOf(response.body().getResults().size()));
                         sp.putInt("apagesize",response.body().getResults().size());
-//                    if(sp.getInt("apagesize")<15){
-//                        administrativeApprovalAdapter.setFooterVisible(View.GONE);
-//                    }else{
-//                        administrativeApprovalAdapter.setFooterVisible(View.VISIBLE);
-//                    }
+//                        if(sp.getInt("apagesize")<15){
+//                            meetingHandleAdapter.setFooterVisible(View.GONE);
+//                        }else{
+//                            meetingHandleAdapter.setFooterVisible(View.VISIBLE);
+//                        }
                         Log.e("---------->>>请求数据发送人:",response.body().getResults().get(0).getSender().toString());
-                        administrativeApprovalAdapter.notifyDataSetChanged();
+                        Log.e("---------->>>请求数据id:",response.body().getResults().get(0).get_id().toString());
+                        meetingHandleAdapter.notifyDataSetChanged();
                     }
                 }
             }
 
             @Override
-            public void onFailure(Call<AdministrativeApproval> call, Throwable t) {
-                Toast.makeText(AdministrativeApprovalActivity.this,"请求失败!",Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<MeetingHandle> call, Throwable t) {
+                Toast.makeText(XRecyclerViewActivity.this,"请求失败!",Toast.LENGTH_SHORT).show();
             }
         });
     }
 
 
-    private void getData(String file_source_id,String usersend,String flowsort,String typeAdvice,String pathdata,
-                         String sort,String isRead,String deptunit,String user_department_big,String user_department,final int position){
+    private void getData(String flowsort,String flowid){
         //使用retrofit配置api
         Retrofit retrofit=new Retrofit.Builder()
                 .baseUrl(Config.BANNER_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         Api api =retrofit.create(Api.class);
-        Call<AdministrativeApprovalDetail> call=api.getAdministrativeApprovalDetailData(file_source_id,usersend,flowsort,typeAdvice,pathdata,
-                sort,isRead,deptunit,user_department_big,user_department);
-        call.enqueue(new Callback<AdministrativeApprovalDetail>() {
+        Call<MeetingDetail> call=api.getMeetingDetailData(flowsort,flowid);
+        call.enqueue(new Callback<MeetingDetail>() {
             @Override
-            public void onResponse(Call<AdministrativeApprovalDetail> call, Response<AdministrativeApprovalDetail> response) {
+            public void onResponse(Call<MeetingDetail> call, Response<MeetingDetail> response) {
                 if(response!=null){
-                    AdministrativeApprovalDetail detail=response.body();
-                    AdministrativeApprovalDetail.ResultsBean resultsBean=detail.getResults().get(0);
-                    Intent intent = new Intent(AdministrativeApprovalActivity.this, AdministrativeApprovalWebviewActivity.class);
+                    MeetingDetail detail=response.body();
+                    MeetingDetail.ResultsBean resultsBean=detail.getResults().get(0);
+                    Intent intent = new Intent(XRecyclerViewActivity.this, MeetingHandleDetailActivity.class);
                     intent.putExtra(Config.NEWS,resultsBean);
-                    intent.putExtra("title",list.get(position).getTitle());
-                    intent.putExtra("sender",list.get(position).getSender());
-                    intent.putExtra("time",list.get(position).getSenderTime());
+//                    finish();
                     startActivity(intent);
-                    Log.e("---------------",resultsBean.getHtmls());
+                    Log.e("xxxxxxx",resultsBean.getContent());
                 }else{
-                    Toast.makeText(AdministrativeApprovalActivity.this,"数据为空!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(XRecyclerViewActivity.this,"数据为空!",Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<AdministrativeApprovalDetail> call, Throwable t) {
+            public void onFailure(Call<MeetingDetail> call, Throwable t) {
                 Log.e("-------------",t.getMessage().toString());
             }
         });
@@ -224,6 +216,7 @@ public class AdministrativeApprovalActivity extends BaseActivity{
                 break;
         }
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
