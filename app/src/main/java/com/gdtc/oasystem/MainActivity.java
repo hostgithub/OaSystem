@@ -1,60 +1,53 @@
 package com.gdtc.oasystem;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gdtc.oasystem.base.BaseActivity;
-import com.gdtc.oasystem.ui.SendFilesDealActivity;
-import com.gdtc.oasystem.ui.ZwsqSubmitActivity;
-import com.gdtc.oasystem.utils.SharePreferenceTools;
+import com.gdtc.oasystem.utils.StatusBarUtil;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-import butterknife.BindView;
-import butterknife.OnClick;
-
 public class MainActivity extends BaseActivity {
 
     private boolean isExit;
-    private SharePreferenceTools sp;
-    @BindView(R.id.userNameTv)
-    TextView userNameTv;
-    @BindView(R.id.danwei)
-    TextView danwei;
-    @BindView(R.id.bumen)
-    TextView bumen;
-    @BindView(R.id.post)
-    TextView post;
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_main;
+        return R.layout.activity_change_password;
     }
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        sp=new SharePreferenceTools(this);
-        userNameTv.setText("您好,"+sp.getString(Config.USER_NAME));
+
+        TextView title = (TextView) findViewById(R.id.title_tv);
+        title.setText("主页面");
+
+        setStatusBar();
     }
 
-    @OnClick({ R.id.zwsq,R.id.fwbl})
-    public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.fwbl:
-                startActivity(new Intent(MainActivity.this,SendFilesDealActivity.class));
-                break;
-            case R.id.zwsq:
-                startActivity(new Intent(MainActivity.this,ZwsqSubmitActivity.class));
-                break;
-            default:
-                break;
-        }
+    protected void setStatusBar() {
+
+        StatusBarUtil.setColor(this,
+                getResources().getColor(R.color.white_snow), 1);
     }
+
+//    @OnClick({ R.id.zwsq,R.id.fwbl})
+//    public void onClick(View view) {
+//        switch (view.getId()){
+//            case R.id.fwbl:
+//                startActivity(new Intent(MainActivity.this,SendFilesDealActivity.class));
+//                break;
+//            case R.id.zwsq:
+//                startActivity(new Intent(MainActivity.this,ZwsqSubmitActivity.class));
+//                break;
+//            default:
+//                break;
+//        }
+//    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

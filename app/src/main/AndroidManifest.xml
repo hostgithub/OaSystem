@@ -25,7 +25,9 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Design.Light.NoActionBar"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
+            android:windowSoftInputMode="adjustPan|stateHidden" >
+
+        </activity>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -84,7 +86,9 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Design.Light.NoActionBar"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
+            android:windowSoftInputMode="adjustPan|stateHidden">
+
+        </activity>
         <activity
             android:name=".ui.ZhengwuApplyActivity"
             android:screenOrientation="portrait"
@@ -130,7 +134,6 @@
             android:name=".ui.FaWenDaiPiActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Design.Light.NoActionBar" />
-        <activity android:name=".word.PdfActivity" />
         <activity android:name=".word.PdfWpsActivity" />
         <activity
             android:name=".ui.DispatchHasWebviewActivity"
@@ -150,6 +153,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Design.Light.NoActionBar" ></activity>
         <activity android:name=".tablayout.TabActivity"/>
+        <activity android:name=".tablayout.ShouwenTabActivity"/>
         <activity android:name=".ui.XRecyclerViewActivity"/>
         <receiver android:name=".word.MyBroadCastReciver">
             <intent-filter>

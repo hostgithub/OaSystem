@@ -22,8 +22,11 @@ import com.gdtc.oasystem.MyApplication;
 import com.gdtc.oasystem.R;
 import com.gdtc.oasystem.utils.AppManager;
 import com.gdtc.oasystem.utils.DialogTools;
+import com.gdtc.oasystem.utils.StatusBarUtil;
 import com.gdtc.oasystem.utils.ToastUtil;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +48,19 @@ public abstract class BaseActivity extends AppCompatActivity {
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 //            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 //        }
+
+        StatusBarUtil.setColor(this,
+                    getResources().getColor(R.color.white_snow), 1);
+
+
+        // 系统 6.0 以上 状态栏白底黑字的实现方法
+        this.getWindow()
+                .getDecorView()
+                .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+
+        MIUISetStatusBarLightMode(this.getWindow(), true);
+        FlymeSetStatusBarLightMode(this.getWindow(), true);
+
         AppManager.instance.addActivity(this);
         setContentView(getLayoutId());
         ButterKnife.bind(this);
@@ -143,6 +159,64 @@ public abstract class BaseActivity extends AppCompatActivity {
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
+    }
+
+
+    /**
+     * 魅族
+     */
+    public static boolean FlymeSetStatusBarLightMode(Window window, boolean dark) {
+        boolean result = false;
+        if (window != null) {
+            try {
+                WindowManager.LayoutParams lp = window.getAttributes();
+                Field darkFlag = WindowManager.LayoutParams.class
+                        .getDeclaredField("MEIZU_FLAG_DARK_STATUS_BAR_ICON");
+                Field meizuFlags = WindowManager.LayoutParams.class
+                        .getDeclaredField("meizuFlags");
+                darkFlag.setAccessible(true);
+                meizuFlags.setAccessible(true);
+                int bit = darkFlag.getInt(null);
+                int value = meizuFlags.getInt(lp);
+                if (dark) {
+                    value |= bit;
+                } else {
+                    value &= ~bit;
+                }
+                meizuFlags.setInt(lp, value);
+                window.setAttributes(lp);
+                result = true;
+            } catch (Exception e) {
+
+            }
+        }
+        return result;
+    }
+
+    /**
+     * xiaomi
+     */
+    public static boolean MIUISetStatusBarLightMode(Window window, boolean dark) {
+        boolean result = false;
+        if (window != null) {
+            Class clazz = window.getClass();
+            try {
+                int darkModeFlag = 0;
+                Class layoutParams = Class.forName("android.view.MiuiWindowManager$LayoutParams");
+                Field field = layoutParams.getField("EXTRA_FLAG_STATUS_BAR_DARK_MODE");
+                darkModeFlag = field.getInt(layoutParams);
+                Method extraFlagField = clazz.getMethod("setExtraFlags", int.class, int.class);
+                if (dark) {
+                    extraFlagField.invoke(window, darkModeFlag, darkModeFlag);//状态栏透明且黑色字体
+                } else {
+                    extraFlagField.invoke(window, 0, darkModeFlag);//清除黑色字体
+                }
+                result = true;
+            } catch (Exception e) {
+
+            }
+        }
+        return result;
     }
 
     /**

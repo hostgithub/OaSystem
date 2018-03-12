@@ -13,8 +13,8 @@ import android.widget.TextView;
 
 import com.gdtc.oasystem.R;
 import com.gdtc.oasystem.base.BaseActivity;
-import com.gdtc.oasystem.fragment.DispatchHasDealFragment;
-import com.gdtc.oasystem.fragment.DispatchWaitDealFragment;
+import com.gdtc.oasystem.fragment.IncomingHasDealFragment;
+import com.gdtc.oasystem.fragment.IncomingWaitDealFragment;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ import butterknife.BindView;
 /**
  * Created by wangjiawei on 2018-2-7.
  */
-public class TabActivity extends BaseActivity {
+public class ShouwenTabActivity extends BaseActivity {
 
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
@@ -35,7 +35,6 @@ public class TabActivity extends BaseActivity {
 
     @BindView(R.id.title_tv)
     TextView title_tv;
-
     @Override
     protected int getLayoutId() {
         return R.layout.activity_tab_test;
@@ -52,8 +51,7 @@ public class TabActivity extends BaseActivity {
 //            tintManager.setStatusBarTintEnabled(true);
 //            tintManager.setStatusBarTintResource(R.color.index_blue);// 通知栏所需颜色
 //        }
-        title_tv.setText("发文办理");
-
+        title_tv.setText("收文办理");
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
         mTabLayout = (TabLayout) findViewById(R.id.tablayout);
 
@@ -65,15 +63,15 @@ public class TabActivity extends BaseActivity {
             }
         });
         fragments = new ArrayList<Fragment>();
-        Fragment aFragment = new DispatchWaitDealFragment();
-        Fragment bFragment = new DispatchHasDealFragment();
+        Fragment aFragment = new IncomingWaitDealFragment();
+        Fragment bFragment = new IncomingHasDealFragment();
 
         fragments.add(aFragment);
         fragments.add(bFragment);
 
         titles = new ArrayList<String>();
-        titles.add("发文待办");
-        titles.add("发文已办");
+        titles.add("收文待办");
+        titles.add("收文已办");
         mAdapter = new ViewPagerAdapter(getSupportFragmentManager(), fragments, titles);
         mViewPager.setAdapter(mAdapter);
         mTabLayout.setTabMode(TabLayout.MODE_FIXED);

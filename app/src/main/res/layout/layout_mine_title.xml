@@ -17,7 +17,7 @@
 
     <TextView android:textSize="19.5sp" android:textColor="@color/black_text_color"
         android:id="@+id/title_center" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" android:text="工作管理"
+        android:layout_height="wrap_content" android:text="我的"
         android:layout_marginLeft="10dp" android:textStyle="bold"/>
 
     <ImageView

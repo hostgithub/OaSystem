@@ -39,7 +39,7 @@ public class OpenWordFromWpsAndInsideActivity extends BaseActivity implements Ea
     @BindView(R.id.btn_wps)
     Button btn_wps;
     @BindView(R.id.btn_file_list)
-    Button btn_file_list;
+    Button word;
     public static final int PERMISSION = 100;
 
     // 创建生成的文件地址
@@ -57,9 +57,8 @@ public class OpenWordFromWpsAndInsideActivity extends BaseActivity implements Ea
 
         btn_open.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { //手机内部打开 webview显示word
+            public void onClick(View v) { //手机内部打开 webview  显示 word
                 startActivity(new Intent(OpenWordFromWpsAndInsideActivity.this, WebViewActivity.class));
-//                doOpenWord();//报空指针异常
             }
         });
 
@@ -70,9 +69,9 @@ public class OpenWordFromWpsAndInsideActivity extends BaseActivity implements Ea
             }
         });
 
-        btn_file_list.setOnClickListener(new View.OnClickListener() {
+        word.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {  //打开网络制定PDF
+            public void onClick(View v) {  //调用WPS 打开服务器上的.doc文件
 //                Intent intent=new Intent(OpenWordFromWpsAndInsideActivity.this,ViewFile.class);
 //                intent.putExtra("name",newPath);
 //                startActivity(intent);

@@ -196,9 +196,11 @@ public class PdfWpsActivity extends BaseActivity {
                     bundle.putBoolean(WpsModel.SEND_CLOSE_BROAD, true); // 关闭时是否发送广播
                     bundle.putBoolean(WpsModel.SEND_SAVE_BROAD, true); // 保存时是否发送广播
                     bundle.putString(WpsModel.THIRD_PACKAGE, getPackageName()); // 第三方应用的包名，用于对改应用合法性的验证
-                    bundle.putString(WpsModel.SAVE_PATH, file1.getAbsolutePath()); // 第三方应用的包名，用于对改应用合法性的验证
+                    bundle.putString(WpsModel.SAVE_PATH, file1.getAbsolutePath()); // 保存路径
                     bundle.putBoolean(WpsModel.CLEAR_TRACE, true);// 清除打开记录
                      bundle.putBoolean(WpsModel.CLEAR_FILE, true); //关闭后删除打开文件
+                     bundle.putBoolean(WpsModel.CLEAR_BUFFER, true); //关闭后删除临时文件
+                     bundle.putBoolean(WpsModel.CACHE_FILE_INVISIBLE, true); //Wps生成的缓存文件外部是否可见
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.setAction(android.content.Intent.ACTION_VIEW);
                     intent.setClassName(WpsModel.PackageName.NORMAL, WpsModel.ClassName.NORMAL);
@@ -215,6 +217,7 @@ public class PdfWpsActivity extends BaseActivity {
                         intent.addFlags (Intent.FLAG_ACTIVITY_NEW_TASK);
                     }
                     intent.setDataAndType (data, "application/doc");
+//                    intent.setDataAndType (data, "application/msword");
                     intent.putExtras(bundle);
                     startActivity(Intent.createChooser(intent, "标题"));
                     /**
@@ -244,9 +247,6 @@ public class PdfWpsActivity extends BaseActivity {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
                 Toast.makeText(PdfWpsActivity.this,"保存",Toast.LENGTH_SHORT).show();
-//                Intent intent=new Intent(PdfWpsActivity.this,OpenWordFromWpsAndInsideActivity.class);
-//                intent.putExtra("filepath",file1.getAbsolutePath());
-//                startActivity(intent);
                 Retrofit retrofit = new Retrofit.Builder()
                         .addConverterFactory(GsonConverterFactory.create())
                         .baseUrl("http://192.168.12.101:8080/happy/")

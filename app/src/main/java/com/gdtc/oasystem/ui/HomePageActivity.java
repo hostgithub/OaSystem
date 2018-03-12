@@ -17,6 +17,7 @@ import com.gdtc.oasystem.fragment.HomeFragmentTest;
 import com.gdtc.oasystem.fragment.InfoFragmentTest;
 import com.gdtc.oasystem.fragment.JobFragmentTest;
 import com.gdtc.oasystem.fragment.MineFragmentTest;
+import com.gdtc.oasystem.utils.StatusBarUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +55,8 @@ public class HomePageActivity extends BaseActivity {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+
+        //setStatusBar();
 
 //        System.out.println("Start polling service...");
 //        PollingUtils.startPollingService(this, 5, PollingService.class, PollingService.ACTION);
@@ -144,6 +147,12 @@ public class HomePageActivity extends BaseActivity {
         //“内存重启”时保存当前的fragment名字
         outState.putInt(CURRENT_FRAGMENT,currentIndex);
         super.onSaveInstanceState(outState);
+    }
+
+    protected void setStatusBar() {
+
+        StatusBarUtil.setColor(this,
+                getResources().getColor(R.color.white_snow), 1);
     }
 
     /**

@@ -14,10 +14,10 @@ import com.gdtc.oasystem.base.BaseFragment;
 import com.gdtc.oasystem.bean.AllWaitDealSize;
 import com.gdtc.oasystem.bean.EventUtil;
 import com.gdtc.oasystem.service.Api;
+import com.gdtc.oasystem.tablayout.ShouwenTabActivity;
 import com.gdtc.oasystem.tablayout.TabActivity;
 import com.gdtc.oasystem.ui.AdministrativeApprovalActivity;
 import com.gdtc.oasystem.ui.FaWenDaiPiActivity;
-import com.gdtc.oasystem.ui.IncomingFilesDealActivity;
 import com.gdtc.oasystem.ui.MeetingHandleActivity;
 import com.gdtc.oasystem.ui.ShouWenDaiPiActivity;
 import com.gdtc.oasystem.ui.ZhengwuApplyActivity;
@@ -123,7 +123,7 @@ public class JobFragmentTest extends BaseFragment {
 //                startActivity(new Intent(getActivity(),IncomingFilesDealActivity.class));
                 break;
             case R.id.table4:
-                startActivity(new Intent(getActivity(),IncomingFilesDealActivity.class));
+                startActivity(new Intent(getActivity(),ShouwenTabActivity.class));
                 break;
             case R.id.table5:
 //                startActivity(new Intent(getActivity(),SendFilesDealActivity.class));

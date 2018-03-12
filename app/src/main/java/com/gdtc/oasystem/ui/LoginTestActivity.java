@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.gdtc.oasystem.Config;
+import com.gdtc.oasystem.MainActivity;
 import com.gdtc.oasystem.R;
 import com.gdtc.oasystem.base.BaseActivity;
 import com.gdtc.oasystem.bean.ResponseBean;
@@ -42,6 +43,8 @@ public class LoginTestActivity extends BaseActivity {
     CheckBox rem_pw;
     @BindView(R.id.id_loginBtn)
     Button btn_login;
+    @BindView(R.id.id_loginTv)
+    Button id_loginTv;
 
     private String userNameValue,passwordValue;
     private SharePreferenceTools sp;
@@ -65,7 +68,7 @@ public class LoginTestActivity extends BaseActivity {
             startActivity(intent);
             LoginTestActivity.this.finish();
         }
-        return R.layout.activity_login_test;
+        return R.layout.activity_login;
     }
 
     @Override
@@ -110,6 +113,13 @@ public class LoginTestActivity extends BaseActivity {
 
                 }
 
+            }
+        });
+
+        id_loginTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginTestActivity.this, MainActivity.class));
             }
         });
 

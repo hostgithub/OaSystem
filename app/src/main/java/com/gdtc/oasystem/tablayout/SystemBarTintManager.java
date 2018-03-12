@@ -53,6 +53,7 @@ public class SystemBarTintManager {
      * The default system bar tint color value.
      */
     public static final int DEFAULT_TINT_COLOR = 0x99000000;
+    public static final int ONE = 1;
 
     private static String sNavBarOverride;
 
@@ -84,7 +85,7 @@ public class SystemBarTintManager {
             TypedArray a = activity.obtainStyledAttributes(attrs);
             try {
                 mStatusBarAvailable = a.getBoolean(0, false);
-                mNavBarAvailable = a.getBoolean(1, false);
+                mNavBarAvailable = a.getBoolean(ONE, false);
             } finally {
                 a.recycle();
             }

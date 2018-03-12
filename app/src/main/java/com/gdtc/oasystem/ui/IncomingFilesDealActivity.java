@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gdtc.oasystem.R;
@@ -27,8 +26,6 @@ public class IncomingFilesDealActivity extends BaseActivity {
     Button btn_wait_deal;
     @BindView(R.id.btn_has_deal)
     Button btn_has_deal;
-    @BindView(R.id.title_center)
-    TextView title_center;
 
     //当前显示的fragment
     private static final String CURRENT_FRAGMENT = "STATE_FRAGMENT_SHOW";
@@ -44,7 +41,7 @@ public class IncomingFilesDealActivity extends BaseActivity {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        title_center.setText("收文办理");
+
         btn_wait_deal.setSelected(true);
         fragmentManager = getSupportFragmentManager();
 
@@ -74,10 +71,10 @@ public class IncomingFilesDealActivity extends BaseActivity {
         super.onSaveInstanceState(outState);
     }
 
-    @OnClick({ R.id.title_left,R.id.btn_wait_deal,R.id.btn_has_deal})
+    @OnClick({ R.id.title_back_img,R.id.btn_wait_deal,R.id.btn_has_deal})
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.title_left:
+            case R.id.title_back_img:
                 finish();
                 break;
             case R.id.btn_wait_deal://待办

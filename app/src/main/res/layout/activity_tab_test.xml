@@ -9,18 +9,52 @@
         android:orientation="vertical" android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent" android:visibility="gone"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:background="@color/white_snow" >
+
+            <TextView
+                android:id="@+id/title_tv"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center"
+                android:text="发文办理"
+                android:textStyle="bold"
+                android:textColor="@color/black_text_color"
+                android:textSize="19.5sp" />
+
+            <ImageView
+                android:id="@+id/title_back_img"
+                android:layout_width="50dp"
+                android:layout_height="fill_parent"
+                android:layout_gravity="left"
+                android:clickable="true"
+                android:padding="10dp" />
+
+            <TextView
+                android:id="@+id/right_tv"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="right"
+                android:gravity="center"
+                android:textColor="@color/black_text_color"
+                android:textSize="18sp"
+                android:visibility="gone" />
+
+        </FrameLayout>
         <android.support.design.widget.TabLayout
             android:id="@+id/tablayout"
-            android:background="@color/index_blue"
+            android:background="?attr/colorPrimary"
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             android:layout_width="match_parent"
+            app:tabTextColor="@color/hui"
+            app:tabSelectedTextColor="@color/hui"
+            app:tabGravity="fill"
+            app:tabTextAppearance="@style/MyTabLayoutTextAppearance"
+            app:tabMode="fixed"
+            app:tabIndicatorColor="@color/index_blue"
             android:layout_height="wrap_content">
         </android.support.design.widget.TabLayout>
 
