@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gdtc.oasystem.Config;
@@ -38,6 +39,8 @@ public class MeetingHandleActivity extends BaseActivity implements SwipeRefreshL
     SwipeRefreshLayout refreshLayout;
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
+    @BindView(R.id.title_center)
+    TextView title_center;
 
     private ArrayList<MeetingHandle.ResultsBean> list;
     private MeetingHandleAdapter meetingHandleAdapter;
@@ -53,6 +56,7 @@ public class MeetingHandleActivity extends BaseActivity implements SwipeRefreshL
     @Override
     protected void initView(Bundle savedInstanceState) {
 
+        title_center.setText("会议通知");
         sp = new SharePreferenceTools(MyApplication.getContext());
         refreshLayout.setOnRefreshListener(this);
         list=new ArrayList();

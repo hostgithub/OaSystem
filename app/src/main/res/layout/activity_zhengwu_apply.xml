@@ -17,6 +17,7 @@
             android:layout_height="fill_parent"
             android:gravity="center"
             android:text="政务申请"
+            android:textStyle="bold"
             android:textColor="@color/black_text_color"
             android:textSize="19.5sp" />
 

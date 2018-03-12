@@ -41,7 +41,8 @@ public class AdministrativeApprovalWebviewActivity extends BaseActivity {
     WebView webView;//xml中最好是自适应 不要match
     @BindView(R.id.scrollView)
     MyScrollView scrollView;
-
+    @BindView(R.id.title_center)
+    TextView title_center;
 
     @Override
     protected int getLayoutId() {
@@ -51,6 +52,7 @@ public class AdministrativeApprovalWebviewActivity extends BaseActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
 
+        title_center.setText("审批");
         Intent intent = getIntent();
 
 //        LinearLayout.LayoutParams mWebViewLP = new LinearLayout.LayoutParams(

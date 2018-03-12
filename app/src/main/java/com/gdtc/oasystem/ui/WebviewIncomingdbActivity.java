@@ -41,6 +41,8 @@ public class WebviewIncomingdbActivity extends BaseActivity {
     WebView webView;//xml中最好是自适应 不要match
     @BindView(R.id.scrollView)
     MyScrollView scrollView;
+    @BindView(R.id.title_center)
+    TextView title_center;
 
 
     @Override
@@ -50,6 +52,8 @@ public class WebviewIncomingdbActivity extends BaseActivity {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+
+        title_center.setText("审批详情");
 
         Intent intent = getIntent();
 
@@ -190,7 +194,7 @@ public class WebviewIncomingdbActivity extends BaseActivity {
             webView.loadDataWithBaseURL(Config.BANNER_BASE_URL, resultsBean.getHtmls().toString().trim(), "text/html", "utf-8", null);
 //            webView.loadDataWithBaseURL(Config.BANNER_BASE_URL, resultsBean.getHtmls(), "text/html", "utf-8", null);
         }
-        tv_title.setText(intent.getStringExtra("title"));
+        tv_title.setText(intent.getStringExtra("title").trim());
         tv_username.setText("发送人:"+intent.getStringExtra("sender"));
         tv_time.setText(intent.getStringExtra("time"));
     }

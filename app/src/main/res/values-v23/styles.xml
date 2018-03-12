@@ -3,9 +3,9 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorToolWhite</item>
-        <item name="colorPrimaryDark">@color/colorToolWhite</item>
-        <item name="colorAccent">@color/colorToolWhite</item>
+        <item name="colorPrimary">@color/title_text_color</item>
+        <item name="colorPrimaryDark">@color/title_text_color</item>
+        <item name="colorAccent">@color/title_text_color</item>
         <!-- API 19 theme customizations can go here. -->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

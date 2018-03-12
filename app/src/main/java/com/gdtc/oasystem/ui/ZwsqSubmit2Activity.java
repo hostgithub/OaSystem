@@ -144,7 +144,7 @@ public class ZwsqSubmit2Activity extends BaseActivity{
         edt_bumen.setText(sp.getString(Config.DEPT_NAME));
         contentView = LayoutInflater.from(this).inflate(R.layout.popupwindow, null);
         mGridview= (GridView) contentView.findViewById(R.id.gridview);
-        titleBar=LayoutInflater.from(this).inflate(R.layout.layout_setting_title, null);
+        titleBar=LayoutInflater.from(this).inflate(R.layout.layout_center_title, null);
 
 //        edt_content.setOnTouchListener(new View.OnTouchListener() {
 //            @Override

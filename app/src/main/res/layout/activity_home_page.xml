@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" android:background="@color/WhiteSmoke"
+    android:orientation="vertical"
     >
     <FrameLayout
         android:id="@+id/content"
@@ -11,19 +11,7 @@
         android:layout_height="0dp"
         android:layout_weight="9">
     </FrameLayout>
-    <!-- 指示标签 -->
-    <LinearLayout
-        android:id="@+id/cursorarea"
-        android:layout_width="fill_parent"
-        android:background="#CDCDCD" android:visibility="gone"
-        android:orientation="horizontal"
-        android:layout_height="2dp">
-        <ImageView
-            android:id="@+id/cursor_btn"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
-        </ImageView>
-    </LinearLayout>
+
     <View
         android:layout_width="match_parent" android:background="@color/WhiteSmoke"
         android:layout_height="0dp" android:layout_weight="0.04"/>
@@ -52,7 +40,7 @@
                 android:textSize="14sp"
                 android:button="@null"
                 android:gravity="center"
-                android:text="首页" android:textColor="@color/index_blue"
+                android:text="审批" android:textColor="@color/index_blue"
                 android:checked="true"
                 android:drawableTop="@drawable/radioshape_home"/>
 
@@ -64,7 +52,7 @@
                 android:textSize="14sp"
                 android:button="@null"
                 android:gravity="center"
-                android:text="消息" android:textColor="#636161"
+                android:text="公告" android:textColor="#636161"
                 android:drawableTop="@drawable/radioshape_info" />
 
             <RadioButton

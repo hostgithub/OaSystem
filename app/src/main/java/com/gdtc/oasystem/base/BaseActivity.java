@@ -50,7 +50,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 //        }
 
         StatusBarUtil.setColor(this,
-                    getResources().getColor(R.color.white_snow), 1);
+                    getResources().getColor(R.color.title_text_color), 1);
 
 
         // 系统 6.0 以上 状态栏白底黑字的实现方法

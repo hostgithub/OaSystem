@@ -67,6 +67,8 @@ public class WebviewDispatchdbActivity extends BaseActivity {
     Button btn_un_agree;
     private DetailDispatchdb.ResultsBean resultsBean;
     private SharePreferenceTools sp;
+    @BindView(R.id.title_center)
+    TextView title_center;
 
     @Override
     protected int getLayoutId() {
@@ -75,6 +77,8 @@ public class WebviewDispatchdbActivity extends BaseActivity {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+
+        title_center.setText("审批详情");
 
         sp = new SharePreferenceTools(MyApplication.getContext());
         Intent intent = getIntent();
@@ -215,7 +219,7 @@ public class WebviewDispatchdbActivity extends BaseActivity {
             webView.loadDataWithBaseURL(Config.BANNER_BASE_URL, resultsBean.getHtmls().toString().trim(), "text/html", "utf-8", null);
 //            webView.loadDataWithBaseURL(Config.BANNER_BASE_URL, resultsBean.getHtmls(), "text/html", "utf-8", null);
         }
-        tv_title.setText(intent.getStringExtra("title"));
+        tv_title.setText(intent.getStringExtra("title").trim());
         tv_username.setText("发送人:"+intent.getStringExtra("sender"));
         tv_time.setText(intent.getStringExtra("time"));
     }

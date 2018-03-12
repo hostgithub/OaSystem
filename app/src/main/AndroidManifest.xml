@@ -25,9 +25,7 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Design.Light.NoActionBar"
-            android:windowSoftInputMode="adjustPan|stateHidden" >
-
-        </activity>
+            android:windowSoftInputMode="adjustPan|stateHidden"></activity>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -49,10 +47,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.Private_SettingActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
             android:name=".ui.ChangePasswordActivity"
             android:screenOrientation="portrait"
@@ -86,9 +80,7 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Design.Light.NoActionBar"
-            android:windowSoftInputMode="adjustPan|stateHidden">
-
-        </activity>
+            android:windowSoftInputMode="adjustPan|stateHidden"></activity>
         <activity
             android:name=".ui.ZhengwuApplyActivity"
             android:screenOrientation="portrait"
@@ -143,18 +135,22 @@
             android:name=".ui.MeetingHandleDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Design.Light.NoActionBar" />
-        <activity android:name=".ui.WebviewDispatchdbActivity"
+        <activity
+            android:name=".ui.WebviewDispatchdbActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Design.Light.NoActionBar" ></activity>
-        <activity android:name=".ui.WebviewIncomingdbActivity"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
+        <activity
+            android:name=".ui.WebviewIncomingdbActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Design.Light.NoActionBar" ></activity>
-        <activity android:name=".ui.AdministrativeApprovalWebviewActivity"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
+        <activity
+            android:name=".ui.AdministrativeApprovalWebviewActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Design.Light.NoActionBar" ></activity>
-        <activity android:name=".tablayout.TabActivity"/>
-        <activity android:name=".tablayout.ShouwenTabActivity"/>
-        <activity android:name=".ui.XRecyclerViewActivity"/>
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
+        <activity android:name=".tablayout.TabActivity" />
+        <activity android:name=".tablayout.ShouwenTabActivity" />
+        <activity android:name=".ui.XRecyclerViewActivity" />
+
         <receiver android:name=".word.MyBroadCastReciver">
             <intent-filter>
                 <action android:name="com.kingsoft.writer.back.key.down" />
@@ -163,6 +159,8 @@
                 <action android:name="com.kingsoft.writer.home.key.down" />
             </intent-filter>
         </receiver>
+
+        <activity android:name=".ui.SettingActivity"></activity>
     </application>
 
 </manifest>

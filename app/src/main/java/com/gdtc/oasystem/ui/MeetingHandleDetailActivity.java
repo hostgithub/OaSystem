@@ -50,7 +50,8 @@ public class MeetingHandleDetailActivity extends BaseActivity {
     TextView tv_fabudept;
     @BindView(R.id.tv_faburen)
     TextView tv_faburen;
-
+    @BindView(R.id.title_center)
+    TextView title_center;
     @BindView(R.id.edt_content)
     EditText edt_content;
     @BindView(R.id.btn_huizhi)
@@ -66,6 +67,7 @@ public class MeetingHandleDetailActivity extends BaseActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
 
+        title_center.setText("通知详情");
         sp = new SharePreferenceTools(MyApplication.getContext());
 
         Intent intent = getIntent();
