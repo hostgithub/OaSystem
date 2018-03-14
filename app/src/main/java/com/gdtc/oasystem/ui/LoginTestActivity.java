@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.gdtc.oasystem.Config;
 import com.gdtc.oasystem.MainActivity;
@@ -105,10 +104,12 @@ public class LoginTestActivity extends BaseActivity {
                 if(userName.getText().toString().trim().equals("")||password.getText().toString().trim().equals(""))
                 {
 
-                    Toast.makeText(LoginTestActivity.this,"用户名或密码不能为空", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(LoginTestActivity.this,"用户名或密码不能为空", Toast.LENGTH_LONG).show();
+                    showToast("用户名或密码不能为空");
 
                 }else{
 
+                    startProgressDialog();
                     post(userNameValue,passwordValue,dept_properties);
 
                 }
@@ -159,7 +160,8 @@ public class LoginTestActivity extends BaseActivity {
 
                     Log.e(Config.TAG,response.body().getResults().get(0).getInformation());
 
-                    Toast.makeText(LoginTestActivity.this,response.body().getResults().get(0).getInformation(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(LoginTestActivity.this,response.body().getResults().get(0).getInformation(), Toast.LENGTH_SHORT).show();
+                    showToast(response.body().getResults().get(0).getInformation());
                     //登录成功和记住密码框为选中状态才保存用户信息
                     if(rem_pw.isChecked())
                     {
@@ -193,18 +195,19 @@ public class LoginTestActivity extends BaseActivity {
                     Log.e("--ip--",getLocalIpAddress());
                     //跳转界面
                     Intent intent = new Intent(LoginTestActivity.this,HomePageActivity.class);
+                    stopProgressDialog();
                     startActivity(intent);
                     finish();
                 }else{
-
-                    Toast.makeText(LoginTestActivity.this,"用户名或密码错误，请重新登录", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(LoginTestActivity.this,"用户名或密码错误，请重新登录", Toast.LENGTH_LONG).show();
+                    showToast("用户名或密码错误，请重新登录");
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseBean> call, Throwable t) {
                 Log.e("sssss",t.getMessage());
-                Toast.makeText(LoginTestActivity.this,"请求失败!",Toast.LENGTH_SHORT).show();
+                showErrorHint("网络异常请稍后重试");
             }
         });
     }

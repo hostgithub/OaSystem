@@ -175,14 +175,12 @@ public class DispatchHasDealFragment extends BaseFragment implements SwipeRefres
                     Log.e("---------->>>请求数据id:",response.body().getResults().get(0).get_id().toString());
                     Log.e("---------->>>请求数据标题:",response.body().getResults().get(0).getTitle().toString());
                     picAdapter.notifyDataSetChanged();
-                    refreshLayout.setRefreshing(false);
                 }
             }
 
             @Override
             public void onFailure(Call<DispatchHasDeal> call, Throwable t) {
                 Toast.makeText(getActivity(),"请求失败!",Toast.LENGTH_SHORT).show();
-                refreshLayout.setRefreshing(false);
             }
         });
     }

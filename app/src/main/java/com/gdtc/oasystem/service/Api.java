@@ -3,6 +3,7 @@ package com.gdtc.oasystem.service;
 import com.gdtc.oasystem.bean.AdministrativeApproval;
 import com.gdtc.oasystem.bean.AdministrativeApprovalDetail;
 import com.gdtc.oasystem.bean.AllWaitDealSize;
+import com.gdtc.oasystem.bean.DaipiWork;
 import com.gdtc.oasystem.bean.Detail;
 import com.gdtc.oasystem.bean.DetailDispatchdb;
 import com.gdtc.oasystem.bean.DispatchHasDeal;
@@ -179,4 +180,10 @@ public interface Api {
     @POST("upload")
     @Multipart
     Call<ResponseBody> upload(@Part("description") RequestBody description, @Part("") MultipartBody.Part file);
+
+
+    //http://192.168.0.135:8080/app_phone/getMessageInfoListDaiban.do?pathdata=sgy&deptunit=10021&sign=56736&userid=王天鹏
+    @GET("app_phone/getMessageInfoListDaiban.do")
+    Call<DaipiWork> getDaipiWorkList(@Query("pathdata") String pathdata, @Query("deptunit") String deptunit,
+                                      @Query("sign") String sign, @Query("userid") String userid);
 }

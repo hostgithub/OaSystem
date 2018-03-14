@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +19,7 @@ import com.gdtc.oasystem.ui.FaWenDaiPiActivity;
 import com.gdtc.oasystem.ui.MeetingHandleActivity;
 import com.gdtc.oasystem.ui.ShouWenDaiPiActivity;
 import com.gdtc.oasystem.utils.DataString;
+import com.gdtc.oasystem.utils.NetWorkUtil;
 import com.gdtc.oasystem.utils.SharePreferenceTools;
 
 import org.greenrobot.eventbus.EventBus;
@@ -42,9 +42,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class HomeFragmentTest extends BaseFragment {
 
     private Unbinder mUnbinder;
-
-    @BindView(R.id.load_progress)
-    ProgressBar load_progress;
 
     @BindView(R.id.tv_date)
     TextView tv_date;
@@ -78,7 +75,11 @@ public class HomeFragmentTest extends BaseFragment {
 
         tv_username.setText("欢迎,"+sp.getString(Config.USERNAME));
 
-        initData(sp.getString(Config.USER_ID));
+        if(NetWorkUtil.isNetworkConnected(getContext())){
+            initData(sp.getString(Config.USER_ID));
+        }else {
+            showErrorHint("请检查您的网络");
+        }
     }
 
     @Override
@@ -94,15 +95,23 @@ public class HomeFragmentTest extends BaseFragment {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        initData(sp.getString(Config.USER_ID));
+        if(NetWorkUtil.isNetworkConnected(getContext())){
+            initData(sp.getString(Config.USER_ID));
+        }else {
+            showErrorHint("请检查您的网络");
+        }
     }
 
     @OnClick({ R.id.rl1,R.id.rl2,R.id.rl3,R.id.rl4,R.id.rl5,R.id.rl6})
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.rl1:
-                startActivity(new Intent(getActivity(),MeetingHandleActivity.class));
-                Toast.makeText(getActivity(),"会议通知",Toast.LENGTH_SHORT).show();
+                if(NetWorkUtil.isNetworkConnected(getContext())){
+                    startActivity(new Intent(getActivity(),MeetingHandleActivity.class));
+                    Toast.makeText(getActivity(),"会议通知",Toast.LENGTH_SHORT).show();
+                }else {
+                    showErrorHint("请检查您的网络");
+                }
                 break;
             case R.id.rl2:
                 startActivity(new Intent(getActivity(),AdministrativeApprovalActivity.class));
@@ -142,18 +151,17 @@ public class HomeFragmentTest extends BaseFragment {
             @Override
             public void onResponse(Call<AllWaitDealSize> call, Response<AllWaitDealSize> response) {
                 if(response.body()!=null){
+                    stopProgressDialog();
                     tv_size1.setText(response.body().getMeetingCount());
                     tv_size2.setText(response.body().getAdministrationCount());
                     tv_size3.setText(response.body().getDispatchCount());
                     tv_size4.setText(response.body().getInCount());
-                    load_progress.setVisibility(View.GONE);
                 }
             }
 
             @Override
             public void onFailure(Call<AllWaitDealSize> call, Throwable t) {
-                load_progress.setVisibility(View.GONE);
-                Toast.makeText(getActivity(),"请求失败!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),"请求异常",Toast.LENGTH_SHORT).show();
             }
         });
     }

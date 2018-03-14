@@ -17,6 +17,7 @@ import com.gdtc.oasystem.service.Api;
 import com.gdtc.oasystem.tablayout.ShouwenTabActivity;
 import com.gdtc.oasystem.tablayout.TabActivity;
 import com.gdtc.oasystem.ui.AdministrativeApprovalActivity;
+import com.gdtc.oasystem.ui.DaipiWorkActivity;
 import com.gdtc.oasystem.ui.FaWenDaiPiActivity;
 import com.gdtc.oasystem.ui.MeetingHandleActivity;
 import com.gdtc.oasystem.ui.ShouWenDaiPiActivity;
@@ -116,7 +117,7 @@ public class JobFragmentTest extends BaseFragment {
                 break;
             case R.id.table2:
                 Toast.makeText(getActivity(),"待批工作",Toast.LENGTH_SHORT).show();
-//                startActivity(new Intent(getActivity(),IncomingFilesDealActivity.class));
+                startActivity(new Intent(getActivity(),DaipiWorkActivity.class));
                 break;
             case R.id.table3:
                 Toast.makeText(getActivity(),"已批工作",Toast.LENGTH_SHORT).show();
