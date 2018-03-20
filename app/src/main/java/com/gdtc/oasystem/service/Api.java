@@ -30,6 +30,7 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Query;
+import retrofit2.http.Url;
 
 /**
  * Created by wangjiawei on 2017-11-14.
@@ -183,12 +184,15 @@ public interface Api {
 
 
     //http://192.168.0.135:8080/app_phone/getMessageInfoListDaiban.do?pathdata=sgy&deptunit=10021&sign=56736&userid=王天鹏
-    @GET("app_phone/getMessageInfoListDaiban.do")
+    @GET("app_phone/getMessageInfoListDaiban.do")                                         //待批工作
     Call<DaipiWork> getDaipiWorkList(@Query("pathdata") String pathdata, @Query("deptunit") String deptunit,
                                       @Query("sign") String sign, @Query("userid") String userid);
 
     //http://192.168.0.135:8080/app_phone/getMessageInfoList.do?sign=56736&deptunit=10021&pathdata=sgy
-    @GET("app_phone/getMessageInfoList.do")
+    @GET("app_phone/getMessageInfoList.do")                                                  //已批工作
     Call<DaipiWork> getYipiWorkList(@Query("pathdata") String pathdata, @Query("deptunit") String deptunit,
                                      @Query("sign") String sign);
+
+    @GET
+    Call<AdministrativeApprovalDetail> getAdministrativeApprovalDetail(@Url String url);//动态拼接地址
 }
