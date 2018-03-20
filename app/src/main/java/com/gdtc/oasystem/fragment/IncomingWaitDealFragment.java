@@ -210,9 +210,9 @@ public class IncomingWaitDealFragment extends BaseFragment implements SwipeRefre
                     ShouWenDbDetail.ResultsBean resultsBean=detail.getResults().get(0);
                     Intent intent = new Intent(getActivity(), WebviewIncomingdbActivity.class);
                     intent.putExtra(Config.NEWS,resultsBean);
-                    intent.putExtra("title",list.get(position).getTitle());
-                    intent.putExtra("sender",list.get(position).getSender());
-                    intent.putExtra("time",list.get(position).getSenderTime());
+//                    intent.putExtra("title",list.get(position).getTitle());
+//                    intent.putExtra("sender",list.get(position).getSender());
+//                    intent.putExtra("time",list.get(position).getSenderTime());
                     startActivity(intent);
                     Log.e("----------->>",resultsBean.getUserQc());
                     Log.e("----------->>",resultsBean.getHtmls());

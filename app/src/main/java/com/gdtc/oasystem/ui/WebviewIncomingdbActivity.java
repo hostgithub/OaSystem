@@ -194,9 +194,12 @@ public class WebviewIncomingdbActivity extends BaseActivity {
             webView.loadDataWithBaseURL(Config.BANNER_BASE_URL, resultsBean.getHtmls().toString().trim(), "text/html", "utf-8", null);
 //            webView.loadDataWithBaseURL(Config.BANNER_BASE_URL, resultsBean.getHtmls(), "text/html", "utf-8", null);
         }
-        tv_title.setText(intent.getStringExtra("title").trim());
-        tv_username.setText("发送人:"+intent.getStringExtra("sender"));
-        tv_time.setText(intent.getStringExtra("time"));
+//        tv_title.setText(intent.getStringExtra("title").trim());
+//        tv_username.setText("发送人:"+intent.getStringExtra("sender"));
+//        tv_time.setText(intent.getStringExtra("time"));
+        tv_title.setVisibility(View.GONE);
+        tv_username.setVisibility(View.GONE);
+        tv_time.setVisibility(View.GONE);
     }
 
     /**

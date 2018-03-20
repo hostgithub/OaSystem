@@ -161,7 +161,8 @@
         </receiver>
 
         <activity android:name=".ui.SettingActivity" />
-        <activity android:name=".ui.DaipiWorkActivity"></activity>
+        <activity android:name=".ui.DaipiWorkActivity" />
+        <activity android:name=".ui.YipiWorkActivity"></activity>
     </application>
 
 </manifest>

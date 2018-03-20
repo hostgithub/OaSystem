@@ -68,8 +68,8 @@ public interface Api {
     Call<DispatchHasDealDetail> getDispatchHasDetailData(@Query("file_source_id") String file_source_id,@Query("deptunit") String deptunit
     ,@Query("type") String type,@Query("pathdata") String pathdata);
 
-    //http://192.168.0.135:8080/app_phone/getInHandleList.do?sign=56736=&page=1   收文已办
-    @GET("app_phone/getInHandleList.do")
+    //http://192.168.0.135:8080/app_phone/newGetInHandleList.do?sign=56736=&page=1   收文已办
+    @GET("app_phone/newGetInHandleList.do")
     Call<IncomingHasDeal> getIncomingHasDealData(@Query("sign") String sign, @Query("page") int page);
 
     //http://192.168.0.135:8080/app_phone/getInfileFlowSingle.do?pathdata=sgy&file_source_id=091520170219028PM56736&deptunit=10021 收文已办详情
@@ -186,4 +186,9 @@ public interface Api {
     @GET("app_phone/getMessageInfoListDaiban.do")
     Call<DaipiWork> getDaipiWorkList(@Query("pathdata") String pathdata, @Query("deptunit") String deptunit,
                                       @Query("sign") String sign, @Query("userid") String userid);
+
+    //http://192.168.0.135:8080/app_phone/getMessageInfoList.do?sign=56736&deptunit=10021&pathdata=sgy
+    @GET("app_phone/getMessageInfoList.do")
+    Call<DaipiWork> getYipiWorkList(@Query("pathdata") String pathdata, @Query("deptunit") String deptunit,
+                                     @Query("sign") String sign);
 }

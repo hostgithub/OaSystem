@@ -202,9 +202,9 @@ public class DispatchHasDealFragment extends BaseFragment implements SwipeRefres
                     DispatchHasDealDetail.ResultsBean resultsBean=detail.getResults().get(0);
                     Intent intent = new Intent(getActivity(), DispatchHasWebviewActivity.class);
                     intent.putExtra(Config.NEWS,resultsBean);
-                    intent.putExtra("title",list.get(position).getTitle());
-                    intent.putExtra("sender",list.get(position).getSender());
-                    intent.putExtra("time",list.get(position).getSenderTime());
+//                    intent.putExtra("title",list.get(position).getTitle());
+//                    intent.putExtra("sender",list.get(position).getSender());
+//                    intent.putExtra("time",list.get(position).getSenderTime());
                     startActivity(intent);
                     Log.e("---------->>pdfPath",resultsBean.getHtmls());
                 }else{

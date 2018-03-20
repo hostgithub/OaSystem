@@ -44,6 +44,7 @@ public class DaipiWork implements Serializable{
         private String type;
         private String title;
         private String address;
+        private String time;
 
         public String getType() {
             return type;
@@ -67,6 +68,14 @@ public class DaipiWork implements Serializable{
 
         public void setAddress(String address) {
             this.address = address;
+        }
+
+        public String getTime() {
+            return time;
+        }
+
+        public void setTime(String time) {
+            this.time = time;
         }
     }
 }

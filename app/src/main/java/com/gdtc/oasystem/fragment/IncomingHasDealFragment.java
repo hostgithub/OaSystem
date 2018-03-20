@@ -206,9 +206,9 @@ public class IncomingHasDealFragment extends BaseFragment implements SwipeRefres
                     DispatchHasDealDetail.ResultsBean resultsBean=detail.getResults().get(0);
                     Intent intent = new Intent(getActivity(), DispatchHasWebviewActivity.class);
                     intent.putExtra(Config.NEWS,resultsBean);
-                    intent.putExtra("title",list.get(position).getTitle());
-                    intent.putExtra("sender",list.get(position).getUserSend());
-                    intent.putExtra("time",list.get(position).getSendTime());
+//                    intent.putExtra("title",list.get(position).getTitle());
+//                    intent.putExtra("sender",list.get(position).getUserSend());
+//                    intent.putExtra("time",list.get(position).getSendTime());
                     startActivity(intent);
                     Log.e("---------->>",resultsBean.getHtmls());
                 }else{

@@ -38,6 +38,9 @@ public class DispatchHasWebviewActivity extends BaseActivity {
     TextView tv_username;
     @BindView(R.id.tv_content)
     WebView webView;
+    @BindView(R.id.title_center)
+    TextView title_center;
+
 
     @Override
     protected int getLayoutId() {
@@ -46,6 +49,8 @@ public class DispatchHasWebviewActivity extends BaseActivity {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+
+        title_center.setText("审批");
 
         Intent intent = getIntent();
 
@@ -186,9 +191,12 @@ public class DispatchHasWebviewActivity extends BaseActivity {
         }else{
             webView.loadDataWithBaseURL(Config.BANNER_BASE_URL, resultsBean.getHtmls().toString().trim(), "text/html", "utf-8", null);
         }
-        tv_title.setText(intent.getStringExtra("title").toString().trim());
-        tv_username.setText("发送人:"+intent.getStringExtra("sender"));
-        tv_time.setText(intent.getStringExtra("time"));
+//        tv_title.setText(intent.getStringExtra("title").toString().trim());
+//        tv_username.setText("发送人:"+intent.getStringExtra("sender"));
+//        tv_time.setText(intent.getStringExtra("time"));
+        tv_title.setVisibility(View.GONE);
+        tv_username.setVisibility(View.GONE);
+        tv_time.setVisibility(View.GONE);
     }
 
     /**

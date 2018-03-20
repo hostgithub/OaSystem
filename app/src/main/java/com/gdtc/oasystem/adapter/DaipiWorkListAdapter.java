@@ -79,9 +79,9 @@ public class DaipiWorkListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 //                ImageLoaderUtils.loadingImg(mContext, (ImageView) holder.getView(R.id.cover), Config.BANNER_BASE_URL + item.picName);
 //            }
             //CircleImageView avatar = holder.getView(R.id.avatar);
-            holder.setText(R.id.tv_title, replaceBlank(item.getTitle()).toString().trim());//去除标题前的空格
+            holder.setText(R.id.tv_title, replaceBlank(item.getTitle()).toString().trim());//去除解析出来的含有\t 并去除标题前的空格
             holder.setText(R.id.tv_type, item.getType().toString().trim());//去除标题前的空格
-            holder.setText(R.id.tv_time, "time");
+            holder.setText(R.id.tv_time, item.getTime()==null?null:item.getTime());//判空的三元表达式
             holder.setText(R.id.tv_name,"username");
             //holder.setText(R.id.content, item.text);
 //            if(item.text.startsWith(";")){

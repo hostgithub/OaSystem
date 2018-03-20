@@ -216,9 +216,9 @@ public class DispatchWaitDealFragment extends BaseFragment implements SwipeRefre
                     DetailDispatchdb.ResultsBean resultsBean=response.body().getResults().get(0);
                     Intent intent = new Intent(getActivity(), WebviewDispatchdbActivity.class);
                     intent.putExtra(Config.NEWS,resultsBean);
-                    intent.putExtra("title",list.get(position).getTitle());
-                    intent.putExtra("sender",list.get(position).getSender());
-                    intent.putExtra("time",list.get(position).getSenderTime());
+//                    intent.putExtra("title",list.get(position).getTitle());
+//                    intent.putExtra("sender",list.get(position).getSender());
+//                    intent.putExtra("time",list.get(position).getSenderTime());
                     startActivity(intent);
                     Log.e("xxxxxxx",resultsBean.getHtmls());
                 }else{

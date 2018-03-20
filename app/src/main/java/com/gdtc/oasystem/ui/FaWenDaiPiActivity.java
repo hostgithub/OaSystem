@@ -190,9 +190,9 @@ public class FaWenDaiPiActivity extends BaseActivity implements SwipeRefreshLayo
                     DetailDispatchdb.ResultsBean resultsBean=response.body().getResults().get(0);
                     Intent intent = new Intent(FaWenDaiPiActivity.this, WebviewDispatchdbActivity.class);
                     intent.putExtra(Config.NEWS,resultsBean);
-                    intent.putExtra("title",list.get(position).getTitle());
-                    intent.putExtra("sender",list.get(position).getSender());
-                    intent.putExtra("time",list.get(position).getSenderTime());
+//                    intent.putExtra("title",list.get(position).getTitle());
+//                    intent.putExtra("sender",list.get(position).getSender());
+//                    intent.putExtra("time",list.get(position).getSenderTime());
                     startActivity(intent);
                     Log.e("xxxxxxx",resultsBean.getHtmls());
                 }else{

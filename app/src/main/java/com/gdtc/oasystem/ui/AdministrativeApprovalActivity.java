@@ -197,9 +197,9 @@ public class AdministrativeApprovalActivity extends BaseActivity{
                     AdministrativeApprovalDetail.ResultsBean resultsBean=detail.getResults().get(0);
                     Intent intent = new Intent(AdministrativeApprovalActivity.this, AdministrativeApprovalWebviewActivity.class);
                     intent.putExtra(Config.NEWS,resultsBean);
-                    intent.putExtra("title",list.get(position).getTitle());
-                    intent.putExtra("sender",list.get(position).getSender());
-                    intent.putExtra("time",list.get(position).getSenderTime());
+//                    intent.putExtra("title",list.get(position).getTitle());
+//                    intent.putExtra("sender",list.get(position).getSender());
+//                    intent.putExtra("time",list.get(position).getSenderTime());
                     startActivity(intent);
                     Log.e("---------------",resultsBean.getHtmls());
                 }else{

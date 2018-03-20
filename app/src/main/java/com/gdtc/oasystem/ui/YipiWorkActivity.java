@@ -32,7 +32,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class DaipiWorkActivity extends BaseActivity{
+public class YipiWorkActivity extends BaseActivity{
 
     @BindView(R.id.xrecyclerview)
     XRecyclerView mRecyclerView;
@@ -53,7 +53,7 @@ public class DaipiWorkActivity extends BaseActivity{
     @Override
     protected void initView(Bundle savedInstanceState) {
 
-        title_center.setText("待批工作");
+        title_center.setText("已批工作");
 
         sp = new SharePreferenceTools(MyApplication.getContext());
         list=new ArrayList();
@@ -155,8 +155,8 @@ public class DaipiWorkActivity extends BaseActivity{
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         Api api =retrofit.create(Api.class);
-        Call<DaipiWork> call=api.getDaipiWorkList(sp.getString(Config.PATHDATA),sp.getString(Config.DEPTUNIT),
-                sp.getString(Config.USER_ID),sp.getString(Config.USERNAME));
+        Call<DaipiWork> call=api.getYipiWorkList(sp.getString(Config.PATHDATA),sp.getString(Config.DEPTUNIT),
+                sp.getString(Config.USER_ID));
         Log.e("---------->>>",sp.getString(Config.USER_ID));
         Log.e("---------->>>",sp.getString(Config.DEPTUNIT));
         call.enqueue(new Callback<DaipiWork>() {
@@ -166,7 +166,7 @@ public class DaipiWorkActivity extends BaseActivity{
                     stopProgressDialog();
                     if(response.body().getResults().size()==0){
 //                        meetingHandleAdapter.setFooterVisible(View.GONE);
-                        Toast.makeText(DaipiWorkActivity.this,"暂无更多数据",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(YipiWorkActivity.this,"暂无更多数据",Toast.LENGTH_SHORT).show();
                     }else {
                         list.addAll(response.body().getResults());
                         Log.e("---------->>>请求数据发送人:",response.body().getResults().get(0).getTitle().toString());
@@ -178,7 +178,7 @@ public class DaipiWorkActivity extends BaseActivity{
             @Override
             public void onFailure(Call<DaipiWork> call, Throwable t) {
                 stopProgressDialog();
-                Toast.makeText(DaipiWorkActivity.this,"请求失败!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(YipiWorkActivity.this,"请求失败!",Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -200,7 +200,7 @@ public class DaipiWorkActivity extends BaseActivity{
                 if(response!=null){
                     AdministrativeApprovalDetail detail=response.body();
                     AdministrativeApprovalDetail.ResultsBean resultsBean=detail.getResults().get(0);
-                    Intent intent = new Intent(DaipiWorkActivity.this, AdministrativeApprovalWebviewActivity.class);
+                    Intent intent = new Intent(YipiWorkActivity.this, AdministrativeApprovalWebviewActivity.class);
                     intent.putExtra(Config.NEWS,resultsBean);
 //                    intent.putExtra("title",list.get(position).getTitle());
 //                    intent.putExtra("sender",list.get(position).getSender());
@@ -208,7 +208,7 @@ public class DaipiWorkActivity extends BaseActivity{
                     startActivity(intent);
                     Log.e("---------------",resultsBean.getHtmls());
                 }else{
-                    Toast.makeText(DaipiWorkActivity.this,"数据为空!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(YipiWorkActivity.this,"数据为空!",Toast.LENGTH_SHORT).show();
                 }
             }
 
