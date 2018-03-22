@@ -84,7 +84,7 @@ public interface Api {
     Call<DispatchWaitDeal> getIncomingWaitDealData(@Query("sign") String sign, @Query("deptunit") String deptunit, @Query("page") int page);
 
 
-    //http://192.168.0.135:8080/app_phone/processedInfo.do?pathdata=&flowsort=&deptunit=&file_source_id=&sign=    收文待办详情
+    //http://192.168.0.135:8080/app_phone/processedInfo.do?pathdata=sgy&flowsort=120420170424026PM56104&deptunit=10021&file_source_id=120420170423007PM56736&sign=56736    收文待办详情
     @GET("app_phone/processedInfo.do")
     Call<ShouWenDbDetail> getIncomingDbData(@Query("pathdata") String pathdata, @Query("flowsort") String flowsort,
                                             @Query("deptunit") String deptunit,
@@ -178,6 +178,29 @@ public interface Api {
                        @Field("column78") String column78,
                        @Field("column79") String column79);
 
+
+    /** 表单提交要加 @FormUrlEncoded
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("app_phone/whenReceipt.do")
+    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8") //添加
+    Call<HuiZhiBean> IncomingBack(@Field("sign") String sign,
+                                  @Field("deptunit") String deptunit,
+                                  @Field("userid") String userid,
+                                  @Field("file_source_id") String file_source_id,
+                                  @Field("flowsort") String flowsort,
+                                  @Field("type_advice") String type_advice,
+                                  @Field("userQc") String userQc,
+                                  @Field("fanhui_man_sw") String fanhui_man_sw,
+                                  @Field("advicetype") String advicetype,
+                                  @Field("advice") String advice,
+                                  @Field("column75") String column75,
+                                  @Field("column76") String column76,
+                                  @Field("column77") String column77,
+                                  @Field("column78") String column78,
+                                  @Field("column79") String column79);
+
     @POST("upload")
     @Multipart
     Call<ResponseBody> upload(@Part("description") RequestBody description, @Part("") MultipartBody.Part file);
@@ -194,5 +217,15 @@ public interface Api {
                                      @Query("sign") String sign);
 
     @GET
-    Call<AdministrativeApprovalDetail> getAdministrativeApprovalDetail(@Url String url);//动态拼接地址
+    Call<AdministrativeApprovalDetail> getAdministrativeApprovalDetail(@Url String url);//动态拼接地址 行政审批
+
+    @GET
+    Call<MeetingDetail> getMeetingDetail(@Url String url);//动态拼接地址  会议通知
+
+
+    @GET
+    Call<DetailDispatchdb> getDetailDispatchdb(@Url String url);//动态拼接地址  发文待批
+
+    @GET
+    Call<ShouWenDbDetail> getShouWenDbDetail(@Url String url);//动态拼接地址  收文待批
 }

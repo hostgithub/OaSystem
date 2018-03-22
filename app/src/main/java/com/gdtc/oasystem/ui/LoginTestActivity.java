@@ -208,6 +208,7 @@ public class LoginTestActivity extends BaseActivity {
             public void onFailure(Call<ResponseBean> call, Throwable t) {
                 Log.e("sssss",t.getMessage());
                 showErrorHint("网络异常请稍后重试");
+                stopProgressDialog();
             }
         });
     }

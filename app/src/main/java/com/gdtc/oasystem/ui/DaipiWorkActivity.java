@@ -15,6 +15,9 @@ import com.gdtc.oasystem.adapter.DaipiWorkListAdapter;
 import com.gdtc.oasystem.base.BaseActivity;
 import com.gdtc.oasystem.bean.AdministrativeApprovalDetail;
 import com.gdtc.oasystem.bean.DaipiWork;
+import com.gdtc.oasystem.bean.DetailDispatchdb;
+import com.gdtc.oasystem.bean.MeetingDetail;
+import com.gdtc.oasystem.bean.ShouWenDbDetail;
 import com.gdtc.oasystem.service.Api;
 import com.gdtc.oasystem.utils.RecyclerViewSpacesItemDecoration;
 import com.gdtc.oasystem.utils.SharePreferenceTools;
@@ -57,8 +60,8 @@ public class DaipiWorkActivity extends BaseActivity{
 
         sp = new SharePreferenceTools(MyApplication.getContext());
         list=new ArrayList();
-        initData();
         startProgressDialog();
+        initData();
         linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(linearLayoutManager);
@@ -178,24 +181,109 @@ public class DaipiWorkActivity extends BaseActivity{
 
         switch (list.get(position).getType()){
             case "发文":
-                showToast("点击位置"+position);
-                break;
-            case "收文":
-                showToast("点击位置"+position);
-                break;
-            case "办会":
-                showToast("点击位置"+position);
-                break;
-            case "行政审批":
-                //使用retrofit配置api
+                //showToast("点击位置"+position);
                 Retrofit retrofit=new Retrofit.Builder()
                         .baseUrl(Config.BANNER_BASE_URL)
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
                 Api api =retrofit.create(Api.class);
+                Call<DetailDispatchdb> call=api.getDetailDispatchdb(list.get(position).getAddress());
+                call.enqueue(new Callback<DetailDispatchdb>() {
+                    @Override
+                    public void onResponse(Call<DetailDispatchdb> call, Response<DetailDispatchdb> response) {
+                        if(response!=null){
+                            DetailDispatchdb.ResultsBean resultsBean=response.body().getResults().get(0);
+                            Intent intent = new Intent(DaipiWorkActivity.this, WebviewDispatchdbActivity.class);
+                            intent.putExtra(Config.NEWS,resultsBean);
+//                    intent.putExtra("title",list.get(position).getTitle());
+//                    intent.putExtra("sender",list.get(position).getSender());
+//                    intent.putExtra("time",list.get(position).getSenderTime());
+                            startActivity(intent);
+                            Log.e("xxxxxxx",resultsBean.getHtmls());
+                        }else{
+                            Toast.makeText(DaipiWorkActivity.this,"数据为空!",Toast.LENGTH_SHORT).show();
+                        }
+                    }
 
-                Call<AdministrativeApprovalDetail> call=api.getAdministrativeApprovalDetail(list.get(position).getAddress());
-                call.enqueue(new Callback<AdministrativeApprovalDetail>() {
+                    @Override
+                    public void onFailure(Call<DetailDispatchdb> call, Throwable t) {
+                        Log.e("-------------",t.getMessage().toString());
+                    }
+                });
+                break;
+            case "收文":
+                //showToast("点击位置"+position);
+                Retrofit retrofit2=new Retrofit.Builder()
+                        .baseUrl(Config.BANNER_BASE_URL)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                Api api2 =retrofit2.create(Api.class);
+                Call<ShouWenDbDetail> call2=api2.getShouWenDbDetail(list.get(position).getAddress());
+                call2.enqueue(new Callback<ShouWenDbDetail>() {
+                    @Override
+                    public void onResponse(Call<ShouWenDbDetail> call, Response<ShouWenDbDetail> response) {
+                        if(response!=null){
+                            ShouWenDbDetail detail=response.body();
+                            ShouWenDbDetail.ResultsBean resultsBean=detail.getResults().get(0);
+                            Intent intent = new Intent(DaipiWorkActivity.this, WebviewIncomingdbActivity.class);
+                            intent.putExtra(Config.NEWS,resultsBean);
+//                    intent.putExtra("title",list.get(position).getTitle());
+//                    intent.putExtra("sender",list.get(position).getSender());
+//                    intent.putExtra("time",list.get(position).getSenderTime());
+                            startActivity(intent);
+                            Log.e("----------->>",resultsBean.getUserQc());
+                            Log.e("----------->>",resultsBean.getHtmls());
+                        }else{
+                            Toast.makeText(DaipiWorkActivity.this,"数据为空!",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ShouWenDbDetail> call, Throwable t) {
+                        Log.e("------------->>",t.getMessage().toString());
+                    }
+                });
+                break;
+            case "办会":
+                //showToast("点击位置"+position);
+                //使用retrofit配置api
+                Retrofit retrofit3=new Retrofit.Builder()
+                        .baseUrl(Config.BANNER_BASE_URL)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                Api api3 =retrofit3.create(Api.class);
+                Call<MeetingDetail> call3=api3.getMeetingDetail(list.get(position).getAddress());
+                call3.enqueue(new Callback<MeetingDetail>() {
+                    @Override
+                    public void onResponse(Call<MeetingDetail> call, Response<MeetingDetail> response) {
+                        if(response!=null){
+                            MeetingDetail detail=response.body();
+                            MeetingDetail.ResultsBean resultsBean=detail.getResults().get(0);
+                            Intent intent = new Intent(DaipiWorkActivity.this, MeetingHandleDetailActivity.class);
+                            intent.putExtra(Config.NEWS,resultsBean);
+                            finish();
+                            startActivity(intent);
+                            Log.e("xxxxxxx",resultsBean.getContent());
+                        }else{
+                            Toast.makeText(DaipiWorkActivity.this,"数据为空!",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<MeetingDetail> call, Throwable t) {
+                        Log.e("-------------",t.getMessage().toString());
+                    }
+                });
+                break;
+            case "行政审批":
+                //使用retrofit配置api
+                Retrofit retrofit4=new Retrofit.Builder()
+                        .baseUrl(Config.BANNER_BASE_URL)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                Api api4 =retrofit4.create(Api.class);
+                Call<AdministrativeApprovalDetail> call4=api4.getAdministrativeApprovalDetail(list.get(position).getAddress());
+                call4.enqueue(new Callback<AdministrativeApprovalDetail>() {
                     @Override
                     public void onResponse(Call<AdministrativeApprovalDetail> call, Response<AdministrativeApprovalDetail> response) {
                         if(response!=null){

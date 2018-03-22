@@ -1,11 +1,14 @@
 package com.gdtc.oasystem.ui;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -16,18 +19,32 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gdtc.oasystem.Config;
+import com.gdtc.oasystem.MyApplication;
 import com.gdtc.oasystem.R;
 import com.gdtc.oasystem.base.BaseActivity;
+import com.gdtc.oasystem.bean.EventUtil;
+import com.gdtc.oasystem.bean.HuiZhiBean;
 import com.gdtc.oasystem.bean.ShouWenDbDetail;
+import com.gdtc.oasystem.service.Api;
 import com.gdtc.oasystem.utils.MyScrollView;
 import com.gdtc.oasystem.utils.NetWorkUtil;
+import com.gdtc.oasystem.utils.SharePreferenceTools;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class WebviewIncomingdbActivity extends BaseActivity {
 
@@ -43,6 +60,10 @@ public class WebviewIncomingdbActivity extends BaseActivity {
     MyScrollView scrollView;
     @BindView(R.id.title_center)
     TextView title_center;
+    private SharePreferenceTools sp;
+    private ShouWenDbDetail.ResultsBean resultsBean;
+    @BindView(R.id.edt_content)
+    EditText edt_content;
 
 
     @Override
@@ -54,7 +75,7 @@ public class WebviewIncomingdbActivity extends BaseActivity {
     protected void initView(Bundle savedInstanceState) {
 
         title_center.setText("审批详情");
-
+        sp = new SharePreferenceTools(MyApplication.getContext());
         Intent intent = getIntent();
 
 //        LinearLayout.LayoutParams mWebViewLP = new LinearLayout.LayoutParams(
@@ -186,7 +207,7 @@ public class WebviewIncomingdbActivity extends BaseActivity {
 
         //mDetailWebView.loadUrl(it.getStringExtra(Config.NEWS));
 //        DetailDispatchdb.ResultsBean resultsBean= (DetailDispatchdb.ResultsBean) intent.getSerializableExtra(Config.NEWS);
-        ShouWenDbDetail.ResultsBean resultsBean= (ShouWenDbDetail.ResultsBean) intent.getSerializableExtra(Config.NEWS);
+        resultsBean= (ShouWenDbDetail.ResultsBean) intent.getSerializableExtra(Config.NEWS);
         //tv_content.setText(Html.fromHtml(resultsBean.content));
         if(resultsBean.getHtmls().startsWith("http")){
             webView.loadUrl(resultsBean.getHtmls());
@@ -246,6 +267,8 @@ public class WebviewIncomingdbActivity extends BaseActivity {
         super.onStop();
     }
 
+
+
     @Override
     protected void onDestroy() {
         if (webView != null) {
@@ -262,8 +285,76 @@ public class WebviewIncomingdbActivity extends BaseActivity {
         super.onDestroy();
     }
 
-    @OnClick({ R.id.title_left})
+    @OnClick({ R.id.title_left,R.id.btn_agree,R.id.btn_un_agree})
     public void onClick(View view) {
-        finish();
+        switch (view.getId()){
+            case R.id.title_left:
+                finish();
+                break;
+            case R.id.btn_agree:
+                dispatchBack("同意");
+                break;
+            case R.id.btn_un_agree:
+                dispatchBack("不同意");
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void dispatchBack(String button){
+
+        /**
+         * 初始化
+         */
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Config.BANNER_BASE_URL)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        //生成对象的Service
+        Api api = retrofit.create(Api.class);
+        //调用方法得到Call
+        Call<HuiZhiBean> call = api.IncomingBack(
+                sp.getString(Config.USER_ID),
+                sp.getString(Config.DEPTUNIT),
+                sp.getString(Config.USERNAME),
+                resultsBean.getFile_source_id(),
+                resultsBean.getFlowsort(),
+                resultsBean.getType_advice(),
+                resultsBean.getUserQc(),
+                resultsBean.getFanhui_man_sw(),
+                button,
+                edt_content.getText().toString().trim(),
+                resultsBean.getColumn75(),resultsBean.getColumn76(),resultsBean.getColumn77(),resultsBean.getColumn78(),resultsBean.getColumn79());
+
+        //异步执行
+        call.enqueue(new Callback<HuiZhiBean>() {
+            @Override
+            public void onResponse(Call<HuiZhiBean> call, Response<HuiZhiBean> response) {
+                Log.e("-----------",response.message()+"   "+response.body().getSuccess());
+                if(response.body().getSuccess()=="true"){
+                    AlertDialog.Builder builder=new AlertDialog.Builder(WebviewIncomingdbActivity.this);
+                    builder.setTitle("通知详情");//设置对话框的标题
+                    builder.setMessage("您填写的信息已成功提交，请返回");//设置对话框的内容
+                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {  //这个是设置确定按钮
+
+                        @Override
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            EventBus.getDefault().post(new EventUtil("发送消息"));
+                            finish();
+                        }
+                    });
+                    AlertDialog b=builder.create();
+                    b.show();  //必须show一下才能看到对话框，跟Toast一样的道理
+                }
+            }
+            @Override
+            public void onFailure(Call<HuiZhiBean> call, Throwable t) {
+                Log.e("-------------",t.getMessage());
+                Log.e("-------------",t.toString());
+            }
+        });
     }
 }

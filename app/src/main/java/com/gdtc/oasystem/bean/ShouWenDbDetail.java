@@ -54,6 +54,12 @@ public class ShouWenDbDetail implements Serializable{
         private String file_source_id;
         private String userQc;
         private String htmls;
+        private String fanhui_man_sw;
+        private String column75;
+        private String column76;
+        private String column77;
+        private String column78;
+        private String column79;
 
         public String getFormid() {
             return formid;
@@ -117,6 +123,54 @@ public class ShouWenDbDetail implements Serializable{
 
         public void setHtmls(String htmls) {
             this.htmls = htmls;
+        }
+
+        public String getColumn75() {
+            return column75;
+        }
+
+        public void setColumn75(String column75) {
+            this.column75 = column75;
+        }
+
+        public String getColumn76() {
+            return column76;
+        }
+
+        public void setColumn76(String column76) {
+            this.column76 = column76;
+        }
+
+        public String getColumn77() {
+            return column77;
+        }
+
+        public void setColumn77(String column77) {
+            this.column77 = column77;
+        }
+
+        public String getColumn78() {
+            return column78;
+        }
+
+        public void setColumn78(String column78) {
+            this.column78 = column78;
+        }
+
+        public String getColumn79() {
+            return column79;
+        }
+
+        public void setColumn79(String column79) {
+            this.column79 = column79;
+        }
+
+        public String getFanhui_man_sw() {
+            return fanhui_man_sw;
+        }
+
+        public void setFanhui_man_sw(String fanhui_man_sw) {
+            this.fanhui_man_sw = fanhui_man_sw;
         }
     }
 }
