@@ -165,12 +165,19 @@ public class DispatchHasDealFragment extends BaseFragment implements SwipeRefres
         call.enqueue(new Callback<DispatchHasDeal>() {
             @Override
             public void onResponse(Call<DispatchHasDeal> call, Response<DispatchHasDeal> response) {
-                if(response.body()!=null){
+                if(response.body().getResults().size()==0){
+                    refreshLayout.setRefreshing(false);
+                    picAdapter.setFooterVisible(View.GONE);
+                    Toast.makeText(getActivity(),"暂无更多数据",Toast.LENGTH_SHORT).show();
+                }else{
                     list.addAll(response.body().getResults());
                     Log.e("---------->>>",response.body().getSuccess());
                     sp.putString("count",response.body().getCount());
                     Log.e("---------->>>请求数据集合大小:", String.valueOf(response.body().getResults().size()));
                     sp.putInt("apagesize",response.body().getResults().size());
+                    if(response.body().getResults().size()<15){
+                        picAdapter.setFooterVisible(View.GONE);
+                    }
                     Log.e("---------->>>请求数据发送人:",response.body().getResults().get(0).getSender().toString());
                     Log.e("---------->>>请求数据id:",response.body().getResults().get(0).get_id().toString());
                     Log.e("---------->>>请求数据标题:",response.body().getResults().get(0).getTitle().toString());
