@@ -50,7 +50,7 @@ public class DispatchHasWebviewActivity extends BaseActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
 
-        title_center.setText("审批");
+        title_center.setText("审批详情");
 
         Intent intent = getIntent();
 

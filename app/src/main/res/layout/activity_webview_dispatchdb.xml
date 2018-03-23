@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    >
 
-    <include layout="@layout/layout_center_title"/>
+    <include layout="@layout/layout_center_title" android:id="@+id/layout_top"/>
 
     <com.gdtc.oasystem.utils.MyScrollView android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/layout_top">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,7 +33,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="5dp"
                 android:gravity="center">
 
                 <TextView
@@ -63,45 +64,67 @@
                 android:id="@+id/tv_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp" />
-
-            <EditText
-                android:id="@+id/edt_content"
-                android:layout_width="match_parent"
-                android:layout_height="90dp"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/editshape"
-                android:gravity="left|top"
-                android:imeOptions="actionNext"
-                android:nextFocusForward="@+id/edt_name"
-                android:hint="请您输入要回复的内容" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/btn_agree"
-                    android:layout_width="120dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/btnshape"
-                    android:text="同意"
-                    android:textColor="#ffff" />
-
-                <Button
-                    android:id="@+id/btn_un_agree"
-                    android:layout_width="120dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:background="@drawable/btnshape"
-                    android:text="不同意"
-                    android:textColor="#ffff" />
-            </LinearLayout>
+                android:layout_marginTop="10dp" />
         </LinearLayout>
     </com.gdtc.oasystem.utils.MyScrollView>
-</LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="5dp"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/btn_fujian"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/btnshape"
+            android:text="查看附件"
+            android:textColor="#ffff" />
+
+        <EditText
+            android:id="@+id/edt_content"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/editshape"
+            android:gravity="left|top"
+            android:imeOptions="actionNext"
+            android:nextFocusForward="@+id/edt_name"
+            android:hint="请您输入要回复的内容" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_agree"
+                android:layout_width="120dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:background="@drawable/btnshape"
+                android:text="同意"
+                android:textColor="#ffff" />
+
+            <Button
+                android:id="@+id/btn_un_agree"
+                android:layout_width="120dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/btnshape"
+                android:text="不同意"
+                android:textColor="#ffff" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</RelativeLayout>

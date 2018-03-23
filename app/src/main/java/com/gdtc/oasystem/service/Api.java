@@ -227,5 +227,11 @@ public interface Api {
     Call<DetailDispatchdb> getDetailDispatchdb(@Url String url);//动态拼接地址  发文待批
 
     @GET
+    Call<DispatchHasDealDetail> getDispatchHasDealDetail(@Url String url);//动态拼接地址  发文已批
+
+    @GET
     Call<ShouWenDbDetail> getShouWenDbDetail(@Url String url);//动态拼接地址  收文待批
+
+    @GET
+    Call<DispatchHasDealDetail> getShouWenYBDetail(@Url String url);//动态拼接地址  收文已批
 }
