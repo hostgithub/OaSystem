@@ -80,73 +80,98 @@ public class YipiWorkActivity extends BaseActivity{
         daipiWorkListAdapter.setOnItemClickLitener(new DaipiWorkListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                switch (list.get(position).getType()){
-                    case "发文":
-                        Retrofit retrofit=new Retrofit.Builder()
-                                .baseUrl(Config.BANNER_BASE_URL)
-                                .addConverterFactory(GsonConverterFactory.create())
-                                .build();
-                        Api api =retrofit.create(Api.class);
-                        Call<DispatchHasDealDetail> call=api.getDispatchHasDealDetail(list.get(position).getAddress());
-                        call.enqueue(new Callback<DispatchHasDealDetail>() {
-                            @Override
-                            public void onResponse(Call<DispatchHasDealDetail> call, Response<DispatchHasDealDetail> response) {
-                                if(response!=null){
-                                    DispatchHasDealDetail detail=response.body();
-                                    DispatchHasDealDetail.ResultsBean resultsBean=detail.getResults().get(0);
-                                    Intent intent = new Intent(YipiWorkActivity.this, DispatchHasWebviewActivity.class);
-                                    intent.putExtra(Config.NEWS,resultsBean);
-                                    startActivity(intent);
-                                    Log.e("---------->>",resultsBean.getHtmls());
-                                }else{
-                                    Toast.makeText(YipiWorkActivity.this,"数据为空!",Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                            @Override
-                            public void onFailure(Call<DispatchHasDealDetail> call, Throwable t) {
-                                Log.e("-------------解析失败",t.getMessage().toString());
-                            }
-                        });
-                        break;
-                    case "收文":
-                        Retrofit retrofit2=new Retrofit.Builder()
-                                .baseUrl(Config.BANNER_BASE_URL)
-                                .addConverterFactory(GsonConverterFactory.create())
-                                .build();
-                        Api api2 =retrofit2.create(Api.class);
-                        Call<DispatchHasDealDetail> call2=api2.getShouWenYBDetail(list.get(position).getAddress());
-                        call2.enqueue(new Callback<DispatchHasDealDetail>() {
-                            @Override
-                            public void onResponse(Call<DispatchHasDealDetail> call, Response<DispatchHasDealDetail> response) {
-                                if(response!=null){
-                                    DispatchHasDealDetail detail=response.body();
-                                    DispatchHasDealDetail.ResultsBean resultsBean=detail.getResults().get(0);
-                                    Intent intent = new Intent(YipiWorkActivity.this, DispatchHasWebviewActivity.class);
-                                    intent.putExtra(Config.NEWS,resultsBean);
-//                    intent.putExtra("title",list.get(position).getTitle());
-//                    intent.putExtra("sender",list.get(position).getUserSend());
-//                    intent.putExtra("time",list.get(position).getSendTime());
-                                    startActivity(intent);
-                                    Log.e("---------->>",resultsBean.getHtmls());
-                                }else{
-                                    Toast.makeText(YipiWorkActivity.this,"数据为空!",Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                            @Override
-                            public void onFailure(Call<DispatchHasDealDetail> call, Throwable t) {
-                                Log.e("------------->>",t.getMessage().toString());
-                            }
-                        });
-                        break;
-                    case "办会":
-                        showToast("点击位置"+position);
-                        break;
-                    case "行政审批":
-                        showToast("点击位置"+position);
-                        break;
-                    default:
-                        break;
-                }
+
+                startProgressDialog();
+//                switch (list.get(position).getType()){
+//                    case "发文":
+//                        Retrofit retrofit=new Retrofit.Builder()
+//                                .baseUrl(Config.BANNER_BASE_URL)
+//                                .addConverterFactory(GsonConverterFactory.create())
+//                                .build();
+//                        Api api =retrofit.create(Api.class);
+//                        Call<DispatchHasDealDetail> call=api.getDispatchHasDealDetail(list.get(position).getAddress());
+//                        call.enqueue(new Callback<DispatchHasDealDetail>() {
+//                            @Override
+//                            public void onResponse(Call<DispatchHasDealDetail> call, Response<DispatchHasDealDetail> response) {
+//                                if(response!=null){
+//                                    DispatchHasDealDetail detail=response.body();
+//                                    DispatchHasDealDetail.ResultsBean resultsBean=detail.getResults().get(0);
+//                                    Intent intent = new Intent(YipiWorkActivity.this, DispatchHasWebviewActivity.class);
+//                                    intent.putExtra(Config.NEWS,resultsBean);
+//                                    startActivity(intent);
+//                                    Log.e("---------->>",resultsBean.getHtmls());
+//                                }else{
+//                                    Toast.makeText(YipiWorkActivity.this,"数据为空!",Toast.LENGTH_SHORT).show();
+//                                }
+//                            }
+//                            @Override
+//                            public void onFailure(Call<DispatchHasDealDetail> call, Throwable t) {
+//                                Log.e("-------------解析失败",t.getMessage().toString());
+//                            }
+//                        });
+//                        break;
+//                    case "收文":
+//                        Retrofit retrofit2=new Retrofit.Builder()
+//                                .baseUrl(Config.BANNER_BASE_URL)
+//                                .addConverterFactory(GsonConverterFactory.create())
+//                                .build();
+//                        Api api2 =retrofit2.create(Api.class);
+//                        Call<DispatchHasDealDetail> call2=api2.getShouWenYBDetail(list.get(position).getAddress());
+//                        call2.enqueue(new Callback<DispatchHasDealDetail>() {
+//                            @Override
+//                            public void onResponse(Call<DispatchHasDealDetail> call, Response<DispatchHasDealDetail> response) {
+//                                if(response!=null){
+//                                    DispatchHasDealDetail detail=response.body();
+//                                    DispatchHasDealDetail.ResultsBean resultsBean=detail.getResults().get(0);
+//                                    Intent intent = new Intent(YipiWorkActivity.this, DispatchHasWebviewActivity.class);
+//                                    intent.putExtra(Config.NEWS,resultsBean);
+////                    intent.putExtra("title",list.get(position).getTitle());
+////                    intent.putExtra("sender",list.get(position).getUserSend());
+////                    intent.putExtra("time",list.get(position).getSendTime());
+//                                    startActivity(intent);
+//                                    Log.e("---------->>",resultsBean.getHtmls());
+//                                }else{
+//                                    Toast.makeText(YipiWorkActivity.this,"数据为空!",Toast.LENGTH_SHORT).show();
+//                                }
+//                            }
+//                            @Override
+//                            public void onFailure(Call<DispatchHasDealDetail> call, Throwable t) {
+//                                Log.e("------------->>",t.getMessage().toString());
+//                            }
+//                        });
+//                        break;
+//                    case "行政审批":
+//                        showToast("点击位置"+position);
+//                        break;
+//                    default:
+//                        break;
+//                }
+                Retrofit retrofit=new Retrofit.Builder()
+                        .baseUrl(Config.BANNER_BASE_URL)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                Api api =retrofit.create(Api.class);
+                Call<DispatchHasDealDetail> call=api.getDispatchHasDealDetail(list.get(position).getAddress());
+                call.enqueue(new Callback<DispatchHasDealDetail>() {
+                    @Override
+                    public void onResponse(Call<DispatchHasDealDetail> call, Response<DispatchHasDealDetail> response) {
+                        if(response!=null){
+                            DispatchHasDealDetail detail=response.body();
+                            DispatchHasDealDetail.ResultsBean resultsBean=detail.getResults().get(0);
+                            Intent intent = new Intent(YipiWorkActivity.this, DispatchHasWebviewActivity.class);
+                            intent.putExtra(Config.NEWS,resultsBean);
+                            stopProgressDialog();
+                            startActivity(intent);
+                            Log.e("---------->>",resultsBean.getHtmls());
+                        }else{
+                            Toast.makeText(YipiWorkActivity.this,"数据为空!",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<DispatchHasDealDetail> call, Throwable t) {
+                        Log.e("-------------解析失败",t.getMessage().toString());
+                    }
+                });
             }
         });
         mRecyclerView.setAdapter(daipiWorkListAdapter);

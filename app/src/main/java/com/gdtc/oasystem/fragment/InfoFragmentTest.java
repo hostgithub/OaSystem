@@ -132,7 +132,7 @@ public class InfoFragmentTest extends BaseFragment implements SwipeRefreshLayout
 
     @Override
     public void initLoadData() {
-        title_center.setText("消息中心");
+
     }
 
     @Override

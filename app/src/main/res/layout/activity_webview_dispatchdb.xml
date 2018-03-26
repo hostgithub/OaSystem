@@ -63,7 +63,7 @@
             <WebView
                 android:id="@+id/tv_content"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="300dp"
                 android:layout_marginTop="10dp" />
         </LinearLayout>
     </com.gdtc.oasystem.utils.MyScrollView>
