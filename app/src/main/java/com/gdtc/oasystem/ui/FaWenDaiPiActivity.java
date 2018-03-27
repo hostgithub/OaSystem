@@ -19,6 +19,7 @@ import com.gdtc.oasystem.bean.DetailDispatchdb;
 import com.gdtc.oasystem.bean.DispatchWaitDeal;
 import com.gdtc.oasystem.service.Api;
 import com.gdtc.oasystem.utils.RecyclerViewSpacesItemDecoration;
+import com.gdtc.oasystem.utils.RetrofitUtils;
 import com.gdtc.oasystem.utils.SharePreferenceTools;
 import com.gdtc.oasystem.widget.EndLessOnScrollListener;
 
@@ -134,6 +135,7 @@ public class FaWenDaiPiActivity extends BaseActivity implements SwipeRefreshLayo
         Retrofit retrofit=new Retrofit.Builder()
                 .baseUrl(Config.BANNER_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
+                .client(RetrofitUtils.getInstance().addTimeOut(30).addHttpLog().build())  //构建自己的OkHttpClient
                 .build();
         Api api =retrofit.create(Api.class);
         Call<DispatchWaitDeal> call=api.getDispatchWaitDealData(sp.getString(Config.USER_ID),sp.getString(Config.DEPTUNIT),pages);

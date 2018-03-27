@@ -43,7 +43,7 @@ public class YipiWorkActivity extends BaseActivity{
     private ArrayList<DaipiWork.ResultsBean> list;
     private DaipiWorkListAdapter daipiWorkListAdapter;
     private LinearLayoutManager linearLayoutManager;
-    private int pages=1;
+//    private int pages=1;
     private SharePreferenceTools sp;
 
     @Override
@@ -218,6 +218,7 @@ public class YipiWorkActivity extends BaseActivity{
     @Override
     protected void onResume() {
         super.onResume();
+
     }
 
 //    @Override

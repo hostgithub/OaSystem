@@ -50,9 +50,9 @@ public class MeetingHandleAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == ITEM_NOIMAGE) {
-            return new BaseViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_send_file_list, parent, false));
+            return new BaseViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_meeting_list, parent, false));
         } else if (viewType == ITEM_HASIMAGE) {
-            return new BaseViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_send_file_list, parent, false));
+            return new BaseViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_meeting_list, parent, false));
         } else {
             footerView = LayoutInflater.from(mContext).inflate(viewFooter, parent, false);
             return new BaseViewHolder(footerView);
@@ -78,6 +78,7 @@ public class MeetingHandleAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 //            }
             //CircleImageView avatar = holder.getView(R.id.avatar);
             holder.setText(R.id.title, item.getTitle().toString().trim());
+            holder.setText(R.id.type, "会议通知");
             holder.setText(R.id.time, item.getSenderTime());
             holder.setText(R.id.position,String.valueOf(position+1));
             //holder.setText(R.id.content, item.text);

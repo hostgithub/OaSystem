@@ -98,7 +98,7 @@ public interface Api {
     @GET("app_phone/getMeetingHandle.do")
     Call<MeetingDetail> getMeetingDetailData(@Query("flowsort") String flowsort,@Query("flowid") String flowid);
 
-    //http://192.168.0.135:8080/app_phone/hyblRebacks.do?sign=56736&advice=111&flowsort=011620181014045AM56104   会议通知列表详情信息
+    //http://192.168.0.135:8080/app_phone/hyblRebacks.do?sign=56736&advice=111&flowsort=011620181014045AM56104   会议回执
     @GET("app_phone/hyblRebacks.do")
     Call<HuiZhiBean> getHuiZhiData(@Query("sign") String sign, @Query("advice") String advice, @Query("flowsort") String flowsort);
 
@@ -234,4 +234,50 @@ public interface Api {
 
     @GET
     Call<DispatchHasDealDetail> getShouWenYBDetail(@Url String url);//动态拼接地址  收文已批
+
+
+
+    /** 表单提交要加 @FormUrlEncoded
+     * 登录
+     * @param user_department 用户名
+     * @param user_department_big 密码
+     * @param sign 设置ID
+     * @param deptunit 平台这里是Android
+     * @param title 版本号
+     * @param jijian 版本号
+     * @param userid 版本号
+     * @param file_source_id 版本号
+     * @param flowsort 版本号
+     * @param advice 版本号
+     * @param ip 版本号
+     * @param type_advice_sa 版本号
+     * @param yffs 版本号
+     * @param column1 版本号
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("app_phone/writeBack.do")
+    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8") //添加
+    Call<HuiZhiBean> AdministrativeBack(@Field("user_department") String user_department,
+                                  @Field("user_department_big") String user_department_big,
+                                  @Field("sign") String sign,
+                                  @Field("deptunit") String deptunit,
+                                  @Field("title") String title,
+                                  @Field("jijian") String jijian,
+                                  @Field("userid") String userid,
+                                  @Field("file_source_id") String file_source_id,
+                                  @Field("flowsort") String flowsort,
+                                  @Field("advice") String advice,
+                                  @Field("ip") String ip,
+                                  @Field("type_advice_sa") String type_advice_sa,
+                                  @Field("yffs") String yffs,
+                                  @Field("column1") String column1,
+                                  @Field("column2") String column2,
+                                  @Field("column3") String column3,
+                                  @Field("column6") String column6,
+                                  @Field("column75") String column75,
+                                  @Field("column76") String column76,
+                                  @Field("column77") String column77,
+                                  @Field("column78") String column78,
+                                  @Field("column79") String column79);
 }

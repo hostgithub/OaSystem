@@ -37,6 +37,7 @@ public class ResponseBean implements Serializable{
         private String pathdata;
         private String user_department;
         private String user_department_big;
+        private String right_jd_f;
 
         public String getInformation() {
             return information;
@@ -108,6 +109,22 @@ public class ResponseBean implements Serializable{
 
         public void setUser_department_big(String user_department_big) {
             this.user_department_big = user_department_big;
+        }
+
+        public String getUserid() {
+            return userid;
+        }
+
+        public void setUserid(String userid) {
+            this.userid = userid;
+        }
+
+        public String getRight_jd_f() {
+            return right_jd_f;
+        }
+
+        public void setRight_jd_f(String right_jd_f) {
+            this.right_jd_f = right_jd_f;
         }
     }
 }
