@@ -79,7 +79,7 @@ public class AdministrativeApprovalAdapter extends RecyclerView.Adapter<BaseView
             //CircleImageView avatar = holder.getView(R.id.avatar);
             holder.setText(R.id.title, item.getTitle().toString().trim());//去除标题前的空格
             holder.setText(R.id.time, item.getSenderTime());
-            holder.setText(R.id.username, "发送人:"+item.getSender());
+            holder.setText(R.id.username, "发送人:"+item.getUserSend());
             holder.setText(R.id.position,String.valueOf(position+1));
             //holder.setText(R.id.content, item.text);
 //            if(item.text.startsWith(";")){
@@ -120,7 +120,7 @@ public class AdministrativeApprovalAdapter extends RecyclerView.Adapter<BaseView
             type = TYPE_FOOTER;
             return type;
         }
-        if (TextUtils.isEmpty(datas.get(position).getSender())) {
+        if (TextUtils.isEmpty(datas.get(position).getUserSend())) {
             type = ITEM_NOIMAGE;
         } else {
             type = ITEM_HASIMAGE;

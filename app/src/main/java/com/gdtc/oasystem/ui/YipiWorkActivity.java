@@ -13,7 +13,6 @@ import com.gdtc.oasystem.MyApplication;
 import com.gdtc.oasystem.R;
 import com.gdtc.oasystem.adapter.DaipiWorkListAdapter;
 import com.gdtc.oasystem.base.BaseActivity;
-import com.gdtc.oasystem.bean.AdministrativeApprovalDetail;
 import com.gdtc.oasystem.bean.DaipiWork;
 import com.gdtc.oasystem.bean.DispatchHasDealDetail;
 import com.gdtc.oasystem.service.Api;
@@ -263,43 +262,6 @@ public class YipiWorkActivity extends BaseActivity{
             }
         });
     }
-
-
-    private void getData(String file_source_id,String usersend,String flowsort,String typeAdvice,String pathdata,
-                         String sort,String isRead,String deptunit,String user_department_big,String user_department,final int position){
-        //使用retrofit配置api
-        Retrofit retrofit=new Retrofit.Builder()
-                .baseUrl(Config.BANNER_BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        Api api =retrofit.create(Api.class);
-        Call<AdministrativeApprovalDetail> call=api.getAdministrativeApprovalDetailData(file_source_id,usersend,flowsort,typeAdvice,pathdata,
-                sort,isRead,deptunit,user_department_big,user_department);
-        call.enqueue(new Callback<AdministrativeApprovalDetail>() {
-            @Override
-            public void onResponse(Call<AdministrativeApprovalDetail> call, Response<AdministrativeApprovalDetail> response) {
-                if(response!=null){
-                    AdministrativeApprovalDetail detail=response.body();
-                    AdministrativeApprovalDetail.ResultsBean resultsBean=detail.getResults().get(0);
-                    Intent intent = new Intent(YipiWorkActivity.this, AdministrativeApprovalWebviewActivity.class);
-                    intent.putExtra(Config.NEWS,resultsBean);
-//                    intent.putExtra("title",list.get(position).getTitle());
-//                    intent.putExtra("sender",list.get(position).getSender());
-//                    intent.putExtra("time",list.get(position).getSenderTime());
-                    startActivity(intent);
-                    Log.e("---------------",resultsBean.getHtmls());
-                }else{
-                    Toast.makeText(YipiWorkActivity.this,"数据为空!",Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<AdministrativeApprovalDetail> call, Throwable t) {
-                Log.e("-------------",t.getMessage().toString());
-            }
-        });
-    }
-
     @OnClick({ R.id.title_left})
     public void onClick(View view) {
         switch (view.getId()){

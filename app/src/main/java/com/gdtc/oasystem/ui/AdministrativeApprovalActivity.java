@@ -78,7 +78,7 @@ public class AdministrativeApprovalActivity extends BaseActivity{
         administrativeApprovalAdapter.setOnItemClickLitener(new AdministrativeApprovalAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                getData(list.get(position).getFile_source_id(),list.get(position).getSender(),list.get(position).getFlowsort(),list.get(position).getTypeAdvice(),
+                getData(list.get(position).getFile_source_id(),list.get(position).getUserSend(),list.get(position).getUserSendId(),list.get(position).getFlowsort(),list.get(position).getTypeAdvice(),
                         sp.getString(Config.PATHDATA),list.get(position).getSort(),list.get(position).getIsRead(),sp.getString(Config.DEPTUNIT),
                 sp.getString(Config.USER_DEPARTMENT_BIG),sp.getString(Config.USER_DEPARTMENT),position);
             }
@@ -165,7 +165,7 @@ public class AdministrativeApprovalActivity extends BaseActivity{
 //                    }else{
 //                        administrativeApprovalAdapter.setFooterVisible(View.VISIBLE);
 //                    }
-                        Log.e("---------->>>请求数据发送人:",response.body().getResults().get(0).getSender().toString());
+                        Log.e("---------->>>请求数据发送人:",response.body().getResults().get(0).getUserSend().toString());
                         administrativeApprovalAdapter.notifyDataSetChanged();
                     }
                 }
@@ -179,7 +179,7 @@ public class AdministrativeApprovalActivity extends BaseActivity{
     }
 
 
-    private void getData(String file_source_id,String usersend,String flowsort,String typeAdvice,String pathdata,
+    private void getData(String file_source_id,String usersend,String usersendId,String flowsort,String typeAdvice,String pathdata,
                          String sort,String isRead,String deptunit,String user_department_big,String user_department,final int position){
         //使用retrofit配置api
         Retrofit retrofit=new Retrofit.Builder()
@@ -187,7 +187,7 @@ public class AdministrativeApprovalActivity extends BaseActivity{
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         Api api =retrofit.create(Api.class);
-        Call<AdministrativeApprovalDetail> call=api.getAdministrativeApprovalDetailData(file_source_id,usersend,flowsort,typeAdvice,pathdata,
+        Call<AdministrativeApprovalDetail> call=api.getAdministrativeApprovalDetailData(file_source_id,usersend,usersendId,flowsort,typeAdvice,pathdata,
                 sort,isRead,deptunit,user_department_big,user_department);
         call.enqueue(new Callback<AdministrativeApprovalDetail>() {
             @Override

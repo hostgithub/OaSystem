@@ -62,6 +62,7 @@ public class AdministrativeApproval implements Serializable{
         private String title;
         private String typeAdvice;
         private String userSend;
+        private String userSendId;
         private String isRead;
         private String flowsort;
         private String file_source_id;
@@ -87,12 +88,20 @@ public class AdministrativeApproval implements Serializable{
             this.typeAdvice = typeAdvice;
         }
 
-        public String getSender() {
+        public String getUserSend() {
             return userSend;
         }
 
-        public void setSender(String userSend) {
+        public void setUserSend(String userSend) {
             this.userSend = userSend;
+        }
+
+        public String getUserSendId() {
+            return userSendId;
+        }
+
+        public void setUserSendId(String userSendId) {
+            this.userSendId = userSendId;
         }
 
         public String getIsRead() {

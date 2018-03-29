@@ -3,7 +3,6 @@ package com.gdtc.oasystem;
 import android.content.Context;
 import android.support.multidex.MultiDexApplication;
 
-import com.facebook.drawee.backends.pipeline.Fresco;
 import com.gdtc.oasystem.utils.LogUtil;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
@@ -33,7 +32,7 @@ public class MyApplication extends MultiDexApplication
     {
         super.onCreate();
         application = this;
-        Fresco.initialize(this);
+        //Fresco.initialize(this);
 
         //CrashReport.initCrashReport(getApplicationContext());
         //检查内存泄漏
