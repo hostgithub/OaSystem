@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Created by wangjiawei on 2018-2-7.
@@ -108,6 +109,17 @@ public class ShouwenTabActivity extends BaseActivity {
             child.invalidate();
         }
 
+    }
+
+    @OnClick({ R.id.title_back_img})
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.title_back_img:
+                finish();
+                break;
+            default:
+                break;
+        }
     }
 
     }

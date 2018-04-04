@@ -54,6 +54,12 @@ public class IncomingHasDealFragment extends BaseFragment implements SwipeRefres
     private int pages=1;
     private SharePreferenceTools sp;
 
+    //Fragment的View加载完毕的标记
+    private boolean isLoading = false;
+
+    //Fragment对用户可见的标记
+    private boolean isUIVisible;
+
     @Override
     public int getLayoutId() {
         return R.layout.fragment_one;
@@ -70,6 +76,43 @@ public class IncomingHasDealFragment extends BaseFragment implements SwipeRefres
         sp = new SharePreferenceTools(MyApplication.getContext());
         refreshLayout.setOnRefreshListener(this);
         list=new ArrayList();
+        //loadInfo();
+    }
+
+    @Override
+    public void initLoadData() {
+
+    }
+
+    @Override
+    protected void lazyFetchData() {
+
+    }
+
+    //setUserVisibleHint和lazyLoad两个方法是为了去除viewPager+fragment的懒加载
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        //isVisibleToUser这个boolean值表示:该Fragment的UI 用户是否可见
+        if (isVisibleToUser) {
+            isUIVisible = true;
+            lazyLoad();//调用下面的方法
+        } else {
+            isUIVisible = false;
+        }
+    }
+
+    private void lazyLoad() {
+        //这里进行双重标记判断,是因为setUserVisibleHint会多次回调,并且会在onCreateView执行前回调,必须确保onCreateView加载完毕且页面可见,才加载数据
+        if (!isLoading && isUIVisible) {
+            loadInfo();//加载数据的方法
+            //数据加载完毕,恢复标记,防止重复加载
+            isLoading = true;
+            isUIVisible = false;
+        }
+    }
+
+    private void loadInfo() {
         initData(1);
         linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -127,15 +170,6 @@ public class IncomingHasDealFragment extends BaseFragment implements SwipeRefres
         });
     }
 
-    @Override
-    public void initLoadData() {
-
-    }
-
-    @Override
-    protected void lazyFetchData() {
-
-    }
 
     @Override
     public void onDestroyView()
@@ -167,7 +201,7 @@ public class IncomingHasDealFragment extends BaseFragment implements SwipeRefres
                     if(response.body().getResults().size()==0){
                         refreshLayout.setRefreshing(false);
                         incomingHasDealAdapter.setFooterVisible(View.GONE);
-                        Toast.makeText(getActivity(),"暂无更多数据",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(),"暂无更多数据22222222222222",Toast.LENGTH_SHORT).show();
                     }else{
                         if(response.body().getResults().size()<15){
                             incomingHasDealAdapter.setFooterVisible(View.GONE);

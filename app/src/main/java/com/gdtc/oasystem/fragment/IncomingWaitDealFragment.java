@@ -170,7 +170,7 @@ public class IncomingWaitDealFragment extends BaseFragment implements SwipeRefre
                     if(response.body().getResults().size()==0){
                         refreshLayout.setRefreshing(false);
                         picAdapter.setFooterVisible(View.GONE);
-                        Toast.makeText(getActivity(),"暂无更多数据",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(),"暂无更多数据..............",Toast.LENGTH_SHORT).show();
                     }else {
                         if(response.body().getResults().size()<15){
                             picAdapter.setFooterVisible(View.GONE);
@@ -183,7 +183,7 @@ public class IncomingWaitDealFragment extends BaseFragment implements SwipeRefre
                         Log.e("---------->>>请求数据发送人:",response.body().getResults().get(0).getSender().toString());
                         Log.e("---------->>>请求数据id:",response.body().getResults().get(0).get_id().toString());
                         picAdapter.notifyDataSetChanged();
-                        refreshLayout.setRefreshing(false);
+                        refreshLayout.setRefreshing(false);//bengkui
                     }
                 }
             }

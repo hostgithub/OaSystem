@@ -219,4 +219,12 @@ public class FaWenDaiPiActivity extends BaseActivity implements SwipeRefreshLayo
                 break;
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(linearLayoutManager!=null){
+            linearLayoutManager=null;
+        }
+    }
 }
