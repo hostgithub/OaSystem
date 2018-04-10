@@ -16,6 +16,7 @@ import com.gdtc.oasystem.bean.MeetingHandle;
 import com.gdtc.oasystem.bean.NewCenter;
 import com.gdtc.oasystem.bean.ResponseBean;
 import com.gdtc.oasystem.bean.ShouWenDbDetail;
+import com.gdtc.oasystem.bean.XZfujian;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -117,6 +118,12 @@ public interface Api {
                                                                            @Query("user_department_big") String user_department_big,
                                                                            @Query("user_department") String user_department);
 
+    //http://192.168.0.135:8080/app_phone/getMarks.do?wordFileId=010520180932006PM56736
+    @FormUrlEncoded
+    @POST("app_phone/getMarks.do")
+    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8") //查看附件
+    Call<XZfujian> getMarks(@Field("wordFileId") String wordFileId);
+
 
 
     // 保留接口 http://192.168.0.135:8080/app_phone/getLeaveApplication.do?deptunit=10021   政务申请表单的数量 每个人员登陆可能申请的表单数不同 参数传 deptunit
@@ -136,22 +143,6 @@ public interface Api {
     ///app_phone/writeBack.do?user_department=&user_department_big=&sign=&deptunit=&title=  &jijian=  &userid=  &file_source_id=&flowsort=&advice=  &ip=  &type_advice_sa=  &yffs=  &column1= &column2=  &column3=  &column6=  &column75=  &column76=  &column77=  &column78=  &column79=
 
     /** 表单提交要加 @FormUrlEncoded
-     * 登录
-     * @param user_department 用户名
-     * @param user_department_big 密码
-     * @param sign 设置ID
-     * @param deptunit 平台这里是Android
-     * @param title 版本号
-     * @param jijian 版本号
-     * @param userid 版本号
-     * @param file_source_id 版本号
-     * @param flowsort 版本号
-     * @param advice 版本号
-     * @param ip 版本号
-     * @param type_advice_sa 版本号
-     * @param yffs 版本号
-     * @param column1 版本号
-     * @return
      */
     @FormUrlEncoded
     @POST("app_phone/writeBack.do")

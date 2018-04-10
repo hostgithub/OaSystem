@@ -51,6 +51,7 @@ public class AdministrativeApprovalDetail implements Serializable{
         private String xiType;
         private String usersend;
         private String userSendId;
+        private String wordFileId;
         private String htmls;
         private String column1;
         private String column2;
@@ -173,6 +174,14 @@ public class AdministrativeApprovalDetail implements Serializable{
 
         public void setUsersend(String usersend) {
             this.usersend = usersend;
+        }
+
+        public String getWordFileId() {
+            return wordFileId;
+        }
+
+        public void setWordFileId(String wordFileId) {
+            this.wordFileId = wordFileId;
         }
 
         public String getUserSendId() {

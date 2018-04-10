@@ -1,7 +1,6 @@
 package com.gdtc.oasystem.word;
 
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -10,7 +9,6 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.content.FileProvider;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -20,12 +18,9 @@ import com.gdtc.oasystem.Config;
 import com.gdtc.oasystem.MyApplication;
 import com.gdtc.oasystem.R;
 import com.gdtc.oasystem.base.BaseActivity;
-import com.gdtc.oasystem.bean.EventUtil;
-import com.gdtc.oasystem.service.Api;
 import com.gdtc.oasystem.utils.SharePreferenceTools;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -34,15 +29,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import butterknife.BindView;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * 下载网络PDF 保存在本地 完了调用WPS
@@ -234,53 +220,53 @@ public class PdfWpsActivity extends BaseActivity {
 
 
     // 接收函数二
-    @Subscribe
-    public void onEventBackgroundThread(EventUtil event){
-        String msglog = "----onEventBackground收到了消息："+event.getMsg();
-        Log.e("EventBus",msglog);
-
-        AlertDialog.Builder builder=new AlertDialog.Builder(PdfWpsActivity.this);
-//        builder.setTitle("通知详情");//设置对话框的标题
-        builder.setMessage("请将您批注的信息进行痕迹保留！");//设置对话框的内容
-        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {  //这个是设置确定按钮
-
-            @Override
-            public void onClick(DialogInterface arg0, int arg1) {
-                Toast.makeText(PdfWpsActivity.this,"保存",Toast.LENGTH_SHORT).show();
-                Retrofit retrofit = new Retrofit.Builder()
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .baseUrl("http://192.168.12.101:8080/happy/")
-                        .build();
-                Api service = retrofit.create(Api.class);
-                File file = new File(file1.getAbsolutePath());//访问手机端的文件资源，保证手机端sdcdrd中必须有这个文件
-                RequestBody requestFile =
-                        RequestBody.create(MediaType.parse("multipart/form-data"), file);
-
-                MultipartBody.Part body = MultipartBody.Part.createFormData("aFile", file.getName(), requestFile);
-
-                String descriptionString = "This is a description";
-                RequestBody description =
-                        RequestBody.create(MediaType.parse("multipart/form-data"), descriptionString);
-
-                Call<ResponseBody> call = service.upload(description, body);
-                call.enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call,
-                                           Response<ResponseBody> response) {
-                        System.out.println("success");
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        t.printStackTrace();
-                    }
-                });
-
-            }
-        });
-        AlertDialog b=builder.create();
-        b.show();  //必须show一下才能看到对话框，跟Toast一样的道理
-    }
+//    @Subscribe
+//    public void onEventBackgroundThread(EventUtil event){
+//        String msglog = "----onEventBackground收到了消息："+event.getMsg();
+//        Log.e("EventBus",msglog);
+//
+//        AlertDialog.Builder builder=new AlertDialog.Builder(PdfWpsActivity.this);
+////        builder.setTitle("通知详情");//设置对话框的标题
+//        builder.setMessage("请将您批注的信息进行痕迹保留！");//设置对话框的内容
+//        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {  //这个是设置确定按钮
+//
+//            @Override
+//            public void onClick(DialogInterface arg0, int arg1) {
+//                Toast.makeText(PdfWpsActivity.this,"保存",Toast.LENGTH_SHORT).show();
+//                Retrofit retrofit = new Retrofit.Builder()
+//                        .addConverterFactory(GsonConverterFactory.create())
+//                        .baseUrl("http://192.168.12.101:8080/happy/")
+//                        .build();
+//                Api service = retrofit.create(Api.class);
+//                File file = new File(file1.getAbsolutePath());//访问手机端的文件资源，保证手机端sdcdrd中必须有这个文件
+//                RequestBody requestFile =
+//                        RequestBody.create(MediaType.parse("multipart/form-data"), file);
+//
+//                MultipartBody.Part body = MultipartBody.Part.createFormData("aFile", file.getName(), requestFile);
+//
+//                String descriptionString = "This is a description";
+//                RequestBody description =
+//                        RequestBody.create(MediaType.parse("multipart/form-data"), descriptionString);
+//
+//                Call<ResponseBody> call = service.upload(description, body);
+//                call.enqueue(new Callback<ResponseBody>() {
+//                    @Override
+//                    public void onResponse(Call<ResponseBody> call,
+//                                           Response<ResponseBody> response) {
+//                        System.out.println("success");
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+//                        t.printStackTrace();
+//                    }
+//                });
+//
+//            }
+//        });
+//        AlertDialog b=builder.create();
+//        b.show();  //必须show一下才能看到对话框，跟Toast一样的道理
+//    }
 
     @Override
     public void onResume() {
