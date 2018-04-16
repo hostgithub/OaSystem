@@ -20,8 +20,6 @@ import com.gdtc.oasystem.R;
 import com.gdtc.oasystem.base.BaseActivity;
 import com.gdtc.oasystem.utils.SharePreferenceTools;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -268,19 +266,19 @@ public class PdfWpsActivity extends BaseActivity {
 //        b.show();  //必须show一下才能看到对话框，跟Toast一样的道理
 //    }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (!EventBus.getDefault().isRegistered(this))
-        {
-            EventBus.getDefault().register(this);
-        }
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
-    }
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        if (!EventBus.getDefault().isRegistered(this))
+//        {
+//            EventBus.getDefault().register(this);
+//        }
+//    }
+//
+//    @Override
+//    public void onDestroy() {
+//        super.onDestroy();
+//        EventBus.getDefault().unregister(this);
+//    }
 
 }

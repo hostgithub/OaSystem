@@ -15,8 +15,8 @@ import com.gdtc.oasystem.R;
 import com.gdtc.oasystem.base.BaseActivity;
 import com.gdtc.oasystem.fragment.HomeFragmentTest;
 import com.gdtc.oasystem.fragment.InfoFragmentTest;
-import com.gdtc.oasystem.fragment.JobFragmentTest;
 import com.gdtc.oasystem.fragment.MineFragmentTest;
+import com.gdtc.oasystem.fragment.WorkManagerFragment;
 import com.gdtc.oasystem.utils.StatusBarUtil;
 
 import java.util.ArrayList;
@@ -80,7 +80,7 @@ public class HomePageActivity extends BaseActivity {
             btn_first.setSelected(true);
             fragments.add(new HomeFragmentTest());
             fragments.add(new InfoFragmentTest());
-            fragments.add(new JobFragmentTest());
+            fragments.add(new WorkManagerFragment());
             fragments.add(new MineFragmentTest());
             showFragment();
         }

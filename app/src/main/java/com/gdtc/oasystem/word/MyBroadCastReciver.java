@@ -26,7 +26,7 @@ public class MyBroadCastReciver extends BroadcastReceiver {
             case WpsModel.Reciver.ACTION_CLOSE://关闭文件时候的广播
                 Log.e("------关闭广播----------",WpsModel.Reciver.ACTION_CLOSE);
                 EventBus.getDefault().post(new EventUtil("发送消息"));
-                context.startActivity(new Intent(context,PdfWpsActivity.class));
+                //context.startActivity(new Intent(context,WebviewDispatchdbActivity.class));
                 break;
             case WpsModel.Reciver.ACTION_HOME://home键广播
                 System.out.println(WpsModel.Reciver.ACTION_HOME);

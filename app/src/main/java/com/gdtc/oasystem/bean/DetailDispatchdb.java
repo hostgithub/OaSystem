@@ -79,6 +79,7 @@ public class DetailDispatchdb implements Serializable{
         private String yffs;
         private String title;
         private String htmls;
+        private String wordFileId;
 
         public String getColumn1() {
             return column1;
@@ -246,6 +247,14 @@ public class DetailDispatchdb implements Serializable{
 
         public void setHtmls(String htmls) {
             this.htmls = htmls;
+        }
+
+        public String getWordFileId() {
+            return wordFileId;
+        }
+
+        public void setWordFileId(String wordFileId) {
+            this.wordFileId = wordFileId;
         }
     }
 }

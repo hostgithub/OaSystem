@@ -151,14 +151,14 @@
         <activity android:name=".tablayout.ShouwenTabActivity" />
         <activity android:name=".ui.XRecyclerViewActivity" />
 
-        <receiver android:name=".word.MyBroadCastReciver">
-            <intent-filter>
-                <action android:name="com.kingsoft.writer.back.key.down" />
-                <action android:name="cn.wps.moffice.file.close" />
-                <action android:name="com.wps.moffice.file.save" />
-                <action android:name="com.kingsoft.writer.home.key.down" />
-            </intent-filter>
-        </receiver>
+        <!--<receiver android:name=".word.MyBroadCastReciver">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="com.kingsoft.writer.back.key.down" />-->
+                <!--<action android:name="cn.wps.moffice.file.close" />-->
+                <!--<action android:name="com.wps.moffice.file.save" />-->
+                <!--<action android:name="com.kingsoft.writer.home.key.down" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
 
         <activity android:name=".ui.SettingActivity" />
         <activity android:name=".ui.DaipiWorkActivity" />
