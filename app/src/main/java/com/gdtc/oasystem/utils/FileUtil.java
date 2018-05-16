@@ -3,8 +3,10 @@ package com.gdtc.oasystem.utils;
 import android.content.Context;
 import android.os.Build;
 import android.os.Environment;
+import android.util.Base64;
 
 import java.io.File;
+import java.io.FileInputStream;
 
 public class FileUtil {
 	
@@ -97,5 +99,21 @@ public class FileUtil {
 
 //		return getCacheDirectory(context,true);
 	}
+
+	public static String encodeBase64File(String path){
+
+		File  file = new File(path);
+		FileInputStream inputFile = null;
+		byte[] buffer = new byte[(int)file.length()];
+		try {
+			inputFile = new FileInputStream(file);
+			inputFile.read(buffer);
+			inputFile.close();
+		} catch (java.io.IOException e) {
+			e.printStackTrace();
+		}
+		return Base64.encodeToString(buffer,Base64.DEFAULT);
+	}
+
 
 }

@@ -11,13 +11,20 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.gdtc.oasystem.App;
 import com.gdtc.oasystem.R;
 import com.gdtc.oasystem.base.BaseActivity;
+import com.gdtc.oasystem.bean.ApplicationEntity;
 import com.gdtc.oasystem.fragment.HomeFragmentTest;
 import com.gdtc.oasystem.fragment.InfoFragmentTest;
 import com.gdtc.oasystem.fragment.MineFragmentTest;
 import com.gdtc.oasystem.fragment.WorkManagerFragment;
+import com.gdtc.oasystem.presenter.MainContract;
+import com.gdtc.oasystem.presenter.MainPresenter;
+import com.gdtc.oasystem.utils.AppInfoUtil;
+import com.gdtc.oasystem.utils.LogUtil;
 import com.gdtc.oasystem.utils.StatusBarUtil;
+import com.gdtc.oasystem.utils.UpdateDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +34,7 @@ import java.util.TimerTask;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class HomePageActivity extends BaseActivity {
+public class HomePageActivity extends BaseActivity implements MainContract.View{
 
     @BindView(R.id.rg_menu)
     RadioGroup rg_menu;
@@ -39,6 +46,8 @@ public class HomePageActivity extends BaseActivity {
     RadioButton btn_third;
     @BindView(R.id.btn_four)
     RadioButton btn_four;
+
+    private MainContract.Presenter mPresenter;
 
     //当前显示的fragment
     private static final String CURRENT_FRAGMENT = "STATE_FRAGMENT_SHOW";
@@ -57,6 +66,7 @@ public class HomePageActivity extends BaseActivity {
     protected void initView(Bundle savedInstanceState) {
 
         //setStatusBar();
+        mPresenter = new MainPresenter(this);
 
 //        System.out.println("Start polling service...");
 //        PollingUtils.startPollingService(this, 5, PollingService.class, PollingService.ACTION);
@@ -84,6 +94,8 @@ public class HomePageActivity extends BaseActivity {
             fragments.add(new MineFragmentTest());
             showFragment();
         }
+
+        mPresenter.checkUpdate("http://www.jms.gov.cn/app/update.json");
     }
 
     @OnClick({ R.id.btn_first,R.id.btn_second,R.id.btn_third,R.id.btn_four})
@@ -224,5 +236,47 @@ public class HomePageActivity extends BaseActivity {
         //Stop polling service
 //        System.out.println("Stop polling service...");
 //        PollingUtils.stopPollingService(this, PollingService.class, PollingService.ACTION);
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void stopLoading() {
+
+    }
+
+    @Override
+    public void showErrorTip(String msg) {
+
+    }
+
+    @Override
+    public void retureResult(String result) {
+
+    }
+
+    @Override
+    public void retureUpdateResult(final ApplicationEntity entity) {
+        try {
+            if (AppInfoUtil.getVersionCode(App.application) < Integer.parseInt(entity.getVersion())) {
+                String content = String.format("最新版本：%1$s\napp名字：%2$s\n\n更新内容\n%3$s", entity.getVersionShort(), entity.getName(), entity.getChangelog());
+                UpdateDialog.show(HomePageActivity.this, content, new UpdateDialog.OnUpdate() {
+                    @Override
+                    public void cancel() {
+
+                    }
+
+                    @Override
+                    public void ok() {
+                        mPresenter.update(entity);
+                    }
+                });
+            }
+        } catch (Exception e) {
+            LogUtil.d("数字转化出错");
+        }
     }
 }

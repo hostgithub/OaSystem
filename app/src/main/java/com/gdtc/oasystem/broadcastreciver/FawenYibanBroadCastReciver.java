@@ -1,4 +1,4 @@
-package com.gdtc.oasystem.word;
+package com.gdtc.oasystem.broadcastreciver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.gdtc.oasystem.bean.EventUtil;
+import com.gdtc.oasystem.word.WpsModel;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -13,7 +14,7 @@ import org.greenrobot.eventbus.EventBus;
  * Created by wangjiawei on 2018-2-12.
  */
 
-public class MyBroadCastReciver extends BroadcastReceiver {
+public class FawenYibanBroadCastReciver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {

@@ -23,9 +23,6 @@ public class Config
     public static final String PUSH = "push";
     public static final String TAG = "---------->>>";
 
-//       public static final String BANNER_BASE_URL = "http://192.168.0.135:8080/";
-       public static final String BANNER_BASE_URL = "http://192.168.0.135:8088/";
-//       public static final String BANNER_BASE_URL = "http://136.11.5.104:8080/";
-
-    public static final String CACHE = "cache";
+//       public static final String BANNER_BASE_URL = "http://192.168.0.11:10005/";
+       public static final String BANNER_BASE_URL = "http://192.168.0.101:8088/";
 }

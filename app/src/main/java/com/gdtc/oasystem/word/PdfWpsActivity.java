@@ -18,6 +18,7 @@ import com.gdtc.oasystem.Config;
 import com.gdtc.oasystem.MyApplication;
 import com.gdtc.oasystem.R;
 import com.gdtc.oasystem.base.BaseActivity;
+import com.gdtc.oasystem.broadcastreciver.FawenDaibanBroadCastReciver;
 import com.gdtc.oasystem.utils.SharePreferenceTools;
 
 import java.io.File;
@@ -45,7 +46,7 @@ public class PdfWpsActivity extends BaseActivity {
 //    private String pdfUrl= "http://192.168.0.105:8080/html/2222.doc";
     private String pdfUrl= "http://192.168.0.113:8080/02122018124541220PM8452.doc";
     private String s;
-    private MyBroadCastReciver receiver;
+    private FawenDaibanBroadCastReciver receiver;
 
     @BindView(R.id.btn_check)
     Button btn_check;

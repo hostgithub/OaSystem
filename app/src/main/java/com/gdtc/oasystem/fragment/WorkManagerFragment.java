@@ -1,14 +1,23 @@
 package com.gdtc.oasystem.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.SimpleAdapter;
-import android.widget.Toast;
 
 import com.gdtc.oasystem.R;
 import com.gdtc.oasystem.base.BaseFragment;
+import com.gdtc.oasystem.tablayout.ShouwenTabActivity;
+import com.gdtc.oasystem.tablayout.TabActivity;
+import com.gdtc.oasystem.ui.AdministrativeApprovalActivity;
+import com.gdtc.oasystem.ui.DaipiWorkActivity;
+import com.gdtc.oasystem.ui.FaWenDaiPiActivity;
+import com.gdtc.oasystem.ui.MeetingHandleActivity;
+import com.gdtc.oasystem.ui.ShouWenDaiPiActivity;
+import com.gdtc.oasystem.ui.YipiWorkActivity;
+import com.gdtc.oasystem.ui.ZhengwuApplyActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -67,7 +76,41 @@ public class WorkManagerFragment extends BaseFragment {
         mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(),""+position,Toast.LENGTH_SHORT).show();
+
+                switch (position){
+                    case 0:
+                        getActivity().startActivity(new Intent(getActivity(), MeetingHandleActivity.class));
+                        break;
+                    case 1:
+                        getActivity().startActivity(new Intent(getActivity(), AdministrativeApprovalActivity.class));
+                        break;
+                    case 2:
+                        getActivity().startActivity(new Intent(getActivity(), FaWenDaiPiActivity.class));
+                        break;
+                    case 3:
+                        getActivity().startActivity(new Intent(getActivity(), ShouWenDaiPiActivity.class));
+                        break;
+                    case 4:
+                        getActivity().startActivity(new Intent(getActivity(), YipiWorkActivity.class));
+                        break;
+                    case 5:
+                        getActivity().startActivity(new Intent(getActivity(), DaipiWorkActivity.class));
+                        break;
+                    case 6:
+                        getActivity().startActivity(new Intent(getActivity(), ShouwenTabActivity.class));
+                        break;
+                    case 7:
+                        getActivity().startActivity(new Intent(getActivity(), TabActivity.class));
+                        break;
+                    case 8:
+                        getActivity().startActivity(new Intent(getActivity(), ZhengwuApplyActivity.class));
+                        break;
+                    case 9:
+                        getActivity().startActivity(new Intent(getActivity(), ZhengwuApplyActivity.class));
+                        break;
+                    default:
+                        break;
+                }
             }
         });
     }

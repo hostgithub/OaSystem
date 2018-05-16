@@ -18,7 +18,6 @@ import com.gdtc.oasystem.bean.ResponseBean;
 import com.gdtc.oasystem.bean.ShouWenDbDetail;
 import com.gdtc.oasystem.bean.XZfujian;
 
-import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -27,9 +26,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
-import retrofit2.http.Multipart;
 import retrofit2.http.POST;
-import retrofit2.http.Part;
 import retrofit2.http.Query;
 import retrofit2.http.Url;
 
@@ -51,7 +48,7 @@ public interface Api {
     @GET("app_phone/appLogin.do")
     Call<ResponseBean> getLoginData(@Query("userid") String userid, @Query("user_password") String user_password,@Query("dept_properties") String dept_properties);
 
-    //http://192.168.0.135:8080/app_phone/getUntreatedList.do?sign=56736&deptunit10021&=page=1   发文待办
+    //http://192.168.0.135:8080/app_phone/getUntreatedList.do?sign=56736&deptunit=10021&page=1   发文待办
     @GET("app_phone/getUntreatedList.do")
     Call<DispatchWaitDeal> getDispatchWaitDealData(@Query("sign") String sign, @Query("deptunit") String deptunit, @Query("page") int page);
 
@@ -193,10 +190,12 @@ public interface Api {
                                   @Field("column78") String column78,
                                   @Field("column79") String column79);
 
-    @POST("upload")
-    @Multipart
-    Call<ResponseBody> upload(@Part("description") RequestBody description, @Part("") MultipartBody.Part file);
+//    @Multipart
+//    @POST("app_phone/inMarks.do")
+//    Call<ResponseBody> upload(@Part("description") RequestBody description, @Part MultipartBody.Part file);
 
+    @POST("app_phone/inMarks.do")
+    Call<ResponseBody> upload(@Query("image") String image, @Query("filename") String filename);//上传文件
 
     //http://192.168.0.135:8080/app_phone/getMessageInfoListDaiban.do?pathdata=sgy&deptunit=10021&sign=56736&userid=王天鹏
     @GET("app_phone/getMessageInfoListDaiban.do")                                         //待批工作

@@ -42,7 +42,6 @@ import com.gdtc.oasystem.utils.MyScrollView;
 import com.gdtc.oasystem.utils.NetWorkUtil;
 import com.gdtc.oasystem.utils.RetrofitUtils;
 import com.gdtc.oasystem.utils.SharePreferenceTools;
-import com.gdtc.oasystem.word.PdfWpsActivity;
 import com.gdtc.oasystem.word.WpsModel;
 
 import org.greenrobot.eventbus.EventBus;
@@ -623,7 +622,7 @@ public class AdministrativeApprovalWebviewActivity extends BaseActivity {
                 RequestBody description =
                         RequestBody.create(MediaType.parse("multipart/form-data"), descriptionString);
 
-                Call<ResponseBody> call = service.upload(description, body);
+                Call<ResponseBody> call = service.upload("","");
                 call.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call,

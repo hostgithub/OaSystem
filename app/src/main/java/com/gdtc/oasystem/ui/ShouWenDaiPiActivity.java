@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +47,8 @@ public class ShouWenDaiPiActivity extends BaseActivity implements SwipeRefreshLa
     private LinearLayoutManager linearLayoutManager;
     private int pages=1;
     private SharePreferenceTools sp;
+    @BindView(R.id.empty_layout)
+    LinearLayout empty_layout;
 
     @Override
     protected int getLayoutId() {
@@ -145,7 +148,7 @@ public class ShouWenDaiPiActivity extends BaseActivity implements SwipeRefreshLa
                     if(response.body().getResults().size()==0){
                         refreshLayout.setRefreshing(false);
                         meetingHandleAdapter.setFooterVisible(View.GONE);
-                        Toast.makeText(ShouWenDaiPiActivity.this,"暂无更多数据",Toast.LENGTH_SHORT).show();
+                        empty_layout.setVisibility(View.VISIBLE);//数据为空   可能是因为列表最外层有背景色
                     }else{
                         list.addAll(response.body().getResults());
                         Log.e("---------->>>",response.body().getSuccess());
@@ -169,6 +172,7 @@ public class ShouWenDaiPiActivity extends BaseActivity implements SwipeRefreshLa
             public void onFailure(Call<DispatchWaitDeal> call, Throwable t) {
                 Toast.makeText(ShouWenDaiPiActivity.this,"请求失败!",Toast.LENGTH_SHORT).show();
                 refreshLayout.setRefreshing(false);
+                empty_layout.setVisibility(View.VISIBLE);//数据为空
             }
         });
     }

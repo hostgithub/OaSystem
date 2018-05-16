@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +42,8 @@ public class MeetingHandleActivity extends BaseActivity implements SwipeRefreshL
     RecyclerView mRecyclerView;
     @BindView(R.id.title_center)
     TextView title_center;
+    @BindView(R.id.empty_layout)
+    LinearLayout empty_layout;
 
     private ArrayList<MeetingHandle.ResultsBean> list;
     private MeetingHandleAdapter meetingHandleAdapter;
@@ -147,7 +150,7 @@ public class MeetingHandleActivity extends BaseActivity implements SwipeRefreshL
                     if(response.body().getResults().size()==0){
                         refreshLayout.setRefreshing(false);
                         meetingHandleAdapter.setFooterVisible(View.GONE);
-                        Toast.makeText(MeetingHandleActivity.this,"暂无更多数据",Toast.LENGTH_SHORT).show();
+                        empty_layout.setVisibility(View.VISIBLE);//数据为空
                     }else{
                         list.addAll(response.body().getResults());
                         Log.e("---------->>>",response.body().getSuccess());

@@ -151,7 +151,7 @@
         <activity android:name=".tablayout.ShouwenTabActivity" />
         <activity android:name=".ui.XRecyclerViewActivity" />
 
-        <!--<receiver android:name=".word.MyBroadCastReciver">-->
+        <!--<receiver android:name=".word.FawenDaibanBroadCastReciver">-->
             <!--<intent-filter>-->
                 <!--<action android:name="com.kingsoft.writer.back.key.down" />-->
                 <!--<action android:name="cn.wps.moffice.file.close" />-->

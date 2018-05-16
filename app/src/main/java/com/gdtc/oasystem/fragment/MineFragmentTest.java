@@ -17,7 +17,6 @@ import com.gdtc.oasystem.header.HeaderImageView;
 import com.gdtc.oasystem.header.HeaderInfo;
 import com.gdtc.oasystem.push.PollingService;
 import com.gdtc.oasystem.push.PollingUtils;
-import com.gdtc.oasystem.ui.ChangePasswordActivity;
 import com.gdtc.oasystem.ui.LoginTestActivity;
 import com.gdtc.oasystem.utils.DataCleanManagerUtils;
 import com.gdtc.oasystem.utils.SharePreferenceTools;
@@ -104,9 +103,8 @@ public class MineFragmentTest extends BaseFragment {
     @OnClick({R.id.updataPasswordRlt,R.id.clear,R.id.logOutRlt,R.id.btn_switch})
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.updataPasswordRlt://改密码
-                startActivity(new Intent(getActivity(),ChangePasswordActivity.class));
-//                startActivity(new Intent(getActivity(),PdfActivity.class));
+            case R.id.updataPasswordRlt:
+               Toast.makeText(getContext(),"已是最新版本",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.btn_switch:
                 if(btn_switch.isSelected()==true){
