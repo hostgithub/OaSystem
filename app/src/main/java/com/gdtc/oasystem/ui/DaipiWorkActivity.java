@@ -261,7 +261,7 @@ public class DaipiWorkActivity extends BaseActivity{
                             MeetingDetail.ResultsBean resultsBean=detail.getResults().get(0);
                             Intent intent = new Intent(DaipiWorkActivity.this, MeetingHandleDetailActivity.class);
                             intent.putExtra(Config.NEWS,resultsBean);
-                            finish();
+                            //finish();
                             startActivity(intent);
                             Log.e("xxxxxxx",resultsBean.getContent());
                         }else{
@@ -288,6 +288,7 @@ public class DaipiWorkActivity extends BaseActivity{
                     public void onResponse(Call<AdministrativeApprovalDetail> call, Response<AdministrativeApprovalDetail> response) {
                         if(response!=null){
                             AdministrativeApprovalDetail detail=response.body();
+                            Log.e("---------------",detail.getResults().toString());
                             AdministrativeApprovalDetail.ResultsBean resultsBean=detail.getResults().get(0);
                             Intent intent = new Intent(DaipiWorkActivity.this, AdministrativeApprovalWebviewActivity.class);
                             intent.putExtra(Config.NEWS,resultsBean);

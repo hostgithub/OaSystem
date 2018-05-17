@@ -1,11 +1,18 @@
 package com.gdtc.oasystem.ui;
 
+import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v4.content.FileProvider;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,13 +27,38 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gdtc.oasystem.Config;
+import com.gdtc.oasystem.MyApplication;
 import com.gdtc.oasystem.R;
 import com.gdtc.oasystem.base.BaseActivity;
 import com.gdtc.oasystem.bean.DispatchHasDealDetail;
+import com.gdtc.oasystem.bean.EventUtil;
+import com.gdtc.oasystem.bean.XZfujian;
+import com.gdtc.oasystem.broadcastreciver.FawenYibanBroadCastReciver;
+import com.gdtc.oasystem.service.Api;
+import com.gdtc.oasystem.utils.FileUtil;
 import com.gdtc.oasystem.utils.NetWorkUtil;
+import com.gdtc.oasystem.utils.RetrofitUtils;
+import com.gdtc.oasystem.utils.SharePreferenceTools;
+import com.gdtc.oasystem.word.WpsModel;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import pub.devrel.easypermissions.EasyPermissions;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class DispatchHasWebviewActivity extends BaseActivity {
 
@@ -41,6 +73,21 @@ public class DispatchHasWebviewActivity extends BaseActivity {
     @BindView(R.id.title_center)
     TextView title_center;
 
+    private DispatchHasDealDetail.ResultsBean resultsBean;
+
+    public static final int PERMISSION = 100;
+
+    private SharePreferenceTools sp;
+    private ProgressDialog mProgressDialog;
+
+    // 下载失败
+    public static final int DOWNLOAD_ERROR = 2;
+    // 下载成功
+    public static final int DOWNLOAD_SUCCESS = 1;
+    private File file1;
+    private String s;
+    private FawenYibanBroadCastReciver fawenDaibanBroadCastReciver;
+
 
     @Override
     protected int getLayoutId() {
@@ -53,6 +100,11 @@ public class DispatchHasWebviewActivity extends BaseActivity {
         title_center.setText("审批详情");
 
         Intent intent = getIntent();
+        sp = new SharePreferenceTools(MyApplication.getContext());
+        fawenDaibanBroadCastReciver =new FawenYibanBroadCastReciver();
+        IntentFilter filter=new IntentFilter();
+        filter.addAction("cn.wps.moffice.file.close");
+        registerReceiver(fawenDaibanBroadCastReciver, filter);
 
 //        LinearLayout.LayoutParams mWebViewLP = new LinearLayout.LayoutParams(
 //                LinearLayout.LayoutParams.FILL_PARENT,
@@ -184,7 +236,7 @@ public class DispatchHasWebviewActivity extends BaseActivity {
 
 
         //mDetailWebView.loadUrl(it.getStringExtra(Config.NEWS));
-        DispatchHasDealDetail.ResultsBean resultsBean= (DispatchHasDealDetail.ResultsBean) intent.getSerializableExtra(Config.NEWS);
+        resultsBean= (DispatchHasDealDetail.ResultsBean) intent.getSerializableExtra(Config.NEWS);
         //tv_content.setText(Html.fromHtml(resultsBean.content));
         if(resultsBean.getHtmls().startsWith("http")){
             webView.loadUrl(resultsBean.getHtmls());
@@ -224,6 +276,8 @@ public class DispatchHasWebviewActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        unregisterReceiver(fawenDaibanBroadCastReciver);
         if (webView != null) {
             webView.clearHistory();
             ((ViewGroup) webView.getParent()).removeView(webView);
@@ -238,8 +292,231 @@ public class DispatchHasWebviewActivity extends BaseActivity {
         super.onDestroy();
     }
 
-    @OnClick({ R.id.title_left})
+    @OnClick({ R.id.title_left,R.id.btn_fujian})
     public void onClick(View view) {
-        finish();
+        switch (view.getId()){
+            case R.id.title_left:
+                finish();
+                break;
+            case R.id.btn_fujian:
+                /**
+                 * 6.0系统动态权限申请需要
+                 */
+                String[] params = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE};
+                if (EasyPermissions.hasPermissions(DispatchHasWebviewActivity.this, params)) {
+                    Fujian();
+                } else {
+                    EasyPermissions.requestPermissions(DispatchHasWebviewActivity.this, "应用需要权限才能安全运行", PERMISSION, params);
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void Fujian(){
+        /**
+         * 初始化
+         */
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Config.BANNER_BASE_URL)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(RetrofitUtils.getInstance().addTimeOut(60).addHttpLog().build())
+                .build();
+
+        //生成对象的Service
+        Api api = retrofit.create(Api.class);
+        //调用方法得到Call
+        Call<XZfujian> call = api.getMarks(resultsBean.getWordFileId());
+        //异步执行
+        call.enqueue(new Callback<XZfujian>() {
+            @Override
+            public void onResponse(Call<XZfujian> call, Response<XZfujian> response) {
+
+                if(response.body()!=null&&response.body().getSuccess().equals("true")){
+                    init(Config.BANNER_BASE_URL+response.body().getPath());
+                    Log.e("-------------",Config.BANNER_BASE_URL+response.body().getPath());
+                }else{
+                    showErrorHint("暂无附件");
+                }
+            }
+            @Override
+            public void onFailure(Call<XZfujian> call, Throwable t) {
+                Log.e("-------------",t.getMessage());
+                Log.e("-------------",t.toString());
+            }
+        });
+    }
+
+    private void init(final String pdfUrl) {
+        // TODO Auto-generated method stub
+//        Intent intent = getIntent();
+//        final String Strname = intent.getStringExtra("url");
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.show();
+        //截取最后14位 作为文件名
+//        s = pdfUrl.substring(pdfUrl.length()-14);
+        //s = pdfUrl.substring(pdfUrl.length()-14);
+        //Log.e("------------>将地址截取14位",s);
+        String dir = FileUtil.getSDCardPath()+"TestImage/imagePic/"; //定义一个文件夹储存图片
+        FileUtil.checkDir(dir); //判断文件夹是否存在，不存在创建
+        //文件存储
+        file1 = new File(dir, getFileName(pdfUrl));
+
+        Log.e("------------>文件路径",file1.toString());
+        Log.e("------------>文件名",getFileName(pdfUrl));
+        new Thread() {
+            public void run() {
+
+                File haha = new File( file1.getAbsolutePath());
+                Log.e("------------路径>",haha.toString());
+                //判断是否有此文件
+                if (haha.exists()) {
+                    //有缓存文件,拿到路径 直接打开
+                    Message msg = Message.obtain();
+                    msg.obj = haha;
+                    msg.what = DOWNLOAD_SUCCESS;
+                    handler.sendMessage(msg);
+                    mProgressDialog.dismiss();
+                    return;
+                }
+//              本地没有此文件 则从网上下载打开
+                File downloadfile = downLoad(pdfUrl, file1.getAbsolutePath(), mProgressDialog);
+//                Log.e("------------>",file1.getAbsolutePath());
+                Log.e("------------>",downloadfile.toString());
+//              Log.i("Log",file1.getAbsolutePath());
+                Message msg = Message.obtain();
+                if (downloadfile != null) {  //downloadfile 为空
+                    // 下载成功,安装....
+                    msg.obj = downloadfile;
+                    msg.what = DOWNLOAD_SUCCESS;
+                } else {
+                    // 提示用户下载失败.
+                    msg.what = DOWNLOAD_ERROR;
+                }
+                handler.sendMessage(msg);
+                mProgressDialog.dismiss();
+            };
+        }.start();
+    }
+
+
+
+
+    /**
+     * 传入文件 url  文件路径  和 弹出的dialog  进行 下载文档
+     */
+    public File downLoad(String serverpath, String savedfilepath, ProgressDialog pd) {
+        try {
+            URL url = new URL(serverpath);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setConnectTimeout(5000);
+            if (conn.getResponseCode() == 200) {
+                int max = conn.getContentLength();
+                pd.setMax(max);
+                InputStream is = conn.getInputStream();
+                File file = new File(savedfilepath);
+                Log.e("------------>下载的文件",file.toString());
+                FileOutputStream fos = new FileOutputStream(file);
+                int len = 0;
+                byte[] buffer = new byte[1024];
+                int total = 0;
+                while ((len = is.read(buffer)) != -1) {
+                    fos.write(buffer, 0, len);
+                    total += len;
+                    pd.setProgress(total);
+                }
+                fos.flush();
+                fos.close();
+                is.close();
+                return file;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    public static String getFileName(String serverurl) {
+        return serverurl.substring(serverurl.lastIndexOf("/") + 1);
+    }
+
+    /**
+     * 下载完成后  直接打开文件
+     */
+    Handler handler = new Handler() {
+        public void handleMessage(android.os.Message msg) {
+            switch (msg.what) {
+                case DOWNLOAD_SUCCESS:
+                    File file = (File) msg.obj;
+                    Log.e("------------成功接收文件>",file.toString());
+
+                    Intent intent = new Intent("android.intent.action.VIEW");
+                    Bundle bundle = new Bundle();
+                    bundle.putString(WpsModel.OPEN_MODE, WpsModel.ENTER_REVISE_MODE); // 打开模式
+                    bundle.putString(WpsModel.USER_NAME, sp.getString(Config.USERNAME)); // 批注人
+                    bundle.putBoolean(WpsModel.SEND_CLOSE_BROAD, true); // 关闭时是否发送广播
+                    bundle.putBoolean(WpsModel.SEND_SAVE_BROAD, true); // 保存时是否发送广播
+                    bundle.putString(WpsModel.THIRD_PACKAGE, getPackageName()); // 第三方应用的包名，用于对改应用合法性的验证
+                    bundle.putString(WpsModel.SAVE_PATH, file1.getAbsolutePath()); // 保存路径
+                    bundle.putBoolean(WpsModel.CLEAR_TRACE, true);// 清除打开记录
+                    bundle.putBoolean(WpsModel.CLEAR_FILE, true); //关闭后删除打开文件
+                    bundle.putBoolean(WpsModel.CLEAR_BUFFER, true); //关闭后删除临时文件
+                    bundle.putBoolean(WpsModel.CACHE_FILE_INVISIBLE, true); //Wps生成的缓存文件外部是否可见
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.setAction(android.content.Intent.ACTION_VIEW);
+                    intent.setClassName(WpsModel.PackageName.NORMAL, WpsModel.ClassName.NORMAL);
+
+                    intent.addCategory("android.intent.category.DEFAULT");
+                    Uri data;
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        // "net.csdn.blog.ruancoder.fileprovider"即是在清单文件中配置的authorities
+                        data = FileProvider.getUriForFile(DispatchHasWebviewActivity.this, "com.gdtc.oasystem.fileprovider", file);
+                        // 给目标应用一个临时授权
+                        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                        grantUriPermission(getPackageName(),data,Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    } else {
+                        data = Uri.fromFile(file);
+                        intent.addFlags (Intent.FLAG_ACTIVITY_NEW_TASK);
+                    }
+
+                    intent.setDataAndType (data, "application/msword");
+                    intent.putExtras(bundle);
+                    startActivity(Intent.createChooser(intent, "标题"));
+                    break;
+                case DOWNLOAD_ERROR:
+                    Toast.makeText(DispatchHasWebviewActivity.this, "文件加载失败", Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        }
+    };
+
+
+    // 接收函数二
+    @Subscribe
+    public void onEventBackgroundThread(EventUtil event){
+        String msglog = "----发文已办onEventBackground收到了消息："+event.getMsg();
+        Log.e("EventBus",msglog);
+        if(file1!=null){
+            file1.delete();
+        }
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!EventBus.getDefault().isRegistered(this))
+        {
+            EventBus.getDefault().register(this);
+        }
     }
 }

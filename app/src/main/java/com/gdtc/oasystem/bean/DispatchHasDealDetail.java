@@ -33,6 +33,7 @@ public class DispatchHasDealDetail implements Serializable{
 
         private String htmls;
         private String file_source_id;
+        private String wordFileId;
 
         public String getHtmls() {
             return htmls;
@@ -48,6 +49,14 @@ public class DispatchHasDealDetail implements Serializable{
 
         public void setFile_source_id(String file_source_id) {
             this.file_source_id = file_source_id;
+        }
+
+        public String getWordFileId() {
+            return wordFileId;
+        }
+
+        public void setWordFileId(String wordFileId) {
+            this.wordFileId = wordFileId;
         }
     }
 }

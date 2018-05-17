@@ -60,6 +60,7 @@ public class ShouWenDbDetail implements Serializable{
         private String column77;
         private String column78;
         private String column79;
+        private String wordFileId;
 
         public String getFormid() {
             return formid;
@@ -171,6 +172,14 @@ public class ShouWenDbDetail implements Serializable{
 
         public void setFanhui_man_sw(String fanhui_man_sw) {
             this.fanhui_man_sw = fanhui_man_sw;
+        }
+
+        public String getWordFileId() {
+            return wordFileId;
+        }
+
+        public void setWordFileId(String wordFileId) {
+            this.wordFileId = wordFileId;
         }
     }
 }

@@ -605,7 +605,7 @@ public class WebviewDispatchdbActivity extends BaseActivity {
     // 接收函数二
     @Subscribe
     public void onEventBackgroundThread(EventUtil event){
-        String msglog = "----发文办理onEventBackground收到了消息："+event.getMsg();
+        String msglog = "----发文待办onEventBackground收到了消息："+event.getMsg();
         Log.e("EventBus",msglog);
 
         AlertDialog.Builder builder=new AlertDialog.Builder(WebviewDispatchdbActivity.this);
@@ -615,78 +615,17 @@ public class WebviewDispatchdbActivity extends BaseActivity {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
                 Toast.makeText(WebviewDispatchdbActivity.this,"保存",Toast.LENGTH_SHORT).show();
-
-//                Retrofit retrofit = new Retrofit.Builder()
-//                        .addConverterFactory(GsonConverterFactory.create())
-//                        .baseUrl(Config.BANNER_BASE_URL)
-//                        .build();
-//                Api service = retrofit.create(Api.class);
-
-
                 File[] files=getFiles("/storage/emulated/0/documents");
                 for(int i =0;i<files.length;i++){
                     Log.i("路径：",files[i].getAbsolutePath());
                     File file = new File(files[i].getAbsolutePath());//访问手机端的文件资源，保证手机端sdcdrd中必须有这个文件
                     if(file!=null){
-                        upLoadFile(FileUtil.encodeBase64File(file.getPath()),file.getName());
+                        String str1=file.getName().substring(0,file.getName().lastIndexOf("."));
+                        String str2 = str1.substring(0,str1.lastIndexOf("("));
+                        Log.e("截取的字符串",str2+"."+getExtension(file));
+                        upLoadFile(FileUtil.encodeBase64File(file.getPath()),str2+"."+getExtension(file),file);
                     }
                 }
-
-//                Intent intent = new Intent("android.intent.action.VIEW");
-//                Bundle bundle = new Bundle();
-//                bundle.putString(WpsModel.OPEN_MODE, WpsModel.ENTER_REVISE_MODE); // 打开模式
-////                    bundle.putString(WpsModel.OPEN_MODE, WpsModel.OpenMode.SAVE_ONLY); // 打开模式
-//                bundle.putString(WpsModel.USER_NAME, sp.getString(Config.USERNAME)); // 批注人
-//                bundle.putBoolean(WpsModel.SEND_CLOSE_BROAD, true); // 关闭时是否发送广播
-//                bundle.putBoolean(WpsModel.SEND_SAVE_BROAD, true); // 保存时是否发送广播
-//                bundle.putString(WpsModel.THIRD_PACKAGE, getPackageName()); // 第三方应用的包名，用于对改应用合法性的验证
-//                bundle.putString(WpsModel.SAVE_PATH, file1.getAbsolutePath()); // 保存路径
-//                bundle.putBoolean(WpsModel.CLEAR_TRACE, true);// 清除打开记录
-//                bundle.putBoolean(WpsModel.CLEAR_FILE, true); //关闭后删除打开文件
-//                bundle.putBoolean(WpsModel.CLEAR_BUFFER, true); //关闭后删除临时文件
-//                bundle.putBoolean(WpsModel.CACHE_FILE_INVISIBLE, true); //Wps生成的缓存文件外部是否可见
-//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                intent.setAction(android.content.Intent.ACTION_VIEW);
-//                intent.setClassName(WpsModel.PackageName.NORMAL, WpsModel.ClassName.NORMAL);
-//
-//                intent.addCategory("android.intent.category.DEFAULT");
-//                Uri data;
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//                    // "net.csdn.blog.ruancoder.fileprovider"即是在清单文件中配置的authorities
-//                    data = FileProvider.getUriForFile(WebviewDispatchdbActivity.this, "com.gdtc.oasystem.fileprovider", file);
-//                    // 给目标应用一个临时授权
-//                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-//                } else {
-//                    data = Uri.fromFile(file);
-//                    intent.addFlags (Intent.FLAG_ACTIVITY_NEW_TASK);
-//                }
-//                intent.setDataAndType (data, "application/msword");
-//                intent.putExtras(bundle);
-//                startActivity(Intent.createChooser(intent, "标题"));
-
-//                RequestBody requestFile =
-//                        RequestBody.create(MediaType.parse("multipart/form-data"), file);
-//
-//                MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getName(), requestFile);
-//
-//                String descriptionString = "This is a description";
-//                RequestBody description =
-//                        RequestBody.create(MediaType.parse("multipart/form-data"), descriptionString);
-//
-//                Call<ResponseBody> call = service.upload(description, body);
-//                call.enqueue(new Callback<ResponseBody>() {
-//                    @Override
-//                    public void onResponse(Call<ResponseBody> call,
-//                                           Response<ResponseBody> response) {
-//                        System.out.println("success");
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-//                        t.printStackTrace();
-//                    }
-//                });
-
             }
         });
         AlertDialog b=builder.create();
@@ -716,7 +655,21 @@ public class WebviewDispatchdbActivity extends BaseActivity {
     }
 
 
-    private void upLoadFile(String stringBase64,String fileName){
+    /**
+     * 获取文件扩展名
+     */
+    private static String getExtension(final File file) {
+        String suffix = "";
+        String name = file.getName();
+        final int idx = name.lastIndexOf(".");
+        if (idx > 0) {
+            suffix = name.substring(idx + 1);
+        }
+        return suffix;
+    }
+
+
+    private void upLoadFile(String stringBase64, String fileName, final File file){
         Retrofit retrofit=new Retrofit.Builder()
                 .baseUrl(Config.BANNER_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -726,7 +679,12 @@ public class WebviewDispatchdbActivity extends BaseActivity {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
+                if(response.body()!=null){
+                    if(response.body().equals("true")){
+                        file.delete();
+                        file1.delete();
+                    }
+                }
             }
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {

@@ -102,7 +102,7 @@ public class HomeFragmentTest extends BaseFragment {
         }
     }
 
-    @OnClick({ R.id.rl1,R.id.rl2,R.id.rl3,R.id.rl4,R.id.rl5,R.id.rl6})
+    @OnClick({ R.id.rl1,R.id.rl2,R.id.rl3,R.id.rl4})
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.rl1:
@@ -124,14 +124,6 @@ public class HomeFragmentTest extends BaseFragment {
             case R.id.rl4:
                 startActivity(new Intent(getActivity(),ShouWenDaiPiActivity.class));
                 Toast.makeText(getActivity(),"收文待批",Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.rl5:
-                Toast.makeText(getActivity(),"此模块待定",Toast.LENGTH_SHORT).show();
-//                startActivity(new Intent(getActivity(),ZhengwuApplyActivity.class));
-                break;
-            case R.id.rl6:
-//                startActivity(new Intent(getActivity(),ZhengwuApplyActivity.class));
-                Toast.makeText(getActivity(),"此模块待定",Toast.LENGTH_SHORT).show();
                 break;
             default:
                 break;
