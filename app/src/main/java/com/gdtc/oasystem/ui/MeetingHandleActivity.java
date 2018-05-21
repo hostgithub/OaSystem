@@ -16,12 +16,17 @@ import com.gdtc.oasystem.MyApplication;
 import com.gdtc.oasystem.R;
 import com.gdtc.oasystem.adapter.MeetingHandleAdapter;
 import com.gdtc.oasystem.base.BaseActivity;
+import com.gdtc.oasystem.bean.EventUtil;
 import com.gdtc.oasystem.bean.MeetingDetail;
 import com.gdtc.oasystem.bean.MeetingHandle;
 import com.gdtc.oasystem.service.Api;
 import com.gdtc.oasystem.utils.RecyclerViewSpacesItemDecoration;
 import com.gdtc.oasystem.utils.SharePreferenceTools;
 import com.gdtc.oasystem.widget.EndLessOnScrollListener;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -59,6 +64,7 @@ public class MeetingHandleActivity extends BaseActivity implements SwipeRefreshL
     @Override
     protected void initView(Bundle savedInstanceState) {
 
+        EventBus.getDefault().register(this);
         title_center.setText("会议通知");
         sp = new SharePreferenceTools(MyApplication.getContext());
         refreshLayout.setOnRefreshListener(this);
@@ -123,6 +129,10 @@ public class MeetingHandleActivity extends BaseActivity implements SwipeRefreshL
     @Override
     protected void onResume() {
         super.onResume();
+        if (!EventBus.getDefault().isRegistered(this))
+        {
+            EventBus.getDefault().register(this);
+        }
     }
 
     @Override
@@ -134,6 +144,7 @@ public class MeetingHandleActivity extends BaseActivity implements SwipeRefreshL
     }
 
     private void initData(int pages) {
+        Log.e("---------->>>","请求列表");
         //使用retrofit配置api
         Retrofit retrofit=new Retrofit.Builder()
                 .baseUrl(Config.BANNER_BASE_URL)
@@ -149,9 +160,13 @@ public class MeetingHandleActivity extends BaseActivity implements SwipeRefreshL
                 if(response.body()!=null){
                     if(response.body().getResults().size()==0){
                         refreshLayout.setRefreshing(false);
+                        meetingHandleAdapter.notifyDataSetChanged();
                         meetingHandleAdapter.setFooterVisible(View.GONE);
                         empty_layout.setVisibility(View.VISIBLE);//数据为空
                     }else{
+                        if(list!=null){
+                            list.clear();//用于更新列表数据，必须移除之前的数据
+                        }
                         list.addAll(response.body().getResults());
                         Log.e("---------->>>",response.body().getSuccess());
                         sp.putString("count",response.body().getCount());
@@ -195,8 +210,8 @@ public class MeetingHandleActivity extends BaseActivity implements SwipeRefreshL
                     MeetingDetail.ResultsBean resultsBean=detail.getResults().get(0);
                     Intent intent = new Intent(MeetingHandleActivity.this, MeetingHandleDetailActivity.class);
                     intent.putExtra(Config.NEWS,resultsBean);
-                    finish();
                     startActivity(intent);
+                    meetingHandleAdapter.notifyDataSetChanged();
                     Log.e("xxxxxxx",resultsBean.getContent());
                 }else{
                     Toast.makeText(MeetingHandleActivity.this,"数据为空!",Toast.LENGTH_SHORT).show();
@@ -218,6 +233,24 @@ public class MeetingHandleActivity extends BaseActivity implements SwipeRefreshL
                 break;
             default:
                 break;
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.BACKGROUND )
+    public void onMoonEvent(EventUtil messageEvent){
+        if(list.size()==1){
+            list.clear();
+        }
+        initData(1);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+        if(mRecyclerView != null){
+            mRecyclerView.destroyDrawingCache(); // this will totally release XR's memory
+            mRecyclerView = null;
         }
     }
 }

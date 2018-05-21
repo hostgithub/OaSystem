@@ -64,11 +64,10 @@ public class HomePageActivity extends BaseActivity implements MainContract.View{
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-
         //setStatusBar();
         mPresenter = new MainPresenter(this);
 
-//        System.out.println("Start polling service...");
+//        Log.e("---------","onCreate Start polling service...");
 //        PollingUtils.startPollingService(this, 5, PollingService.class, PollingService.ACTION);
 
         fragmentManager = getSupportFragmentManager();
@@ -233,9 +232,15 @@ public class HomePageActivity extends BaseActivity implements MainContract.View{
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //Stop polling service
-//        System.out.println("Stop polling service...");
-//        PollingUtils.stopPollingService(this, PollingService.class, PollingService.ACTION);
+//        Log.e("---------","onDestroy Start polling service...");
+//        PollingUtils.startPollingService(this, 5, PollingService.class, PollingService.ACTION);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+//        Log.e("---------","onStop Start polling service...");
+//        PollingUtils.startPollingService(this, 5, PollingService.class, PollingService.ACTION);
     }
 
     @Override
@@ -278,5 +283,10 @@ public class HomePageActivity extends BaseActivity implements MainContract.View{
         } catch (Exception e) {
             LogUtil.d("数字转化出错");
         }
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
     }
 }

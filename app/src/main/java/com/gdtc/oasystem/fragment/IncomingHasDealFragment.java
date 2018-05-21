@@ -201,7 +201,8 @@ public class IncomingHasDealFragment extends BaseFragment implements SwipeRefres
                     if(response.body().getResults().size()==0){
                         refreshLayout.setRefreshing(false);
                         incomingHasDealAdapter.setFooterVisible(View.GONE);
-                        Toast.makeText(getActivity(),"暂无更多数据22222222222222",Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getActivity(),"暂无更多数据22222222222222",Toast.LENGTH_SHORT).show();
+                        showErrorHint("暂无数据");
                     }else{
                         if(response.body().getResults().size()<15){
                             incomingHasDealAdapter.setFooterVisible(View.GONE);

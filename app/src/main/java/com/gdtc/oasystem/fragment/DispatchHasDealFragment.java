@@ -97,6 +97,7 @@ public class DispatchHasDealFragment extends BaseFragment implements SwipeRefres
         picAdapter.setOnItemClickLitener(new SendFileHasDealAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
+                startProgressDialog();
                 getData(list.get(position).getFile_source_id(),sp.getString(Config.DEPTUNIT),"OutfileDetailYiBan",sp.getString(Config.PATHDATA),position); //跳进详情页/
             }
         });
@@ -168,7 +169,8 @@ public class DispatchHasDealFragment extends BaseFragment implements SwipeRefres
                 if(response.body().getResults().size()==0){
                     refreshLayout.setRefreshing(false);
                     picAdapter.setFooterVisible(View.GONE);
-                    Toast.makeText(getActivity(),"暂无更多数据",Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getActivity(),"暂无更多数据",Toast.LENGTH_SHORT).show();
+                    showErrorHint("暂无数据");
                 }else{
                     list.addAll(response.body().getResults());
                     Log.e("---------->>>",response.body().getSuccess());
@@ -212,6 +214,7 @@ public class DispatchHasDealFragment extends BaseFragment implements SwipeRefres
 //                    intent.putExtra("title",list.get(position).getTitle());
 //                    intent.putExtra("sender",list.get(position).getSender());
 //                    intent.putExtra("time",list.get(position).getSenderTime());
+                    stopProgressDialog();
                     startActivity(intent);
                     Log.e("---------->>pdfPath",resultsBean.getHtmls());
                 }else{
@@ -222,6 +225,7 @@ public class DispatchHasDealFragment extends BaseFragment implements SwipeRefres
             @Override
             public void onFailure(Call<DispatchHasDealDetail> call, Throwable t) {
                 Log.e("-------------解析失败",t.getMessage().toString());
+                stopProgressDialog();
             }
         });
     }

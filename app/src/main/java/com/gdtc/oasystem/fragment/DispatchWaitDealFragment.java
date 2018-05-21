@@ -96,6 +96,7 @@ public class DispatchWaitDealFragment extends BaseFragment implements SwipeRefre
         picAdapter.setOnItemClickLitener(new SendFileAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
+                startProgressDialog();
                 getData(sp.getString(Config.PATHDATA),sp.getString(Config.DEPTUNIT),sp.getString(Config.USER_ID),sp.getString(Config.USERNAME)
                         ,list.get(position).getFileSourceId(),list.get(position).getFlowsort(),position);
 //                Toast.makeText(getActivity(),"点击了"+position,Toast.LENGTH_SHORT).show();
@@ -173,7 +174,8 @@ public class DispatchWaitDealFragment extends BaseFragment implements SwipeRefre
                     if(response.body().getResults().size()==0){
                         refreshLayout.setRefreshing(false);
                         picAdapter.setFooterVisible(View.GONE);
-                        Toast.makeText(getActivity(),"暂无更多数据",Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getActivity(),"暂无更多数据",Toast.LENGTH_SHORT).show();
+                        showErrorHint("暂无数据");
                     }else {
                         list.addAll(response.body().getResults());
                         Log.e("---------->>>",response.body().getSuccess());
@@ -194,7 +196,7 @@ public class DispatchWaitDealFragment extends BaseFragment implements SwipeRefre
 
             @Override
             public void onFailure(Call<DispatchWaitDeal> call, Throwable t) {
-                Toast.makeText(getActivity(),"请求失败!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),"网络较慢请稍后再试!",Toast.LENGTH_SHORT).show();
                 refreshLayout.setRefreshing(false);
             }
         });
@@ -219,6 +221,7 @@ public class DispatchWaitDealFragment extends BaseFragment implements SwipeRefre
 //                    intent.putExtra("title",list.get(position).getTitle());
 //                    intent.putExtra("sender",list.get(position).getSender());
 //                    intent.putExtra("time",list.get(position).getSenderTime());
+                    stopProgressDialog();
                     startActivity(intent);
                     Log.e("xxxxxxx",resultsBean.getHtmls());
                 }else{
@@ -229,6 +232,8 @@ public class DispatchWaitDealFragment extends BaseFragment implements SwipeRefre
             @Override
             public void onFailure(Call<DetailDispatchdb> call, Throwable t) {
                 Log.e("-------------",t.getMessage().toString());
+                stopProgressDialog();
+                Toast.makeText(getActivity(),"网络较慢请稍后再试!",Toast.LENGTH_SHORT).show();
             }
         });
     }

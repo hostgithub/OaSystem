@@ -419,6 +419,10 @@ public class WebviewIncomingdbActivity extends BaseActivity {
     }
 
     private void Fujian(){
+        if(file1!=null){
+            file1.delete();
+        }
+        startProgressDialog();
         /**
          * 初始化
          */
@@ -439,14 +443,17 @@ public class WebviewIncomingdbActivity extends BaseActivity {
             public void onResponse(Call<XZfujian> call, Response<XZfujian> response) {
 
                 if(response.body()!=null&&response.body().getSuccess().equals("true")){
+                    stopProgressDialog();
                     init(Config.BANNER_BASE_URL+response.body().getPath());
                     Log.e("-------------",Config.BANNER_BASE_URL+response.body().getPath());
                 }else{
+                    stopProgressDialog();
                     showErrorHint("暂无附件");
                 }
             }
             @Override
             public void onFailure(Call<XZfujian> call, Throwable t) {
+                stopProgressDialog();
                 Log.e("-------------",t.getMessage());
                 Log.e("-------------",t.toString());
             }

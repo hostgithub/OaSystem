@@ -14,7 +14,7 @@
             <TextView
                 android:id="@+id/tip_info"
                 android:layout_width="match_parent"
-                android:text="此模块待定" android:textColor="@color/black_text_color"
+                android:text="此模块尚未开发" android:textColor="@color/black_text_color"
                 android:layout_height="30dp" android:gravity="center"
                 android:layout_centerInParent="true"
                 android:textSize="15sp" android:visibility="gone"/>

@@ -17,11 +17,16 @@ import com.gdtc.oasystem.R;
 import com.gdtc.oasystem.adapter.SendFileAdapter;
 import com.gdtc.oasystem.base.BaseActivity;
 import com.gdtc.oasystem.bean.DispatchWaitDeal;
+import com.gdtc.oasystem.bean.EventUtil;
 import com.gdtc.oasystem.bean.ShouWenDbDetail;
 import com.gdtc.oasystem.service.Api;
 import com.gdtc.oasystem.utils.RecyclerViewSpacesItemDecoration;
 import com.gdtc.oasystem.utils.SharePreferenceTools;
 import com.gdtc.oasystem.widget.EndLessOnScrollListener;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -57,7 +62,9 @@ public class ShouWenDaiPiActivity extends BaseActivity implements SwipeRefreshLa
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+
         title_center.setText("收文待批");
+        EventBus.getDefault().register(this);
         sp = new SharePreferenceTools(MyApplication.getContext());
         refreshLayout.setOnRefreshListener(this);
         list=new ArrayList();
@@ -121,6 +128,10 @@ public class ShouWenDaiPiActivity extends BaseActivity implements SwipeRefreshLa
     @Override
     protected void onResume() {
         super.onResume();
+        if (!EventBus.getDefault().isRegistered(this))
+        {
+            EventBus.getDefault().register(this);
+        }
     }
 
     @Override
@@ -148,8 +159,12 @@ public class ShouWenDaiPiActivity extends BaseActivity implements SwipeRefreshLa
                     if(response.body().getResults().size()==0){
                         refreshLayout.setRefreshing(false);
                         meetingHandleAdapter.setFooterVisible(View.GONE);
+                        meetingHandleAdapter.notifyDataSetChanged();
                         empty_layout.setVisibility(View.VISIBLE);//数据为空   可能是因为列表最外层有背景色
                     }else{
+                        if(list!=null){
+                            list.clear();//用于更新列表数据，必须移除之前的数据
+                        }
                         list.addAll(response.body().getResults());
                         Log.e("---------->>>",response.body().getSuccess());
                         sp.putString("count",response.body().getCount());
@@ -198,6 +213,7 @@ public class ShouWenDaiPiActivity extends BaseActivity implements SwipeRefreshLa
 //                    intent.putExtra("sender",list.get(position).getSender());
 //                    intent.putExtra("time",list.get(position).getSenderTime());
                     startActivity(intent);
+                    meetingHandleAdapter.notifyDataSetChanged();
                     Log.e("----------->>",resultsBean.getUserQc());
                     Log.e("----------->>",resultsBean.getHtmls());
                 }else{
@@ -220,6 +236,22 @@ public class ShouWenDaiPiActivity extends BaseActivity implements SwipeRefreshLa
                 break;
             default:
                 break;
+        }
+    }
+    @Subscribe(threadMode = ThreadMode.BACKGROUND )
+    public void onMoonEvent(EventUtil messageEvent){
+        if(list.size()==1){
+            list.clear();
+        }
+        initData(1);
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+        if(mRecyclerView != null){
+            mRecyclerView.destroyDrawingCache(); // this will totally release XR's memory
+            mRecyclerView = null;
         }
     }
 }

@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/id_title"
                 android:background="@color/title_text_color"
-                android:padding="10.0dip">
+                android:padding="10.0dip" android:layout_marginStart="10dp">
 
                 <ImageView
                     android:id="@+id/user_iconIv"

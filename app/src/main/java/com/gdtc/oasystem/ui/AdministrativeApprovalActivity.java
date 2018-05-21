@@ -15,11 +15,16 @@ import com.gdtc.oasystem.adapter.AdministrativeApprovalAdapter;
 import com.gdtc.oasystem.base.BaseActivity;
 import com.gdtc.oasystem.bean.AdministrativeApproval;
 import com.gdtc.oasystem.bean.AdministrativeApprovalDetail;
+import com.gdtc.oasystem.bean.EventUtil;
 import com.gdtc.oasystem.service.Api;
 import com.gdtc.oasystem.utils.RecyclerViewSpacesItemDecoration;
 import com.gdtc.oasystem.utils.SharePreferenceTools;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -54,7 +59,7 @@ public class AdministrativeApprovalActivity extends BaseActivity{
     protected void initView(Bundle savedInstanceState) {
 
         title_center.setText("行政待批");
-
+        EventBus.getDefault().register(this);
         sp = new SharePreferenceTools(MyApplication.getContext());
         list=new ArrayList();
         initData(1);
@@ -127,6 +132,10 @@ public class AdministrativeApprovalActivity extends BaseActivity{
     @Override
     protected void onResume() {
         super.onResume();
+        if (!EventBus.getDefault().isRegistered(this))
+        {
+            EventBus.getDefault().register(this);
+        }
     }
 
 //    @Override
@@ -153,8 +162,13 @@ public class AdministrativeApprovalActivity extends BaseActivity{
                 if(response.body()!=null){
                     if(response.body().getResults().size()==0){
 //                        meetingHandleAdapter.setFooterVisible(View.GONE);
-                        Toast.makeText(AdministrativeApprovalActivity.this,"暂无更多数据",Toast.LENGTH_SHORT).show();
+                        administrativeApprovalAdapter.notifyDataSetChanged();
+//                        Toast.makeText(AdministrativeApprovalActivity.this,"暂无更多数据",Toast.LENGTH_SHORT).show();
+                        showErrorHint("暂无数据");
                     }else {
+                        if(list!=null){
+                            list.clear();//用于更新列表数据，必须移除之前的数据
+                        }
                         list.addAll(response.body().getResults());
                         Log.e("---------->>>",response.body().getSuccess());
                         sp.putString("count",response.body().getCount());
@@ -197,10 +211,8 @@ public class AdministrativeApprovalActivity extends BaseActivity{
                     AdministrativeApprovalDetail.ResultsBean resultsBean=detail.getResults().get(0);
                     Intent intent = new Intent(AdministrativeApprovalActivity.this, AdministrativeApprovalWebviewActivity.class);
                     intent.putExtra(Config.NEWS,resultsBean);
-//                    intent.putExtra("title",list.get(position).getTitle());
-//                    intent.putExtra("sender",list.get(position).getSender());
-//                    intent.putExtra("time",list.get(position).getSenderTime());
                     startActivity(intent);
+                    administrativeApprovalAdapter.notifyDataSetChanged();
                     Log.e("---------------",resultsBean.getHtmls());
                 }else{
                     Toast.makeText(AdministrativeApprovalActivity.this,"数据为空!",Toast.LENGTH_SHORT).show();
@@ -212,6 +224,14 @@ public class AdministrativeApprovalActivity extends BaseActivity{
                 Log.e("-------------",t.getMessage().toString());
             }
         });
+    }
+
+    @Subscribe(threadMode = ThreadMode.BACKGROUND )
+    public void onMoonEvent(EventUtil messageEvent){
+        if(list.size()==1){
+            list.clear();
+        }
+        initData(1);
     }
 
     @OnClick({ R.id.title_left})
@@ -227,6 +247,7 @@ public class AdministrativeApprovalActivity extends BaseActivity{
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
         if(mRecyclerView != null){
             mRecyclerView.destroy(); // this will totally release XR's memory
             mRecyclerView = null;

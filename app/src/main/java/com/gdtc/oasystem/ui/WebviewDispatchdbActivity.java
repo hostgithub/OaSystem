@@ -103,6 +103,7 @@ public class WebviewDispatchdbActivity extends BaseActivity {
     private File file1;
     private String s;
     private FawenDaibanBroadCastReciver fawenDaibanBroadCastReciver;
+    private File fileDocuments;
 
     @Override
     protected int getLayoutId() {
@@ -111,6 +112,17 @@ public class WebviewDispatchdbActivity extends BaseActivity {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+
+        File[] files=getFiles("/storage/emulated/0/documents");
+        if(files!=null){
+            for(int i =0;i<files.length;i++){
+                Log.i("路径：",files[i].getAbsolutePath());
+                fileDocuments = new File(files[i].getAbsolutePath());//访问手机端的文件资源，保证手机端sdcdrd中必须有这个文件
+                if(fileDocuments!=null){
+                    fileDocuments.delete();
+                }
+            }
+        }
 
         title_center.setText("审批详情");
 
@@ -336,9 +348,15 @@ public class WebviewDispatchdbActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.btn_agree:
+                if(file1!=null){
+                    file1.delete();
+                }
                 dispatchBack();
                 break;
             case R.id.btn_un_agree:
+                if(file1!=null){
+                    file1.delete();
+                }
                 dispatchBack();
                 break;
             case R.id.btn_fujian:
@@ -359,44 +377,41 @@ public class WebviewDispatchdbActivity extends BaseActivity {
     }
 
     private void init(final String pdfUrl) {
-        // TODO Auto-generated method stub
-//        Intent intent = getIntent();
-//        final String Strname = intent.getStringExtra("url");
+
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         mProgressDialog.setCancelable(false);
         mProgressDialog.show();
         //截取最后14位 作为文件名
-//        s = pdfUrl.substring(pdfUrl.length()-14);
+        //s = pdfUrl.substring(pdfUrl.length()-14);
         //s = pdfUrl.substring(pdfUrl.length()-14);
         //Log.e("------------>将地址截取14位",s);
-        String dir = FileUtil.getSDCardPath()+"TestImage/imagePic/"; //定义一个文件夹储存图片
+        String dir = FileUtil.getSDCardPath()+"TestImage/imagePic/"; //定义一个文件夹储存
         FileUtil.checkDir(dir); //判断文件夹是否存在，不存在创建
         //文件存储
         file1 = new File(dir, getFileName(pdfUrl));
-
         Log.e("------------>文件路径",file1.toString());
         Log.e("------------>文件名",getFileName(pdfUrl));
         new Thread() {
             public void run() {
 
-                File haha = new File( file1.getAbsolutePath());
-                Log.e("------------路径>",haha.toString());
-                //判断是否有此文件
-                if (haha.exists()) {
-                    //有缓存文件,拿到路径 直接打开
-                    Message msg = Message.obtain();
-                    msg.obj = haha;
-                    msg.what = DOWNLOAD_SUCCESS;
-                    handler.sendMessage(msg);
-                    mProgressDialog.dismiss();
-                    return;
-                }
+//                File haha = new File( file1.getAbsolutePath());
+//                Log.e("------------路径>",haha.toString());
+//                //判断是否有此文件
+//                if (haha.exists()) {
+//                    //有缓存文件,拿到路径 直接打开
+//                    Message msg = Message.obtain();
+//                    msg.obj = haha;
+//                    msg.what = DOWNLOAD_SUCCESS;
+//                    handler.sendMessage(msg);
+//                    mProgressDialog.dismiss();
+//                    return;
+//                }
 //              本地没有此文件 则从网上下载打开
                 File downloadfile = downLoad(pdfUrl, file1.getAbsolutePath(), mProgressDialog);
-//                Log.e("------------>",file1.getAbsolutePath());
-                Log.e("------------>",downloadfile.toString());
-//              Log.i("Log",file1.getAbsolutePath());
+                if(downloadfile!=null){
+                    Log.e("------------>",downloadfile.toString());
+                }
                 Message msg = Message.obtain();
                 if (downloadfile != null) {  //downloadfile 为空
                     // 下载成功,安装....
@@ -413,6 +428,19 @@ public class WebviewDispatchdbActivity extends BaseActivity {
     }
 
 
+    private void upLoad(){
+        File[] files=getFiles("/storage/emulated/0/documents");
+        for(int i =0;i<files.length;i++){
+            Log.i("路径：",files[i].getAbsolutePath());
+            File file = new File(files[i].getAbsolutePath());//访问手机端的文件资源，保证手机端sdcdrd中必须有这个文件
+            if(file!=null){
+                String str1=file.getName().substring(0,file.getName().lastIndexOf("."));
+                String str2 = str1.substring(0,str1.lastIndexOf("("));
+                Log.e("截取的字符串",str2+"."+getExtension(file));
+                upLoadFile(FileUtil.encodeBase64File(file.getPath()),str2+"."+getExtension(file),file);
+            }
+        }
+    }
 
 
     /**
@@ -502,13 +530,18 @@ public class WebviewDispatchdbActivity extends BaseActivity {
                     startActivity(Intent.createChooser(intent, "标题"));
                     break;
                 case DOWNLOAD_ERROR:
-                    Toast.makeText(WebviewDispatchdbActivity.this, "文件加载失败", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(WebviewDispatchdbActivity.this, "暂无附件", Toast.LENGTH_LONG).show();
                     break;
             }
         }
     };
 
     private void Fujian(){
+
+        if(file1!=null){
+            file1.delete();
+        }
+        startProgressDialog();
         /**
          * 初始化
          */
@@ -529,20 +562,25 @@ public class WebviewDispatchdbActivity extends BaseActivity {
             public void onResponse(Call<XZfujian> call, Response<XZfujian> response) {
 
                 if(response.body()!=null&&response.body().getSuccess().equals("true")){
+                    stopProgressDialog();
                     init(Config.BANNER_BASE_URL+response.body().getPath());
                     Log.e("-------------",Config.BANNER_BASE_URL+response.body().getPath());
                 }else{
+                    stopProgressDialog();
                     showErrorHint("暂无附件");
                 }
             }
             @Override
             public void onFailure(Call<XZfujian> call, Throwable t) {
+                stopProgressDialog();
                 Log.e("-------------",t.getMessage());
                 Log.e("-------------",t.toString());
             }
         });
     }
     private void dispatchBack(){
+
+        upLoad();
 
         /**
          * 初始化
@@ -578,6 +616,7 @@ public class WebviewDispatchdbActivity extends BaseActivity {
             public void onResponse(Call<HuiZhiBean> call, Response<HuiZhiBean> response) {
                 Log.e("-----------",response.message()+"   "+response.body().getSuccess());
                 if(response.body().getSuccess()=="true"){
+                    stopProgressDialog();
                     AlertDialog.Builder builder=new AlertDialog.Builder(WebviewDispatchdbActivity.this);
                     builder.setTitle("通知详情");//设置对话框的标题
                     builder.setMessage("您填写的信息已成功提交，请返回");//设置对话框的内容
@@ -586,6 +625,16 @@ public class WebviewDispatchdbActivity extends BaseActivity {
                         @Override
                         public void onClick(DialogInterface arg0, int arg1) {
                             EventBus.getDefault().post(new EventUtil("发送消息"));
+
+                            File[] files=getFiles("/storage/emulated/0/documents");
+                            for(int i =0;i<files.length;i++){
+                                Log.i("路径：",files[i].getAbsolutePath());
+                                File file = new File(files[i].getAbsolutePath());//访问手机端的文件资源，保证手机端sdcdrd中必须有这个文件
+                                if(file!=null){
+                                    file.delete();
+                                    finish();
+                                }
+                            }
                             finish();
                         }
                     });
@@ -607,29 +656,7 @@ public class WebviewDispatchdbActivity extends BaseActivity {
     public void onEventBackgroundThread(EventUtil event){
         String msglog = "----发文待办onEventBackground收到了消息："+event.getMsg();
         Log.e("EventBus",msglog);
-
-        AlertDialog.Builder builder=new AlertDialog.Builder(WebviewDispatchdbActivity.this);
-        builder.setMessage("请将您批注的信息进行痕迹保留！");//设置对话框的内容
-        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {  //这个是设置确定按钮
-
-            @Override
-            public void onClick(DialogInterface arg0, int arg1) {
-                Toast.makeText(WebviewDispatchdbActivity.this,"保存",Toast.LENGTH_SHORT).show();
-                File[] files=getFiles("/storage/emulated/0/documents");
-                for(int i =0;i<files.length;i++){
-                    Log.i("路径：",files[i].getAbsolutePath());
-                    File file = new File(files[i].getAbsolutePath());//访问手机端的文件资源，保证手机端sdcdrd中必须有这个文件
-                    if(file!=null){
-                        String str1=file.getName().substring(0,file.getName().lastIndexOf("."));
-                        String str2 = str1.substring(0,str1.lastIndexOf("("));
-                        Log.e("截取的字符串",str2+"."+getExtension(file));
-                        upLoadFile(FileUtil.encodeBase64File(file.getPath()),str2+"."+getExtension(file),file);
-                    }
-                }
-            }
-        });
-        AlertDialog b=builder.create();
-        b.show();  //必须show一下才能看到对话框，跟Toast一样的道理
+        file1.delete();
     }
 
     @Override
@@ -680,9 +707,9 @@ public class WebviewDispatchdbActivity extends BaseActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if(response.body()!=null){
-                    if(response.body().equals("true")){
-                        file.delete();
+                    if(response.body().equals("true")&&file1!=null){
                         file1.delete();
+                        stopProgressDialog();
                     }
                 }
             }

@@ -153,7 +153,6 @@ public class HomeFragmentTest extends BaseFragment {
 
             @Override
             public void onFailure(Call<AllWaitDealSize> call, Throwable t) {
-                Toast.makeText(getActivity(),"请求异常",Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -172,6 +171,13 @@ public class HomeFragmentTest extends BaseFragment {
         {
             EventBus.getDefault().register(this);
         }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        initData(sp.getString(Config.USER_ID));
+        startProgressDialog();
     }
 
     @Override

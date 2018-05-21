@@ -170,7 +170,8 @@ public class IncomingWaitDealFragment extends BaseFragment implements SwipeRefre
                     if(response.body().getResults().size()==0){
                         refreshLayout.setRefreshing(false);
                         picAdapter.setFooterVisible(View.GONE);
-                        Toast.makeText(getActivity(),"暂无更多数据..............",Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getActivity(),"暂无更多数据..............",Toast.LENGTH_SHORT).show();
+                        showErrorHint("暂无数据");
                     }else {
                         if(response.body().getResults().size()<15){
                             picAdapter.setFooterVisible(View.GONE);

@@ -138,7 +138,6 @@ public class MeetingHandleDetailActivity extends BaseActivity {
                             //Toast.makeText(Some_suggestionsActivity.this, "确定", Toast.LENGTH_SHORT).show();
                             EventBus.getDefault().post(new EventUtil("发送消息"));
                             finish();
-                            startActivity(new Intent(MeetingHandleDetailActivity.this,MeetingHandleActivity.class));
                         }
                     });
 //                    builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {  //取消按钮

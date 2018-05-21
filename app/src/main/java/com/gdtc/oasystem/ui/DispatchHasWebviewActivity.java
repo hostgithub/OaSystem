@@ -316,6 +316,11 @@ public class DispatchHasWebviewActivity extends BaseActivity {
     }
 
     private void Fujian(){
+
+        if(file1!=null){
+            file1.delete();
+        }
+        startProgressDialog();
         /**
          * 初始化
          */
@@ -336,14 +341,17 @@ public class DispatchHasWebviewActivity extends BaseActivity {
             public void onResponse(Call<XZfujian> call, Response<XZfujian> response) {
 
                 if(response.body()!=null&&response.body().getSuccess().equals("true")){
+                    stopProgressDialog();
                     init(Config.BANNER_BASE_URL+response.body().getPath());
                     Log.e("-------------",Config.BANNER_BASE_URL+response.body().getPath());
                 }else{
+                    stopProgressDialog();
                     showErrorHint("暂无附件");
                 }
             }
             @Override
             public void onFailure(Call<XZfujian> call, Throwable t) {
+                stopProgressDialog();
                 Log.e("-------------",t.getMessage());
                 Log.e("-------------",t.toString());
             }
@@ -386,9 +394,9 @@ public class DispatchHasWebviewActivity extends BaseActivity {
                 }
 //              本地没有此文件 则从网上下载打开
                 File downloadfile = downLoad(pdfUrl, file1.getAbsolutePath(), mProgressDialog);
-//                Log.e("------------>",file1.getAbsolutePath());
-                Log.e("------------>",downloadfile.toString());
-//              Log.i("Log",file1.getAbsolutePath());
+                if(downloadfile!=null){
+                    Log.e("------------>",downloadfile.toString());
+                }
                 Message msg = Message.obtain();
                 if (downloadfile != null) {  //downloadfile 为空
                     // 下载成功,安装....
@@ -493,7 +501,7 @@ public class DispatchHasWebviewActivity extends BaseActivity {
                     startActivity(Intent.createChooser(intent, "标题"));
                     break;
                 case DOWNLOAD_ERROR:
-                    Toast.makeText(DispatchHasWebviewActivity.this, "文件加载失败", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DispatchHasWebviewActivity.this, "暂无附件", Toast.LENGTH_LONG).show();
                     break;
             }
         }

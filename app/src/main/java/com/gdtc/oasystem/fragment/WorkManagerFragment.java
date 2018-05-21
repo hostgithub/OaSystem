@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 import com.gdtc.oasystem.R;
 import com.gdtc.oasystem.base.BaseFragment;
@@ -17,7 +18,6 @@ import com.gdtc.oasystem.ui.FaWenDaiPiActivity;
 import com.gdtc.oasystem.ui.MeetingHandleActivity;
 import com.gdtc.oasystem.ui.ShouWenDaiPiActivity;
 import com.gdtc.oasystem.ui.YipiWorkActivity;
-import com.gdtc.oasystem.ui.ZhengwuApplyActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -103,10 +103,12 @@ public class WorkManagerFragment extends BaseFragment {
                         getActivity().startActivity(new Intent(getActivity(), TabActivity.class));
                         break;
                     case 8:
-                        getActivity().startActivity(new Intent(getActivity(), ZhengwuApplyActivity.class));
+                        Toast.makeText(getActivity(), "暂无", Toast.LENGTH_SHORT).show();
+                        //getActivity().startActivity(new Intent(getActivity(), ZhengwuApplyActivity.class));
                         break;
                     case 9:
-                        getActivity().startActivity(new Intent(getActivity(), ZhengwuApplyActivity.class));
+                        Toast.makeText(getActivity(), "暂无", Toast.LENGTH_SHORT).show();
+                        //getActivity().startActivity(new Intent(getActivity(), ZhengwuApplyActivity.class));
                         break;
                     default:
                         break;
