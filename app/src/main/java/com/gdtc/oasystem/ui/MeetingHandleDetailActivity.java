@@ -92,6 +92,7 @@ public class MeetingHandleDetailActivity extends BaseActivity {
                 if(edt_content.getText().toString().trim().equals("")){
                     Toast.makeText(MeetingHandleDetailActivity.this,"请填写回执信息",Toast.LENGTH_SHORT).show();
                 }else {
+                    startProgressDialog();
                     post(sp.getString(Config.USER_ID),edt_content.getText().toString(),resultsBean.getFlowsort());
                 }
                 break;
@@ -128,6 +129,7 @@ public class MeetingHandleDetailActivity extends BaseActivity {
             public void onResponse(Call<HuiZhiBean> call, Response<HuiZhiBean> response) {
                 Log.e("sssss","-----------------------"+response.body().getSuccess());
                 if(response.body().getSuccess()=="true"){
+                    stopProgressDialog();
                     AlertDialog.Builder builder=new AlertDialog.Builder(MeetingHandleDetailActivity.this);
                     builder.setTitle("回执情况");//设置对话框的标题
                     builder.setMessage("您填写的信息已成功提交，请返回");//设置对话框的内容
@@ -155,6 +157,7 @@ public class MeetingHandleDetailActivity extends BaseActivity {
             @Override
             public void onFailure(Call<HuiZhiBean> call, Throwable t) {
                 Log.e("sssss",t.getMessage());
+                stopProgressDialog();
                 Toast.makeText(MeetingHandleDetailActivity.this,"请求失败!",Toast.LENGTH_SHORT).show();
             }
         });

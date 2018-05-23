@@ -24,5 +24,5 @@ public class Config
     public static final String TAG = "---------->>>";
 
 //       public static final String BANNER_BASE_URL = "http://192.168.0.11:10005/";
-       public static final String BANNER_BASE_URL = "http://192.168.0.103:8088/";
+       public static final String BANNER_BASE_URL = "http://192.168.1.105:8088/";
 }

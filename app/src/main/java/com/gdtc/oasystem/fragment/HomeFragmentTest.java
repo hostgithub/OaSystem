@@ -25,6 +25,9 @@ import com.gdtc.oasystem.utils.SharePreferenceTools;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -57,6 +60,8 @@ public class HomeFragmentTest extends BaseFragment {
     @BindView(R.id.tv_size4)
     TextView tv_size4;
     private SharePreferenceTools sp;
+
+    private Timer mTimer;
     @Override
     public int getLayoutId() {
         return R.layout.fragment_home;
@@ -69,6 +74,10 @@ public class HomeFragmentTest extends BaseFragment {
 
     @Override
     public void initViews(View view, Bundle savedInstanceState) {
+
+        if (mTimer == null) {
+            mTimer = new Timer();
+        }
         mUnbinder = ButterKnife.bind(this, view);
         //获得实例对象
         sp = new SharePreferenceTools(MyApplication.getContext());
@@ -167,10 +176,25 @@ public class HomeFragmentTest extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+        startTimer();
         if (!EventBus.getDefault().isRegistered(this))
         {
             EventBus.getDefault().register(this);
         }
+    }
+
+
+    public void startTimer() {
+        if (mTimer == null) {
+            mTimer = new Timer();
+        }
+        mTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Log.e("-------","轮询");
+                initData(sp.getString(Config.USER_ID));
+            }
+        }, 1000, 1000 * 60 * 1); //1s之后 每隔1分钟运行一次
     }
 
     @Override
@@ -183,6 +207,17 @@ public class HomeFragmentTest extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        if (mTimer != null) {
+            mTimer = null;
+        }
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mTimer != null) {
+            mTimer = null;
+        }
     }
 }
